@@ -60,7 +60,6 @@ public class EmailActivity extends AbstractActivity {
         } catch (DbException e) {
             LogUtil.e(e);
         }
-
         fillList();
     }
 
@@ -124,15 +123,27 @@ public class EmailActivity extends AbstractActivity {
         @Override
         public boolean onNavigationItemSelected(int itemPosition, long itemId) {
             switch (itemPosition) {
-                case 0:
+                case 0://收件箱
                     isInBox = true;
+                    try {
+                        emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "!=", SysConfig.getInstance().getUserId()));
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
+                    fillList();
                     supportInvalidateOptionsMenu();
                     break;
-                case 1:
+                case 1://发件箱
                     isInBox = false;
+                    try {
+                        emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "=", SysConfig.getInstance().getUserId()));
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
+                    fillList();
                     supportInvalidateOptionsMenu();
                     break;
-                case 2:
+                case 2://草稿箱
                     isInBox = false;
                     supportInvalidateOptionsMenu();
                     break;
