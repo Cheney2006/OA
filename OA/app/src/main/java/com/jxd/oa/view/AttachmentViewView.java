@@ -1,6 +1,7 @@
 package com.jxd.oa.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,14 +65,16 @@ public class AttachmentViewView extends LinearLayout {
         Attachment attachment;
         for (int i = 0, len = attachmentSizes.length; i < len; i++) {
             String savePath = attachmentNames[i];
-            int start = savePath.lastIndexOf("/");
-            int end = savePath.lastIndexOf("_");
-            String name = savePath.substring(start + 1, end);
-            attachment = new Attachment();
-            attachment.setFileSize(Integer.parseInt(attachmentSizes[i]));
-            attachment.setFileName(name);
-            attachment.setSavePath(savePath);
-            attachmentList.add(attachment);
+            if (!TextUtils.isEmpty(attachmentSizes[i]) && !TextUtils.isEmpty(savePath)) {
+                int start = savePath.lastIndexOf("/");
+                int end = savePath.lastIndexOf("_");
+                String name = savePath.substring(start + 1, end);
+                attachment = new Attachment();
+                attachment.setFileSize(Integer.parseInt(attachmentSizes[i]));
+                attachment.setFileName(name);
+                attachment.setSavePath(savePath);
+                attachmentList.add(attachment);
+            }
         }
         initData(attachmentList);
     }
