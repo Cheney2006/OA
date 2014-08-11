@@ -60,6 +60,7 @@ public class EmailActivity extends AbstractActivity {
         } catch (DbException e) {
             LogUtil.e(e);
         }
+
         fillList();
     }
 
