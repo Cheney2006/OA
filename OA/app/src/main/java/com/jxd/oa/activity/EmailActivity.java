@@ -16,10 +16,12 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.EmailAdapter;
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
@@ -51,16 +53,21 @@ public class EmailActivity extends AbstractActivity {
         initData();
     }
 
-    private void initData(){
-        //取数据
+    private void initData() {
+        //取收件箱中数据
+        try {
+            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "!=", SysConfig.getInstance().getUserId()));
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
         fillList();
     }
 
-    private void fillList(){
-        if(adapter ==null){
-            adapter=new EmailAdapter(mContext,emailList);
+    private void fillList() {
+        if (adapter == null) {
+            adapter = new EmailAdapter(mContext, emailList);
             mListView.setAdapter(adapter);
-        }else{
+        } else {
             adapter.setObjects(emailList);
             adapter.notifyDataSetChanged();
         }

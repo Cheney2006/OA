@@ -51,6 +51,10 @@ public class DbOperationManager {
         return dbUtil.findAll(clazz);
     }
 
+    public <C> List<C> getBeans(Selector selector) throws DbException {
+        return dbUtil.findAll(selector);
+    }
+
     public <C> C getBeanById(Class<C> clazz, String id) throws DbException {
         return dbUtil.findById(clazz, id);
     }
