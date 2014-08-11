@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_nav">
+
+    <com.jxd.oa.view.LabelRequestTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+        style="@style/GrayTxt16"
+        android:text="@string/txt_email_title" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/CustomViewText"
+        android:text="测试下子" />
+
+    <View style="@style/LineRow" />
+
+    <com.jxd.oa.view.LabelRequestTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_layout_padding_top"
+        android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+        style="@style/GrayTxt16"
+        android:text="@string/txt_email_title" />
+
+    <TextView
+        style="@style/CustomViewText"
+        android:text="测试下子" />
+
+    <View style="@style/LineRow" />
+</LinearLayout>

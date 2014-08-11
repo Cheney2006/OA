@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/bg_nav">
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_email_title" />
+
+        <EditText style="@style/CustomEditText" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_email_important" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/important_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_email_recipient" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/recipient_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_email_content" />
+
+        <EditText
+            style="@style/CustomEditText"
+            android:minHeight="150dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_attachment" />
+
+        <com.jxd.oa.view.AttachmentAddView
+            android:id="@+id/attachmentView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+    </LinearLayout>
+</ScrollView>

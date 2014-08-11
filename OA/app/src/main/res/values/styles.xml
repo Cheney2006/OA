@@ -1,0 +1,230 @@
+<resources>
+
+    <style name="Theme.Appbase" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarItemBackground">@drawable/selectable_background_appbase</item>
+        <item name="dropdownListPreferredItemHeight">@dimen/dimen_icon_width</item>
+        <!--不起作用-->
+        <item name="popupMenuStyle">@style/PopupMenu.Appbase</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Appbase</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Appbase</item>
+        <item name="actionBarTabTextStyle">@style/CustomActionBarTabTextStyle</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Appbase</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Appbase</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_appbase</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_appbase</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Appbase</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Appbase.Widget</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:spinnerDropDownItemStyle">@style/CustomActionBarSpinnerItem</item>
+    </style>
+
+    <style name="ActionBar.Solid.Appbase" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/ab_solid_appbase</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_appbase</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_appbase</item>
+        <item name="progressBarStyle">@style/ProgressBar.Appbase</item>
+        <item name="titleTextStyle">@style/CustomActionBarTitle</item>
+    </style>
+
+    <!--标题-->
+    <style name="CustomActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_20</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Appbase" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@drawable/ab_transparent_appbase</item>
+        <item name="progressBarStyle">@style/ProgressBar.Appbase</item>
+    </style>
+
+    <style name="PopupMenu.Appbase" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_appbase</item>
+    </style>
+
+    <style name="DropDownListView.Appbase" parent="@style/Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_appbase</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Appbase" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_appbase</item>
+    </style>
+
+    <style name="DropDownNav.Appbase" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_appbase</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_appbase</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_appbase</item>
+    </style>
+
+    <style name="ProgressBar.Appbase" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_appbase</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Appbase" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_appbase</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Appbase.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Appbase</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Appbase</item>
+    </style>
+
+    <!--下拉导航列表-->
+    <style name="CustomActionBarSpinnerItem" parent="@style/Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:textAppearance">@style/CustomActionBarSpinnerItemText</item>
+    </style>
+
+    <style name="CustomActionBarSpinnerItemText" parent="@style/TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+    </style>
+
+    <style name="CustomActionBarTabTextStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!---->
+    <style name="CheckBoxGreen" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_green</item>
+        <item name="android:layout_width">@dimen/dimen_checkbox_height</item>
+        <item name="android:layout_height">@dimen/dimen_checkbox_height</item>
+    </style>
+
+    <style name="CheckBoxSelect" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_select</item>
+        <item name="android:layout_width">@dimen/dimen_checkbox_height</item>
+        <item name="android:layout_height">@dimen/dimen_checkbox_height</item>
+    </style>
+
+    <style name="ListItemLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_layout_white</item>
+        <item name="android:paddingBottom">@dimen/dimen_layout_padding_top</item>
+        <item name="android:paddingTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:paddingLeft">@dimen/dimen_layout_padding_left</item>
+        <item name="android:paddingRight">@dimen/dimen_layout_padding_left</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="WhiteIconLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_layout_white</item>
+        <item name="android:paddingBottom">@dimen/dimen_layout_padding_top</item>
+        <item name="android:paddingTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:paddingLeft">@dimen/dimen_layout_padding_top</item>
+        <item name="android:paddingRight">@dimen/dimen_layout_padding_top</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="CustomEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:paddingBottom">@dimen/dimen_txt_padding_top</item>
+        <item name="android:paddingTop">@dimen/dimen_txt_padding_top</item>
+        <item name="android:paddingLeft">@dimen/dimen_txt_padding_left</item>
+        <item name="android:paddingRight">@dimen/dimen_txt_padding_left</item>
+        <item name="android:layout_marginTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="CustomViewText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_layout_padding_top</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_layout_padding_left</item>
+        <item name="android:layout_marginRight">@dimen/dimen_layout_padding_left</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="LineRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_divider_height</item>
+        <!--<item name="android:background">@color/color_line</item>-->
+        <item name="android:background">@drawable/bg_list_item</item>
+    </style>
+
+    <style name="LineCell">
+        <item name="android:layout_width">@dimen/dimen_divider_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_line</item>
+    </style>
+    <!--字体样式-->
+    <style name="GrayTxt14">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_14</item>
+    </style>
+
+    <style name="GrayTxt16">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_16</item>
+    </style>
+
+    <style name="GrayTxt18">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+    </style>
+
+    <style name="GrayTxt20">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_20</item>
+    </style>
+
+    <style name="BlackTxt14">
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:textSize">@dimen/dimen_font_14</item>
+    </style>
+
+    <style name="BlackTxt16">
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:textSize">@dimen/dimen_font_16</item>
+    </style>
+
+    <style name="BlackTxt18">
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+    </style>
+    <style name="ItemTitleTxt">
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ItemSubTitleTxt">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_14</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="BlackTxt20">
+        <item name="android:textColor">@color/color_black_font</item>
+        <item name="android:textSize">@dimen/dimen_font_20</item>
+    </style>
+
+    <style name="WhiteTxt18">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+    </style>
+
+    <style name="WhiteTxt20">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_20</item>
+    </style>
+
+    <style name="RedTxt18">
+        <item name="android:textColor">@color/color_red</item>
+        <item name="android:textSize">@dimen/dimen_font_18</item>
+    </style>
+</resources>

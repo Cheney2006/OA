@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_nav"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <RelativeLayout
+            android:id="@+id/info_rl"
+            android:clickable="true"
+            style="@style/WhiteIconLayout">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackTxt18" />
+
+            <TextView
+                android:id="@+id/role_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackTxt14"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/name_tv"
+                android:layout_alignBottom="@id/name_tv" />
+
+            <TextView
+                android:id="@+id/department_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/GrayTxt16"
+                android:layout_below="@id/name_tv"
+                android:layout_marginTop="5dp" />
+
+            <ImageView
+                android:id="@+id/photo_iv"
+                android:layout_width="@dimen/dimen_photo_width"
+                android:layout_height="@dimen/dimen_photo_width"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_photo_default" />
+        </RelativeLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/email_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_email" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_email" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/notice_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_notice" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_notice" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/schedule_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_schedule" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_schedule" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/myTask_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_mytask" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_my_task" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/contacts_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_contacts" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_contacts" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/cloud_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_cloud" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_cloud" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/clearData_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_button_height"
+            android:background="@drawable/btn_white"
+            style="@style/BlackTxt18"
+            android:layout_marginTop="@dimen/dimen_button_margin"
+            android:text="@string/txt_clear_data" />
+
+        <Button
+            android:id="@+id/exit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_button_height"
+            android:background="@drawable/btn_exit"
+            style="@style/WhiteTxt18"
+            android:layout_marginTop="@dimen/dimen_button_margin"
+            android:text="@string/txt_exit" />
+    </LinearLayout>
+</ScrollView>

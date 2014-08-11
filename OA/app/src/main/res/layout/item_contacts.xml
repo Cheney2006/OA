@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    style="@style/ListItemLayout"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:paddingRight="0dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_layout_click"
+        android:paddingTop="@dimen/dimen_txt_padding_top"
+        android:paddingBottom="@dimen/dimen_txt_padding_top">
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ItemTitleTxt" />
+
+        <TextView
+            android:id="@+id/sex_tv"
+            android:layout_toRightOf="@id/name_tv"
+            android:layout_alignBottom="@id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ItemTitleTxt" />
+
+        <TextView
+            android:id="@+id/companyName_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_tv"
+            android:layout_marginTop="@dimen/dimen_sub_title_top"
+            style="@style/ItemSubTitleTxt" />
+
+    </RelativeLayout>
+
+    <View style="@style/LineCell" />
+
+    <TextView
+        android:id="@+id/phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/btn_phone"
+        android:background="@drawable/btn_layout_click"
+        android:padding="@dimen/dimen_txt_padding_top"
+        android:text="@string/txt_call_phone" />
+
+    <View style="@style/LineCell" />
+
+    <TextView
+        android:id="@+id/msg_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/btn_phone"
+        android:padding="@dimen/dimen_txt_padding_top"
+        android:background="@drawable/btn_layout_click"
+        android:text="@string/txt_send_msg" />
+</LinearLayout>

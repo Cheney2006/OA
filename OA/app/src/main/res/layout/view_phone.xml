@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/group_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/bg_group_layout"
+        android:paddingLeft="@dimen/dimen_layout_padding_left"
+        android:paddingRight="@dimen/dimen_layout_padding_left"
+        android:paddingTop="@dimen/dimen_layout_padding_top"
+        android:paddingBottom="@dimen/dimen_layout_padding_top">
+
+        <TextView
+            android:id="@+id/mobile_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_mobile" />
+
+        <TextView
+            android:id="@+id/phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mobile_label"
+            android:layout_marginTop="3dp"
+            style="@style/BlackTxt18"
+            android:text="@string/txt_label_mobile" />
+
+        <ImageView
+            android:id="@+id/indicator_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/group_down_icon" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/operation_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/callPhone_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_layout_white"
+            android:paddingTop="@dimen/dimen_layout_padding_top"
+            android:paddingBottom="@dimen/dimen_layout_padding_top"
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/phone_pressed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_call_phone" />
+        </LinearLayout>
+
+        <View style="@style/LineCell" />
+
+        <LinearLayout
+            android:id="@+id/sendMsg_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_layout_white"
+            android:paddingTop="@dimen/dimen_layout_padding_top"
+            android:paddingBottom="@dimen/dimen_layout_padding_top"
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/msg_pressed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_call_phone" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/LineRow" />
+</LinearLayout>

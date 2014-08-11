@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu_email">
+        <item>收件箱</item>
+        <item>发件箱</item>
+        <item>草稿箱</item>
+    </string-array>
+    <string-array name="menu_tab_cloud">
+        <item>公司资料</item>
+        <item>我的下载</item>
+    </string-array>
+    <string-array name="menu_tab_contacts">
+        <item>公共通讯录</item>
+        <item>个人通讯录</item>
+    </string-array>
+    <string-array name="menu_contacts">
+        <item>显示全部</item>
+        <item>分组显示</item>
+    </string-array>
+</resources>

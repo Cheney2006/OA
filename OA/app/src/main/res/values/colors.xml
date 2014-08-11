@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_blue">#0099CC</color>
+    <color name="color_nav_bg">#EAEAEA</color><!--#F3F3F3--><!--#CCCCFF--><!--#EEECEB-->
+    <color name="color_black_font">#333333</color>
+    <color name="color_gray_font">#8D8F8F</color><!--666666-->
+    <color name="color_pressed">#C5EAF8</color><!--#6DCAEC--><!--#33b5e5-->
+    <color name="color_line">#CFCFCF</color>
+    <color name="color_exit_normal">#D86969</color>
+    <color name="color_exit_pressed">#c15e5e</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_calendar_next">#C5EAF8</color><!--99CCFF--><!--C5EAF8-->
+    <color name="color_circle_red">#d86969</color>
+    <color name="color_week_bg">#33b5e5</color><!--C5EAF8--><!--33b5e5-->
+    <color name="bg_gray_line">#d3d3d3</color>
+    <color name="color_blue_pressed">#33b5e5</color>
+    <color name="color_red">#D57474</color>
+    <color name="color_gray">#EFF2F4</color>
+</resources>

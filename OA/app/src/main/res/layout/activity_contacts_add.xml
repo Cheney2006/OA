@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/bg_nav">
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_name" />
+
+        <EditText
+            android:id="@+id/name_et"
+            style="@style/CustomEditText" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_label_category" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/category_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:text="@string/txt_label_sex" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/sex_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_mobile" />
+
+        <EditText
+            android:id="@+id/mobile_et"
+            style="@style/CustomEditText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_phone" />
+
+        <EditText
+            android:id="@+id/homeTle_et"
+            style="@style/CustomEditText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_company" />
+
+        <EditText
+            android:id="@+id/companyName_et"
+            style="@style/CustomEditText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_ministration" />
+
+        <EditText
+            android:id="@+id/ministration_et"
+            style="@style/CustomEditText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_company_addr" />
+
+        <EditText
+            android:id="@+id/companyAddr_et"
+            style="@style/CustomEditText" />
+    </LinearLayout>
+</ScrollView>

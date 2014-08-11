@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItemLayout"
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/photo_iv"
+        android:layout_width="@dimen/dimen_photo_width"
+        android:layout_height="@dimen/dimen_photo_width"
+        android:background="@drawable/icon_photo_default" />
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/photo_iv"
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+        android:layout_marginTop="@dimen/dimen_sub_title_top"
+        style="@style/ItemTitleTxt" />
+
+    <TextView
+        android:id="@+id/department_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_tv"
+        android:layout_alignLeft="@id/name_tv"
+        style="@style/ItemSubTitleTxt" />
+
+    <TextView
+        android:id="@+id/role_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/department_tv"
+        android:layout_toRightOf="@id/department_tv"
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+        style="@style/ItemSubTitleTxt" />
+
+    <CheckBox
+        android:id="@+id/selected_cb"
+        android:clickable="false"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        style="@style/CheckBoxSelect" />
+</RelativeLayout>

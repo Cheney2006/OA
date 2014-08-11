@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:showIn="@layout/activity_user_location_list">
+
+    <LinearLayout
+        android:id="@+id/ll_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_week_bg"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_blue"
+            android:text="周日" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="周一" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="周二" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="周三" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="周四" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="周五" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_blue"
+            android:text="周六" />
+    </LinearLayout>
+
+    <ViewFlipper
+        android:id="@+id/flipper1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_week" />
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dimen_divider_height"
+        android:background="@color/bg_gray_line" />
+</merge>

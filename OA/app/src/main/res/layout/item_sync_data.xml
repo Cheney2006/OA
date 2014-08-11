@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    style="@style/ListItemLayout"
+    android:paddingTop="@dimen/dimen_layout_padding_left"
+    android:paddingBottom="@dimen/dimen_layout_padding_left">
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        style="@style/ItemTitleTxt" />
+
+    <TextView
+        android:id="@+id/syncWaiting_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ItemSubTitleTxt"
+        android:text="@string/txt_waiting_sync" />
+
+    <ImageView
+        android:id="@+id/syncFinished_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/checkbox_select_pressed" />
+
+    <ProgressBar
+        android:id="@+id/syncing_pb"
+        android:layout_width="@dimen/dimen_pb_height"
+        android:layout_height="@dimen/dimen_pb_height" />
+</LinearLayout>

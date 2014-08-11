@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <ImageView
+        android:id="@+id/logo_iv"
+        android:layout_width="240dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icon_logo" />
+
+    <RelativeLayout
+        android:id="@+id/login_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_iv"
+        android:layout_margin="30dp"
+        android:background="@drawable/white_corner_bg">
+
+        <TextView
+            android:id="@+id/username_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:paddingLeft="@dimen/dimen_layout_padding_left"
+            android:paddingTop="@dimen/dimen_layout_padding_left"
+            android:paddingBottom="@dimen/dimen_layout_padding_left"
+            android:text="用户名：" />
+
+        <EditText
+            android:id="@+id/username_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlackTxt16"
+            android:paddingLeft="4dp"
+            android:layout_toRightOf="@id/username_label"
+            android:layout_alignTop="@id/username_label"
+            android:layout_alignBottom="@id/username_label"
+            android:singleLine="true"
+            android:background="@null" />
+
+        <View
+            android:id="@+id/username_line"
+            android:layout_below="@id/username_label"
+            style="@style/LineRow" />
+
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GrayTxt16"
+            android:layout_below="@id/username_line"
+            android:paddingLeft="@dimen/dimen_layout_padding_left"
+            android:paddingTop="@dimen/dimen_layout_padding_left"
+            android:paddingBottom="@dimen/dimen_layout_padding_left"
+            android:text="密   码：" />
+
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BlackTxt16"
+            android:paddingLeft="4dp"
+            android:inputType="textPassword"
+            android:layout_toRightOf="@id/password_label"
+            android:layout_alignTop="@id/password_label"
+            android:layout_alignBottom="@id/password_label"
+            android:singleLine="true"
+            android:background="@null" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/autoLogin_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_checkbox_height"
+        android:text="@string/txt_auto_login"
+        android:layout_alignRight="@id/login_rl"
+        android:layout_below="@id/login_rl"
+        android:gravity="center"
+        android:layout_marginLeft="3dp"
+        style="@style/GrayTxt16" />
+
+    <CheckBox
+        android:id="@+id/autoLogin_cb"
+        android:layout_toLeftOf="@id/autoLogin_tv"
+        android:layout_below="@id/login_rl"
+        style="@style/CheckBoxGreen" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_button_height"
+        android:layout_below="@id/autoLogin_tv"
+        android:text="登 录"
+        style="@style/WhiteTxt18"
+        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@id/login_rl"
+        android:layout_alignRight="@id/login_rl"
+        android:background="@drawable/btn_login" />
+</RelativeLayout>

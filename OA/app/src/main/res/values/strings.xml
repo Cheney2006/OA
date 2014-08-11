@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">聚信达OA</string>
+    <string name="txt_confirm">确定</string>
+    <string name="txt_cancel">取消</string>
+    <string name="txt_error">错误</string>
+    <string name="txt_tips">提示</string>
+    <string name="txt_clear_data">清空数据</string>
+    <string name="txt_exit">退   出</string>
+    <string name="action_settings">设置</string>
+    <string name="txt_auto_login">自动登录</string>
+    <string name="txt_msg">短消息</string>
+    <string name="txt_email">邮件</string>
+    <string name="txt_notice">通知公告</string>
+    <string name="txt_schedule">今日日程</string>
+    <string name="txt_my_task">我的工作</string>
+    <string name="txt_is_start">正在启动</string>
+    <string name="txt_is_exit">正在退出</string>
+    <string name="txt_title_address">考勤地址</string>
+    <string name="txt_waiting_sync">等待同步</string>
+    <string name="txt_action_sync">同步数据</string>
+    <string name="txt_action_read">全部已读</string>
+    <string name="txt_action_add">增加</string>
+    <string name="txt_email_title">主题</string>
+    <string name="txt_action_save">保存</string>
+    <string name="txt_email_recipient">接收人</string>
+    <string name="txt_email_content">内容</string>
+    <string name="txt_title_email_add">发送邮件</string>
+    <string name="txt_contacts">通讯录</string>
+    <string name="txt_cloud">企业云</string>
+    <string name="txt_email_important">重要性</string>
+    <string name="txt_attachment">附件</string>
+    <string name="txt_choice_file">选择文件</string>
+    <string name="txt_has_download">已下载</string>
+    <string name="txt_download">下载</string>
+    <string name="txt_copyright">武汉聚信达科技有限公司</string>
+    <string name="txt_call_phone">打电话</string>
+    <string name="txt_send_msg">发短信</string>
+    <string name="txt_label_name">姓名</string>
+    <string name="txt_label_ministration">职务</string>
+    <string name="txt_label_company">公司</string>
+    <string name="txt_label_company_addr">公司地址</string>
+    <string name="txt_label_sex">性别</string>
+    <string name="txt_label_mobile">手机</string>
+    <string name="txt_label_phone">电话</string>
+    <string name="txt_label_category">分组</string>
+
+</resources>

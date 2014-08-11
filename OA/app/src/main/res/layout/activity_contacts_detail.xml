@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_name" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_ministration" />
+
+        <TextView
+            android:id="@+id/ministration_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_company" />
+
+        <TextView
+            android:id="@+id/companyName_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_company_addr" />
+
+        <TextView
+            android:id="@+id/companyAddr_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/GrayTxt16"
+            android:text="@string/txt_label_sex" />
+
+        <TextView
+            android:id="@+id/sex_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.PhoneView
+            android:id="@+id/mobile_pv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.jxd.oa.view.PhoneView
+            android:id="@+id/homeTle_pv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

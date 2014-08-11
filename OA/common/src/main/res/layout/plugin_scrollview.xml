@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.jxd.common.view.MyHorizontalScrollView
+        android:id="@+id/my_horizontal_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical" >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+    </com.jxd.common.view.MyHorizontalScrollView>
+    <!--
+        <View
+            android:id="@+id/shade_left"
+            android:layout_width="8dp"
+            android:layout_height="45dp"
+            android:layout_gravity="left"
+            android:background="@drawable/ny_backbg"/>
+
+        <View
+            android:id="@+id/shade_right"
+            android:layout_width="8dp"
+            android:layout_height="45dp"
+             android:background="@drawable/ny_backbg"
+            android:layout_gravity="right"/>-->
+
+    <View
+        android:id="@+id/arrow_left"
+        android:layout_width="8dp"
+        android:layout_height="30dp"
+        android:layout_gravity="left|center_vertical"
+        android:background="@drawable/jt_04"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/arrow_right"
+        android:layout_width="8dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right|center_vertical"
+        android:background="@drawable/jt_03"
+        android:visibility="visible" />
+
+</FrameLayout>

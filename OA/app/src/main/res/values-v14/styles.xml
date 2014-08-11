@@ -1,0 +1,47 @@
+<resources>
+
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="Theme.Appbase" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_appbase</item>
+        <item name="dropdownListPreferredItemHeight">@dimen/dimen_icon_width</item><!--不起作用-->
+        <item name="android:popupMenuStyle">@style/PopupMenu.Appbase</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Appbase</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Appbase</item>
+        <item name="android:actionBarTabTextStyle">@style/CustomActionBarTabTextStyle</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Appbase</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Appbase</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_appbase</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_appbase</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Appbase</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Appbase.Widget</item>
+
+        <item name="android:spinnerDropDownItemStyle">@style/CustomActionBarSpinnerItem</item>
+    </style>
+
+    <style name="ActionBar.Solid.Appbase" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_appbase</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_appbase</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_appbase</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Appbase</item>
+        <item name="android:titleTextStyle">@style/CustomActionBarTitle</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Appbase" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_appbase</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Appbase</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Appbase.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Appbase</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Appbase</item>
+    </style>
+
+
+</resources>
