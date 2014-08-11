@@ -45,5 +45,6 @@
     <string name="txt_label_mobile">手机</string>
     <string name="txt_label_phone">电话</string>
     <string name="txt_label_category">分组</string>
+    <string name="txt_is_upload_data">正在上传数据。。。</string>
 
 </resources>

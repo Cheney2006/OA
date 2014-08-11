@@ -57,6 +57,25 @@ public class AttachmentViewView extends LinearLayout {
         attachment_ll = (LinearLayout) findViewById(R.id.attachment_ll);
     }
 
+    public void initData(String attachmentName, String attachmentSize) {
+        String[] attachmentNames = attachmentName.split("|");
+        String[] attachmentSizes = attachmentSize.split("|");
+        List<Attachment> attachmentList = new ArrayList<Attachment>();
+        Attachment attachment;
+        for (int i = 0, len = attachmentSizes.length; i < len; i++) {
+            String savePath = attachmentNames[i];
+            int start = savePath.lastIndexOf("/");
+            int end = savePath.lastIndexOf("_");
+            String name = savePath.substring(start + 1, end);
+            attachment = new Attachment();
+            attachment.setFileSize(Integer.parseInt(attachmentSizes[i]));
+            attachment.setFileName(name);
+            attachment.setSavePath(savePath);
+            attachmentList.add(attachment);
+        }
+        initData(attachmentList);
+    }
+
     private void initData(List<Attachment> attachmentList) {
         for (Attachment attachment : attachmentList) {
             final View view = inflater.inflate(R.layout.item_attachment_view, null);
@@ -70,7 +89,7 @@ public class AttachmentViewView extends LinearLayout {
             if (file.exists()) {
                 download_tv.setTextColor(getResources().getColor(R.color.color_blue));
                 download_tv.setText(getResources().getString(R.string.txt_has_download));
-            }else{
+            } else {
                 download_tv.setTextColor(getResources().getColor(R.color.color_gray_font));
                 download_tv.setText(getResources().getString(R.string.txt_download));
             }

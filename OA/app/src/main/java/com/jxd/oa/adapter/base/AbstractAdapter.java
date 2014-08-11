@@ -161,7 +161,9 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
     }
 
     public void setObjects(List<T> mObjects) {
-        this.mObjects = mObjects;
+        if(mObjects!=null){
+            this.mObjects = mObjects;
+        }
     }
 
     public LayoutInflater getInflater() {

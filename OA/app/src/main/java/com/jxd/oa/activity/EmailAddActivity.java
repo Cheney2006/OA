@@ -6,20 +6,38 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
+import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
+import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.GsonUtil;
+import com.jxd.oa.utils.ParamManager;
 import com.jxd.oa.view.AttachmentAddView;
 import com.jxd.oa.view.SelectEditView;
+import com.yftools.HttpUtil;
+import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.exception.DbException;
+import com.yftools.exception.HttpException;
+import com.yftools.http.RequestParams;
+import com.yftools.http.ResponseInfo;
+import com.yftools.http.callback.RequestCallBack;
+import com.yftools.json.Json;
 import com.yftools.util.AndroidUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
+import org.apache.http.protocol.HTTP;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,13 +51,18 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
 
     private static final int CODE_FILE_CHOOSE = 101;
     private static final int CODE_USER_SELECT = 102;
+    @ViewInject(R.id.title_et)
+    private EditText title_et;
+    @ViewInject(R.id.content_et)
+    private EditText content_et;
     @ViewInject(R.id.important_sev)
     private SelectEditView important_sev;
     @ViewInject(R.id.recipient_sev)
     private SelectEditView recipient_sev;
-    @ViewInject(R.id.attachmentView)
-    private AttachmentAddView attachmentAddView;
+    @ViewInject(R.id.email_aav)
+    private AttachmentAddView email_aav;
     private HashMap<String, User> selectedMap;
+    private Email email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +74,13 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
     }
 
     private void initView() {
-        attachmentAddView.setFileChooseListener(this);
-
+        email_aav.setFileChooseListener(this);
     }
 
     @OnClick(R.id.recipient_sev)
     public void recipientClick(View view) {
-        Intent intent=new Intent(mContext, UserSelectActivity.class);
-        if(selectedMap!=null){
+        Intent intent = new Intent(mContext, UserSelectActivity.class);
+        if (selectedMap != null) {
             intent.putExtra("selectedData", selectedMap);
         }
         startActivityForResult(intent, CODE_USER_SELECT);
@@ -84,6 +106,77 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                break;
+            case R.id.action_save:
+                if (validate() && setData()) {
+                    submit();
+                }
+                break;
+        }
+        return true;
+    }
+
+    private boolean setData() {
+        email = new Email();
+        email.setTitle(title_et.getText().toString());
+        email.setContent(content_et.getText().toString());
+        email.setToIds(recipient_sev.getValue() + "");
+        if (important_sev.getValue() != null) {
+            email.setImportant(important_sev.getValue() + "");
+        }
+        return true;
+    }
+
+    private void submit() {
+        RequestParams params = ParamManager.setDefaultParams();
+        params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(email));
+        if (email_aav.getFilePathList() != null) {
+            for (String filePath : email_aav.getFilePathList()) {
+                File file = new File(filePath);
+                if (file.exists()) {
+                    params.addBodyParameter("attachments", new File(filePath));
+                }
+            }
+        }
+        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("emailSave.action"), params, new RequestCallBack<Json>() {
+            @Override
+            public void onSuccess(ResponseInfo<Json> responseInfo) {
+                String result = responseInfo.result.getString("data");
+                Email email = GsonUtil.getInstance().getGson().fromJson(result, Email.class);
+                try {
+                    DbOperationManager.getInstance().save(email);
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                displayToast(msg);
+            }
+        });
+    }
+
+    private boolean validate() {
+        if (TextUtils.isEmpty(title_et.getText())) {
+            displayToast("请选择邮件主题");
+            return false;
+        }
+        if (recipient_sev.getValue() == null) {
+            displayToast("请选择接收人");
+            return false;
+        }
+        if (TextUtils.isEmpty(content_et.getText())) {
+            displayToast("请输入邮件内容");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public void onFileChoose() {
         AndroidUtil.showFileChooser(this, CODE_FILE_CHOOSE);
     }
@@ -96,10 +189,10 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                 case CODE_FILE_CHOOSE:
                     Uri uri = data.getData();
                     String path = AndroidUtil.getPath(mContext, uri);
-                    attachmentAddView.addAttachment(path);
+                    email_aav.addAttachment(path);
                     break;
                 case CODE_USER_SELECT:
-                   selectedMap = (HashMap<String, User>) data.getSerializableExtra("selectedData");
+                    selectedMap = (HashMap<String, User>) data.getSerializableExtra("selectedData");
                     StringBuffer name_sb = new StringBuffer(), value_sb = new StringBuffer();
                     for (User user : selectedMap.values()) {
                         name_sb.append(user.getName()).append(",");

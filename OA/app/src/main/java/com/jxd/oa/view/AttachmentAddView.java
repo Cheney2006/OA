@@ -95,5 +95,7 @@ public class AttachmentAddView extends LinearLayout {
         public void onFileChoose();
     }
 
-
+    public List<String> getFilePathList() {
+        return filePathList;
+    }
 }

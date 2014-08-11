@@ -18,13 +18,13 @@ import com.jxd.oa.adapter.EmailAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
-import com.jxd.oa.utils.GsonUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
+import com.yftools.view.annotation.event.OnItemClick;
 
 import java.util.List;
 
@@ -37,11 +37,15 @@ import java.util.List;
 public class EmailActivity extends AbstractActivity {
 
     private static final int CODE_EMAIL_ADD = 101;
-    private boolean isInBox = true;
     @ViewInject(R.id.mListView)
     private ListView mListView;
     private EmailAdapter adapter;
     private List<Email> emailList;
+    private Status status = Status.INBOX;
+
+    private enum Status {
+        INBOX, OUTBOX, DRAFT_BOX;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class EmailActivity extends AbstractActivity {
     private void initData() {
         //取收件箱中数据
         try {
-            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "!=", SysConfig.getInstance().getUserId()));
+            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -73,9 +77,17 @@ public class EmailActivity extends AbstractActivity {
         }
     }
 
+
+    @OnItemClick(R.id.mListView)
+    public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(mContext, EmailDetailActivity.class);
+        intent.putExtra("email", adapter.getItem(position));
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (isInBox) {
+        if (status == Status.INBOX) {
             getMenuInflater().inflate(R.menu.menu_sync_read, menu);
         } else {
             getMenuInflater().inflate(R.menu.menu_sync_add, menu);
@@ -124,28 +136,34 @@ public class EmailActivity extends AbstractActivity {
         public boolean onNavigationItemSelected(int itemPosition, long itemId) {
             switch (itemPosition) {
                 case 0://收件箱
-                    isInBox = true;
-                    try {
-                        emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "!=", SysConfig.getInstance().getUserId()));
-                    } catch (DbException e) {
-                        LogUtil.e(e);
+                    if (status != Status.INBOX) {
+                        status = Status.INBOX;
+                        try {
+                            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()));
+                        } catch (DbException e) {
+                            LogUtil.e(e);
+                        }
+                        fillList();
+                        supportInvalidateOptionsMenu();
                     }
-                    fillList();
-                    supportInvalidateOptionsMenu();
                     break;
                 case 1://发件箱
-                    isInBox = false;
-                    try {
-                        emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("formId", "=", SysConfig.getInstance().getUserId()));
-                    } catch (DbException e) {
-                        LogUtil.e(e);
+                    if (status != Status.OUTBOX) {
+                        status = Status.OUTBOX;
+                        try {
+                            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()));
+                        } catch (DbException e) {
+                            LogUtil.e(e);
+                        }
+                        fillList();
+                        supportInvalidateOptionsMenu();
                     }
-                    fillList();
-                    supportInvalidateOptionsMenu();
                     break;
                 case 2://草稿箱
-                    isInBox = false;
-                    supportInvalidateOptionsMenu();
+                    if (status != Status.DRAFT_BOX) {
+                        status = Status.DRAFT_BOX;
+                        supportInvalidateOptionsMenu();
+                    }
                     break;
             }
             return true;
@@ -171,5 +189,10 @@ public class EmailActivity extends AbstractActivity {
             }
         }.show();
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    protected void refreshData() {
+        initData();
     }
 }

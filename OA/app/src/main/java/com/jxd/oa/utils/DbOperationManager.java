@@ -39,7 +39,7 @@ public class DbOperationManager {
         return SingletonHolder.INSTANCE;
     }
 
-    public <C extends AbstractBean> void save(C bean) throws DbException {
+    public <C> void save(C bean) throws DbException {
         dbUtil.saveOrUpdate(bean);
     }
 

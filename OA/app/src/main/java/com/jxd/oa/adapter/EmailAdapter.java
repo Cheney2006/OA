@@ -1,6 +1,7 @@
 package com.jxd.oa.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -8,14 +9,20 @@ import android.widget.TextView;
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.bean.User;
+import com.jxd.oa.constants.SysConfig;
+import com.jxd.oa.utils.DbOperationManager;
+import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.exception.DbException;
+import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
 import java.util.List;
 
 /**
  * *****************************************
- * Description ：
+ * Description ：邮件
  * Created by cy on 2014/8/6.
  * *****************************************
  */
@@ -34,6 +41,27 @@ public class EmailAdapter extends AbstractAdapter<Email> {
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
+        }
+        viewHolder.title_tv.setText(getItem(position).getTitle());
+        if (TextUtils.isEmpty(getItem(position).getAttachmentName())) {
+            viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        } else {
+            viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_attach, 0, 0, 0);
+        }
+        if(getItem(position).getSendTime()!=null){
+            viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getSendTime()));
+        }
+        if (!getItem(position).getFromId().equals(SysConfig.getInstance().getUserId())) {//收件箱时
+            try {
+                User user = DbOperationManager.getInstance().getBeanById(User.class, getItem(position).getFromId());
+                if (user != null) {
+                    viewHolder.send_tv.setText(user.getName());
+                }
+            } catch (DbException e) {
+                LogUtil.e(e);
+            }
+        } else {
+            viewHolder.send_tv.setText("");
         }
         return view;
     }

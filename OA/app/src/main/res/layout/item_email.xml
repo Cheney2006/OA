@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/ItemTitleTxt"
+        android:gravity="center_vertical"
         android:drawableLeft="@drawable/icon_attach" />
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
+        android:layout_below="@id/title_tv"
         style="@style/ItemSubTitleTxt" />
 
     <TextView

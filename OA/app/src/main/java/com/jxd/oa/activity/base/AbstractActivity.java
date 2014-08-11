@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.jxd.oa.constants.Constant;
+import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
@@ -87,19 +88,22 @@ public abstract class AbstractActivity extends ActionBarActivity {
         sendBroadcast(new Intent(Constant.ACTION_EXIT));
     }
 
-    protected <T> void syncData(Class<T> cls, String startDate) {
+    protected <T> void syncData(final Class cls, String startDate) {
         String name = cls.getSimpleName();
         name = name.substring(0, 1).toLowerCase() + name.substring(1);
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("startDate", startDate);
-        HttpUtil.getInstance().sendInDialog(mContext, "正在同步数据...", ParamManager.parseBaseUrl(name + "List.action"), params, new RequestCallBack<Json>() {
+        HttpUtil.getInstance().sendInDialog(mContext, "正在同步数据...", ParamManager.parseBaseUrl(name + "List.action"), params, new RequestCallBack<String>() {
             @Override
-            public void onSuccess(ResponseInfo<Json> responseInfo) {
-                Type type = new com.google.gson.reflect.TypeToken<List<T>>() {
-                }.getType();
-                List<T> dataList = GsonUtil.getInstance().getGson().fromJson(responseInfo.result.getString("data"), type);
+            public void onSuccess(ResponseInfo<String> responseInfo) {
                 try {
-                    DbOperationManager.getInstance().save(dataList);
+                    CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
+                    if (commonJson4List.getSuccess()) {
+                        DbOperationManager.getInstance().save(commonJson4List.getData());
+                        refreshData();
+                    } else {
+                        displayToast(commonJson4List.getMessage());
+                    }
                 } catch (DbException e) {
                     LogUtil.e(e);
                     displayToast(e.getMessage());

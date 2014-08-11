@@ -16,7 +16,9 @@
             style="@style/GrayTxt16"
             android:text="@string/txt_email_title" />
 
-        <EditText style="@style/CustomEditText" />
+        <EditText
+            android:id="@+id/title_et"
+            style="@style/CustomEditText" />
 
         <com.jxd.oa.view.LabelRequestTextView
             android:layout_width="wrap_content"
@@ -52,6 +54,7 @@
             android:text="@string/txt_email_content" />
 
         <EditText
+            android:id="@+id/content_et"
             style="@style/CustomEditText"
             android:minHeight="150dp" />
 
@@ -63,7 +66,7 @@
             android:text="@string/txt_attachment" />
 
         <com.jxd.oa.view.AttachmentAddView
-            android:id="@+id/attachmentView"
+            android:id="@+id/email_aav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />
