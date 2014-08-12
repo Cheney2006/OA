@@ -13,6 +13,7 @@ import com.jxd.oa.bean.Attachment;
 import com.yftools.db.sqlite.FinderLazyLoader;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -28,7 +29,7 @@ public class GsonUtil {
         //.excludeFieldsWithModifiers(Modifier.PUBLIC)
         //.excludeFieldsWithoutExposeAnnotation()
 		gson = new GsonBuilder()
-                .registerTypeAdapter(FinderLazyLoader.class,new FinderLazyLoaderTypeAdapter())
+                .registerTypeAdapter(FinderLazyLoader.class, new FinderLazyLoaderTypeAdapter())
                 .registerTypeAdapter(ForeignCollectionLazyLoader.class, new ForeignCollectionLazyLoaderTypeAdapter())
                 .registerTypeAdapter(Timestamp.class, new TimestampTypeAdapter()).setDateFormat(DATETIME_FORMAT).create();
 	}

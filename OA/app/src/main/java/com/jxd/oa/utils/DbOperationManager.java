@@ -3,9 +3,11 @@ package com.jxd.oa.utils;
 import android.content.Context;
 
 import com.jxd.oa.application.OAApplication;
+import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.DbUtil;
 import com.yftools.db.sqlite.Selector;
+import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 
 import java.util.Collection;
@@ -47,6 +49,10 @@ public class DbOperationManager {
         dbUtil.saveOrUpdateAll(beanList);
     }
 
+    public <C> void update(C bean, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException {
+        dbUtil.update(bean, whereBuilder, updateColumnNames);
+    }
+
     public <C> List<C> getBeans(Class<C> clazz) throws DbException {
         return dbUtil.findAll(clazz);
     }
@@ -57,6 +63,10 @@ public class DbOperationManager {
 
     public <C> C getBeanById(Class<C> clazz, String id) throws DbException {
         return dbUtil.findById(clazz, id);
+    }
+
+    public <C> List<C> getBeanFirst(Selector selector) throws DbException {
+        return dbUtil.findFirst(selector);
     }
 
     public <C> void deleteBean(C bean) throws DbException {

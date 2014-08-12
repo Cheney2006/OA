@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import com.jxd.oa.view.SelectEditView;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
@@ -90,18 +92,26 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                     title_et.setText(email.getTitle());
                 }
                 if (!TextUtils.isEmpty(email.getContent())) {
-                    content_et.setText(email.getContent());
+                    content_et.setText(Html.fromHtml(email.getContent()));
                 }
-                if (TextUtils.isEmpty(email.getImportant())) {
+                if (!TextUtils.isEmpty(email.getImportant())) {
                     important_sev.setContent(Const.getName("TYPE_IMPORTANT_", email.getImportant()), email.getImportant());
                 }
                 if (email.getToIds() != null) {
                     String[] ids = email.getToIds().split(",");
                     if (ids != null) {
+                        if (selectedMap == null) {
+                            selectedMap = new HashMap<String, User>();
+                        }
                         StringBuffer name_sb = new StringBuffer();
                         for (String id : ids) {
-                            User user = DbOperationManager.getInstance().getBeanById(User.class, id);
-                            name_sb.append(user.getName()).append(";");
+                            if (!id.equals(SysConfig.getInstance().getUserId())) {
+                                User user = DbOperationManager.getInstance().getBeanById(User.class, id);
+                                if (user != null) {
+                                    name_sb.append(user.getName()).append(";");
+                                    selectedMap.put(id, user);
+                                }
+                            }
                         }
                         recipient_sev.setContent(name_sb.toString(), email.getToIds());
                     }
@@ -179,6 +189,8 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                 email.setAttachmentName(email_aav.getAttachmentName());
                 try {
                     DbOperationManager.getInstance().save(email);
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                    finish();
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }
@@ -205,6 +217,9 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
 
     private void submit() {
         RequestParams params = ParamManager.setDefaultParams();
+        if (email.getLocalId() != null) {//草稿上传时，取消本地id
+            email.setId(null);
+        }
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(email));
         if (email_aav.getFilePathList() != null) {
             for (String filePath : email_aav.getFilePathList()) {
@@ -217,7 +232,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
         HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("emailSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
-                String result = responseInfo.result.getString("data");
+                String result = responseInfo.result.toString();
                 Email serverEmail = GsonUtil.getInstance().getGson().fromJson(result, Email.class);
                 try {
                     //复制文件到项目目录
@@ -225,8 +240,11 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                     //如果是草稿的提交，则先更新id,再保存对象
                     if (email.getLocalId() != null) {
                         DbOperationManager.getInstance().execSql("UPDATE t_email SET id = '" + serverEmail.getId() + "' WHERE localId = '" + email.getLocalId() + "' ");
+                        //DbOperationManager.getInstance().update(serverEmail, WhereBuilder.b().expr("localId", "=", email.getLocalId()), "id");
                     }
                     DbOperationManager.getInstance().save(serverEmail);
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                    finish();
                 } catch (DbException e) {
                     LogUtil.e(e);
                 } catch (IOException e) {

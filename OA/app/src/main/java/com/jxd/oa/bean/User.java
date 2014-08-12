@@ -1,5 +1,6 @@
 package com.jxd.oa.bean;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;

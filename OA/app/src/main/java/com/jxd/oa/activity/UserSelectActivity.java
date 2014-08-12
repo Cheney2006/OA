@@ -13,9 +13,12 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.UserSelectAdapter;
 import com.jxd.oa.bean.User;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.Selector;
+import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnItemClick;
@@ -56,7 +59,8 @@ public class UserSelectActivity extends AbstractActivity {
 
     private void initData() {
         try {
-            userList = DbOperationManager.getInstance().getBeans(User.class);
+            //不包括自己
+            userList = DbOperationManager.getInstance().getBeans(Selector.from(User.class).where("id","!=", SysConfig.getInstance().getUserId()));
             fillList();
         } catch (DbException e) {
             LogUtil.e(e);

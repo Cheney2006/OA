@@ -2,6 +2,7 @@ package com.jxd.oa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,14 +13,22 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
-import com.jxd.oa.bean.User;
+import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.ParamManager;
 import com.jxd.oa.view.AttachmentViewView;
 import com.jxd.oa.view.SelectEditView;
+import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
+import com.yftools.exception.HttpException;
+import com.yftools.http.RequestParams;
+import com.yftools.http.ResponseInfo;
+import com.yftools.http.callback.RequestCallBack;
+import com.yftools.json.Json;
 import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
@@ -50,6 +59,10 @@ public class EmailDetailActivity extends AbstractActivity {
     private TextView recipient_label;
     @ViewInject(R.id.recipient_sev)
     private SelectEditView recipient_sev;
+    @ViewInject(R.id.recipientUp_line)
+    private View recipientUp_line;
+    @ViewInject(R.id.recipientDown_line)
+    private View recipientDown_line;
     private Email email;
     private List<EmailRecipient> recipientList;
 
@@ -71,7 +84,7 @@ public class EmailDetailActivity extends AbstractActivity {
             if (email.getSendTime() != null) {
                 date_tv.setText(DateUtil.dateTimeToString(email.getSendTime()));
             }
-            content_tv.setText(email.getContent());
+            content_tv.setText(Html.fromHtml(email.getContent()));
             if (!TextUtils.isEmpty(email.getAttachmentName()) && !TextUtils.isEmpty(email.getAttachmentSize())) {
                 attachment_label.setVisibility(View.VISIBLE);
                 email_avv.setVisibility(View.VISIBLE);
@@ -81,9 +94,11 @@ public class EmailDetailActivity extends AbstractActivity {
                 email_avv.setVisibility(View.GONE);
             }
             if (email.getFromId().equals(SysConfig.getInstance().getUserId())) {
+                recipientUp_line.setVisibility(View.VISIBLE);
+                recipientDown_line.setVisibility(View.VISIBLE);
                 recipient_label.setVisibility(View.VISIBLE);
                 recipient_sev.setVisibility(View.VISIBLE);
-                recipientList = email.getEmailRecipients().getList();
+                recipientList = email.getEmailRecipientList().getList();
                 StringBuffer sb = new StringBuffer();
                 if (recipientList != null) {
                     for (EmailRecipient emailRecipient : recipientList) {
@@ -92,16 +107,41 @@ public class EmailDetailActivity extends AbstractActivity {
                 }
                 recipient_sev.setContent(sb.toString());
             } else {
+                recipientUp_line.setVisibility(View.GONE);
+                recipientDown_line.setVisibility(View.GONE);
                 recipient_label.setVisibility(View.GONE);
                 recipient_sev.setVisibility(View.GONE);
             }
             if (email.getFromUser() != null) {
                 send_tv.setText(email.getFromUser().getName());
             }
+            readSubmit();
         } catch (DbException e) {
             LogUtil.e(e);
             displayToast("获取数据失败");
         }
+    }
+
+    private void readSubmit() {
+        RequestParams params = ParamManager.setDefaultParams();
+        params.addBodyParameter("id", email.getId());
+        HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readEmail.action"), params, new RequestCallBack<Json>() {
+            @Override
+            public void onSuccess(ResponseInfo<Json> responseInfo) {
+                //更新接收时间
+                try {
+                    DbOperationManager.getInstance().getBeanFirst(Selector.from(EmailRecipient.class).where("emailId", "=", email.getId()).and("toId", "=", SysConfig.getInstance().getUserId()));
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                displayToast(msg);
+            }
+        });
     }
 
     @OnClick(R.id.recipient_sev)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ListItemLayout">
+    style="@style/ListItemLayout"
+    android:gravity="">
 
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/ItemTitleTxt"
-        android:gravity="center_vertical"
         android:drawableLeft="@drawable/icon_attach" />
 
     <TextView
@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
+        android:layout_marginRight="@dimen/dimen_txt_padding_left"
         android:layout_below="@id/title_tv"
         style="@style/ItemSubTitleTxt" />
 
@@ -25,8 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/send_tv"
         android:layout_toRightOf="@id/send_tv"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
         style="@style/ItemSubTitleTxt" />
 
     <ImageView
@@ -34,11 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/arrow_right_icon" />
     <TextView
         android:id="@+id/important_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/RedTxt18"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/arrow_iv"/>
 </RelativeLayout>

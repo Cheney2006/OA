@@ -47,7 +47,7 @@ public class Email extends AbstractBean {
     @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
     @ForeignCollection(valueColumn = "id", foreign = "emailId", foreignAutoCreate = true)
-    private ForeignCollectionLazyLoader<EmailRecipient> emailRecipients;//该对像不能序列化,transient
+    private ForeignCollectionLazyLoader<EmailRecipient> emailRecipientList;//该对像不能序列化,transient
     @Column(column = "localId")
     private String localId;//本地id,用于存放草稿用
 
@@ -132,12 +132,12 @@ public class Email extends AbstractBean {
         this.fromUser = fromUser;
     }
 
-    public ForeignCollectionLazyLoader<EmailRecipient> getEmailRecipients() {
-        return emailRecipients;
+    public ForeignCollectionLazyLoader<EmailRecipient> getEmailRecipientList() {
+        return emailRecipientList;
     }
 
-    public void setEmailRecipients(ForeignCollectionLazyLoader<EmailRecipient> emailRecipients) {
-        this.emailRecipients = emailRecipients;
+    public void setEmailRecipientList(ForeignCollectionLazyLoader<EmailRecipient> emailRecipientList) {
+        this.emailRecipientList = emailRecipientList;
     }
 
     public String getLocalId() {

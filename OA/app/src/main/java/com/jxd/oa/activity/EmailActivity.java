@@ -16,12 +16,22 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.EmailAdapter;
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.bean.EmailRecipient;
+import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.ParamManager;
+import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
+import com.yftools.exception.HttpException;
+import com.yftools.http.RequestParams;
+import com.yftools.http.ResponseInfo;
+import com.yftools.http.callback.RequestCallBack;
+import com.yftools.http.client.multipart.content.StringBody;
+import com.yftools.json.Json;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnItemClick;
@@ -55,6 +65,12 @@ public class EmailActivity extends AbstractActivity {
         initTopBar();
         registerForContextMenu(mListView);
         initData();
+        try {
+            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
+            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initData() {
@@ -113,10 +129,44 @@ public class EmailActivity extends AbstractActivity {
                 }).showDateDialog();
                 return true;
             case R.id.action_read:
-                startActivityForResult(new Intent(mContext, EmailDetailActivity.class), CODE_EMAIL_ADD);
+                readSubmit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void readSubmit() {
+        if (emailList != null) {
+            displayToast("暂无未读邮件");
+            return;
+        }
+        final StringBuffer sb = new StringBuffer();
+        for (Email email : emailList) {
+            sb.append(email.getId()).append(",");
+        }
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        RequestParams params = ParamManager.setDefaultParams();
+        params.addBodyParameter("id", sb.toString());
+        HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readEmail.action"), params, new RequestCallBack<Json>() {
+            @Override
+            public void onSuccess(ResponseInfo<Json> responseInfo) {
+                //更新接收时间
+                try {
+                    DbOperationManager.getInstance().getBeanFirst(Selector.from(EmailRecipient.class).where("emailId", "in", sb.toString()).and("toId", "=", SysConfig.getInstance().getUserId()));
+                    refreshData();
+                    displayToast("邮件全部已读");
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                displayToast(msg);
+            }
+        });
     }
 
 
@@ -154,7 +204,7 @@ public class EmailActivity extends AbstractActivity {
                     if (status != Status.OUTBOX) {
                         status = Status.OUTBOX;
                         try {
-                            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()));
+                            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()).and("localId", "=", null));
                         } catch (DbException e) {
                             LogUtil.e(e);
                         }
@@ -165,6 +215,12 @@ public class EmailActivity extends AbstractActivity {
                 case 2://草稿箱
                     if (status != Status.DRAFT_BOX) {
                         status = Status.DRAFT_BOX;
+                        try {
+                            emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()).and("localId", "!=", null));
+                        } catch (DbException e) {
+                            LogUtil.e(e);
+                        }
+                        fillList();
                         supportInvalidateOptionsMenu();
                     }
                     break;
@@ -189,6 +245,12 @@ public class EmailActivity extends AbstractActivity {
         new JxdAlertDialog(this, getString(R.string.txt_tips), "确定删除？", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
             @Override
             protected void positive() {
+                try {
+                    DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+                    refreshData();
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
             }
         }.show();
         return super.onContextItemSelected(item);
@@ -196,6 +258,21 @@ public class EmailActivity extends AbstractActivity {
 
     @Override
     protected void refreshData() {
-        initData();
+        try {
+            switch (status) {
+                case INBOX:
+                    emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()));
+                    break;
+                case OUTBOX:
+                    emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()).and("localId", "=", null));
+                    break;
+                case DRAFT_BOX:
+                    emailList = DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "=", SysConfig.getInstance().getUserId()).and("localId", "!=", null));
+                    break;
+            }
+            fillList();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
     }
 }

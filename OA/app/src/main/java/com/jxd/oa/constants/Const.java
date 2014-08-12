@@ -1,6 +1,7 @@
 package com.jxd.oa.constants;
 
 import com.jxd.common.vo.Item;
+import com.yftools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public enum Const {
     // 普通方法
     public static String getName(Object value) {
         for (Const c : Const.values()) {
-            if (c.getValue().equals(value)) {
-                return c.name;
+            if (c.getValue().toString().equals(value)) {
+                return c.getName();
             }
         }
         return null;
@@ -37,8 +38,8 @@ public enum Const {
     // 普通方法
     public static String getName(String prefix, Object value) {
         for (Const c : Const.values()) {
-            if (c.name().startsWith(prefix) && c.getValue().equals(value)) {
-                return c.name;
+            if (c.name().startsWith(prefix) && c.getValue().toString().equals(value.toString())) {
+                return c.getName();
             }
         }
         return null;

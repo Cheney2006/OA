@@ -33,10 +33,8 @@ public class ForeignCollectionLazyLoaderTypeAdapter<T> implements JsonSerializer
         if (json.isJsonNull())
             return null;
         else if (json.isJsonArray()) {
-            LogUtil.d("typeOfT=" + typeOfT);
             if (ParameterizedType.class.isAssignableFrom(typeOfT.getClass())) {
                 Class<T> resCla = (Class<T>) ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-                LogUtil.d("resCla=" + resCla);
                 try {
                     List<T> list = new ArrayList<T>();
                     JsonArray jsonArray = json.getAsJsonArray();

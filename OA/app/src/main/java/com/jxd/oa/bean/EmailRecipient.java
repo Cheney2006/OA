@@ -67,4 +67,9 @@ public class EmailRecipient extends AbstractBean {
     public void setToUser(User toUser) {
         this.toUser = toUser;
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }

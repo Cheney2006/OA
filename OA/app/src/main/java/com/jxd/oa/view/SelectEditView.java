@@ -31,6 +31,7 @@ public class SelectEditView extends LinearLayout {
     private void initView() {
         this.setOrientation(LinearLayout.HORIZONTAL);
         this.setClickable(true);
+        this.setBackgroundResource(R.drawable.bg_layout_white_corner);
         LayoutInflater.from(getContext()).inflate(R.layout.view_select, this);
         content_tv = (TextView) findViewById(R.id.content_tv);
     }

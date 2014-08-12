@@ -52,13 +52,14 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         if (getItem(position).getSendTime() != null) {
             viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getSendTime()));
         }
-        if (!getItem(position).getFromId().equals(SysConfig.getInstance().getUserId())) {//收件箱时
+//        if (!getItem(position).getFromId().equals(SysConfig.getInstance().getUserId())) {//收件箱时
             if (getItem(position).getFromUser() != null) {
+//                viewHolder.send_tv.setVisibility(View.VISIBLE);
                 viewHolder.send_tv.setText(getItem(position).getFromUser().getName());
             }
-        } else {
-            viewHolder.send_tv.setText("");
-        }
+//        } else {
+//            viewHolder.send_tv.setVisibility(View.GONE);
+//        }
         viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
         return view;
     }

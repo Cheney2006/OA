@@ -2,6 +2,7 @@ package com.jxd.oa.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,12 +92,12 @@ public class AttachmentAddView extends LinearLayout {
     }
 
     public void copyFile(String attachmentName) throws IOException {
-        if (attachmentName == null) {
+        if (TextUtils.isEmpty(attachmentName)) {
             return;
         }
         String[] attachmentNames = attachmentName.split("\\|");
         int i = 0;
-        if (attachmentNames != null) {
+        if (attachmentNames != null && filePathList != null && filePathList.size() > 0) {
             for (String name : attachmentNames) {
                 int start = name.lastIndexOf("/");
                 String fileName = name.substring(start + 1);

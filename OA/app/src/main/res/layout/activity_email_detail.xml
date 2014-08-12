@@ -41,7 +41,9 @@
             style="@style/CustomViewText"
             android:textSize="@dimen/dimen_font_16" />
 
-        <View style="@style/LineRow" />
+        <View
+            android:id="@+id/recipientUp_line"
+            style="@style/LineRow" />
 
         <TextView
             android:id="@+id/recipient_label"
@@ -52,9 +54,13 @@
             android:id="@+id/recipient_sev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+            android:layout_marginBottom="@dimen/dimen_layout_padding_top"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left"/>
 
-        <View style="@style/LineRow" />
+        <View
+            android:id="@+id/recipientDown_line"
+            style="@style/LineRow" />
 
         <TextView
             android:id="@+id/attachment_label"
@@ -64,6 +70,8 @@
         <com.jxd.oa.view.AttachmentViewView
             android:id="@+id/email_avv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left"/>
     </LinearLayout>
 </ScrollView>
