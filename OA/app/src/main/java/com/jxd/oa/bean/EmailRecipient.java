@@ -3,8 +3,10 @@ package com.jxd.oa.bean;
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
+import com.yftools.db.annotation.Finder;
 import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
+import com.yftools.db.annotation.Transient;
 
 /**
  * *****************************************
@@ -23,6 +25,8 @@ public class EmailRecipient extends AbstractBean {
     @Column(column = "emailId")
     @SerializedName("bodyId")
     private String emailId;
+    @Finder(valueColumn = "toId", targetColumn = "id")
+    private User toUser;//因为后台没有用对象。所以这里就直接查一下
 
     public String getId() {
         return id;
@@ -54,5 +58,13 @@ public class EmailRecipient extends AbstractBean {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
+    }
+
+    public User getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 }

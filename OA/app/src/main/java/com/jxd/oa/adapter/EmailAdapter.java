@@ -10,6 +10,7 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.User;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
@@ -48,21 +49,17 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_attach, 0, 0, 0);
         }
-        if(getItem(position).getSendTime()!=null){
+        if (getItem(position).getSendTime() != null) {
             viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getSendTime()));
         }
         if (!getItem(position).getFromId().equals(SysConfig.getInstance().getUserId())) {//收件箱时
-            try {
-                User user = DbOperationManager.getInstance().getBeanById(User.class, getItem(position).getFromId());
-                if (user != null) {
-                    viewHolder.send_tv.setText(user.getName());
-                }
-            } catch (DbException e) {
-                LogUtil.e(e);
+            if (getItem(position).getFromUser() != null) {
+                viewHolder.send_tv.setText(getItem(position).getFromUser().getName());
             }
         } else {
             viewHolder.send_tv.setText("");
         }
+        viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
         return view;
     }
 

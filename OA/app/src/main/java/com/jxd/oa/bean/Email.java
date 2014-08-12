@@ -35,6 +35,8 @@ public class Email extends AbstractBean {
     private String important;//重要性
     @Column(column = "fromId")
     private String fromId;//发送人
+    @Finder(valueColumn = "fromId", targetColumn = "id")
+    private User fromUser;//因为后台没有用对象。所以这里就直接查一下
     @Column(column = "toIds")
     @SerializedName("toId2")
     private String toIds;//接收人
@@ -44,9 +46,10 @@ public class Email extends AbstractBean {
     private String attachmentName;//邮件列表，XX.doc|xx.xls
     @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
-
-//    @ForeignCollection(valueColumn = "id", foreign = "emailId", foreignAutoCreate = true)
-//    private ForeignCollectionLazyLoader<EmailRecipient> detailList;
+    @ForeignCollection(valueColumn = "id", foreign = "emailId", foreignAutoCreate = true)
+    private ForeignCollectionLazyLoader<EmailRecipient> emailRecipients;//该对像不能序列化,transient
+    @Column(column = "localId")
+    private String localId;//本地id,用于存放草稿用
 
 
     public String getId() {
@@ -64,14 +67,6 @@ public class Email extends AbstractBean {
     public void setTitle(String title) {
         this.title = title;
     }
-
-//    public ForeignCollectionLazyLoader<EmailRecipient> getDetailList() {
-//        return detailList;
-//    }
-//
-//    public void setDetailList(ForeignCollectionLazyLoader<EmailRecipient> detailList) {
-//        this.detailList = detailList;
-//    }
 
     public String getImportant() {
         return important;
@@ -127,5 +122,29 @@ public class Email extends AbstractBean {
 
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public User getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public ForeignCollectionLazyLoader<EmailRecipient> getEmailRecipients() {
+        return emailRecipients;
+    }
+
+    public void setEmailRecipients(ForeignCollectionLazyLoader<EmailRecipient> emailRecipients) {
+        this.emailRecipients = emailRecipients;
+    }
+
+    public String getLocalId() {
+        return localId;
+    }
+
+    public void setLocalId(String localId) {
+        this.localId = localId;
     }
 }

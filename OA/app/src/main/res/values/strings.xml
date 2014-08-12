@@ -24,7 +24,7 @@
     <string name="txt_action_add">增加</string>
     <string name="txt_email_title">主题</string>
     <string name="txt_action_save">保存</string>
-    <string name="txt_email_recipient">接收人</string>
+    <string name="txt_label_recipient">接收人</string>
     <string name="txt_email_content">内容</string>
     <string name="txt_title_email_add">发送邮件</string>
     <string name="txt_contacts">通讯录</string>
@@ -46,5 +46,10 @@
     <string name="txt_label_phone">电话</string>
     <string name="txt_label_category">分组</string>
     <string name="txt_is_upload_data">正在上传数据。。。</string>
+    <string name="txt_title_email_recipient">接收人查看详情</string>
+    <string name="txt_yes">是</string>
+    <string name="txt_no">否</string>
+    <string name="txt_action_copy">抄送</string>
+    <string name="txt_sign_title">考勤签到</string>
 
 </resources>

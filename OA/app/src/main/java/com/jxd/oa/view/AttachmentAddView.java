@@ -11,12 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jxd.oa.R;
+import com.jxd.oa.constants.Constant;
 import com.yftools.ViewUtil;
 import com.yftools.util.AndroidUtil;
 import com.yftools.util.FileUtil;
+import com.yftools.util.StorageUtil;
 import com.yftools.view.annotation.ViewInject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +88,33 @@ public class AttachmentAddView extends LinearLayout {
         } else {
             Toast.makeText(getContext(), "文件已经存在", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void copyFile(String attachmentName) throws IOException {
+        if (attachmentName == null) {
+            return;
+        }
+        String[] attachmentNames = attachmentName.split("\\|");
+        int i = 0;
+        if (attachmentNames != null) {
+            for (String name : attachmentNames) {
+                int start = name.lastIndexOf("/");
+                String fileName = name.substring(start + 1);
+                String target = StorageUtil.getDiskCacheDir(getContext(), Constant.FOLDER_DOWNLOAD) + File.separator + fileName;
+                FileUtil.copyFile(filePathList.get(i), target, true);
+                i++;
+            }
+        }
+    }
+
+    public String getAttachmentName() {
+        StringBuffer sb = new StringBuffer();
+        if (filePathList != null) {
+            for (String path : filePathList) {
+                sb.append(path).append("|");
+            }
+        }
+        return sb.toString();
     }
 
     public void setFileChooseListener(FileChooseListener fileChooseListener) {

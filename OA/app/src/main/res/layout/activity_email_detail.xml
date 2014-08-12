@@ -44,6 +44,20 @@
         <View style="@style/LineRow" />
 
         <TextView
+            android:id="@+id/recipient_label"
+            style="@style/CustomViewText"
+            android:text="@string/txt_label_recipient" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/recipient_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:id="@+id/attachment_label"
             style="@style/CustomViewText"
             android:text="@string/txt_attachment" />
 

@@ -7,16 +7,20 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
+import com.jxd.oa.constants.Constant;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
@@ -32,12 +36,16 @@ import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.util.AndroidUtil;
+import com.yftools.util.FileUtil;
+import com.yftools.util.StorageUtil;
+import com.yftools.util.UUIDGenerator;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
 import org.apache.http.protocol.HTTP;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -69,8 +77,47 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_add);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getResources().getString(R.string.txt_title_email_add));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_email_add));
         initView();
+        initData();
+    }
+
+    private void initData() {
+        if (getIntent().hasExtra("emailId")) {//草稿或者抄送
+            try {
+                email = DbOperationManager.getInstance().getBeanById(Email.class, getIntent().getStringExtra("emailId"));
+                if (!TextUtils.isEmpty(email.getTitle())) {
+                    title_et.setText(email.getTitle());
+                }
+                if (!TextUtils.isEmpty(email.getContent())) {
+                    content_et.setText(email.getContent());
+                }
+                if (TextUtils.isEmpty(email.getImportant())) {
+                    important_sev.setContent(Const.getName("TYPE_IMPORTANT_", email.getImportant()), email.getImportant());
+                }
+                if (email.getToIds() != null) {
+                    String[] ids = email.getToIds().split(",");
+                    if (ids != null) {
+                        StringBuffer name_sb = new StringBuffer();
+                        for (String id : ids) {
+                            User user = DbOperationManager.getInstance().getBeanById(User.class, id);
+                            name_sb.append(user.getName()).append(";");
+                        }
+                        recipient_sev.setContent(name_sb.toString(), email.getToIds());
+                    }
+                }
+                if (email.getAttachmentName() != null) {
+                    String[] attachmentNames = email.getAttachmentName().split("\\|");
+                    if (attachmentNames != null) {
+                        for (String attachmentName : attachmentNames) {
+                            email_aav.addAttachment(attachmentName);
+                        }
+                    }
+                }
+            } catch (DbException e) {
+                LogUtil.e(e);
+            }
+        }
     }
 
     private void initView() {
@@ -109,6 +156,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                saveDraft();
                 break;
             case R.id.action_save:
                 if (validate() && setData()) {
@@ -119,11 +167,36 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
         return true;
     }
 
+    private void saveDraft() {
+        //是否存为草稿
+        new JxdAlertDialog(mContext, getString(R.string.txt_tips), "是否存为草稿？", getString(R.string.txt_yes), getString(R.string.txt_no), getString(R.string.txt_cancel)) {
+            @Override
+            protected void positive() {
+                setData();
+                //设置ID
+                email.setId(UUIDGenerator.getUUID());
+                email.setLocalId(email.getId());
+                email.setAttachmentName(email_aav.getAttachmentName());
+                try {
+                    DbOperationManager.getInstance().save(email);
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
+            }
+
+            @Override
+            protected void neutral() {
+                finish();
+            }
+        }.show();
+    }
+
     private boolean setData() {
         email = new Email();
         email.setTitle(title_et.getText().toString());
         email.setContent(content_et.getText().toString());
         email.setToIds(recipient_sev.getValue() + "");
+        email.setFromId(SysConfig.getInstance().getUserId());
         if (important_sev.getValue() != null) {
             email.setImportant(important_sev.getValue() + "");
         }
@@ -145,10 +218,18 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 String result = responseInfo.result.getString("data");
-                Email email = GsonUtil.getInstance().getGson().fromJson(result, Email.class);
+                Email serverEmail = GsonUtil.getInstance().getGson().fromJson(result, Email.class);
                 try {
-                    DbOperationManager.getInstance().save(email);
+                    //复制文件到项目目录
+                    email_aav.copyFile(serverEmail.getAttachmentName());
+                    //如果是草稿的提交，则先更新id,再保存对象
+                    if (email.getLocalId() != null) {
+                        DbOperationManager.getInstance().execSql("UPDATE t_email SET id = '" + serverEmail.getId() + "' WHERE localId = '" + email.getLocalId() + "' ");
+                    }
+                    DbOperationManager.getInstance().save(serverEmail);
                 } catch (DbException e) {
+                    LogUtil.e(e);
+                } catch (IOException e) {
                     LogUtil.e(e);
                 }
             }
@@ -167,6 +248,10 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
         }
         if (recipient_sev.getValue() == null) {
             displayToast("请选择接收人");
+            return false;
+        }
+        if (important_sev.getValue() == null) {
+            displayToast("请选择重要性");
             return false;
         }
         if (TextUtils.isEmpty(content_et.getText())) {
@@ -195,18 +280,21 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                     selectedMap = (HashMap<String, User>) data.getSerializableExtra("selectedData");
                     StringBuffer name_sb = new StringBuffer(), value_sb = new StringBuffer();
                     for (User user : selectedMap.values()) {
-                        name_sb.append(user.getName()).append(",");
+                        name_sb.append(user.getName()).append(";");
                         value_sb.append(user.getId()).append(",");
-                    }
-                    if (name_sb.length() > 0) {
-                        name_sb.deleteCharAt(name_sb.length() - 1);
-                    }
-                    if (value_sb.length() > 0) {
-                        value_sb.deleteCharAt(value_sb.length() - 1);
                     }
                     recipient_sev.setContent(name_sb.toString(), value_sb.toString());
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            saveDraft();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

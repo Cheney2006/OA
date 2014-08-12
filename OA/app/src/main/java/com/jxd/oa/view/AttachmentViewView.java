@@ -59,8 +59,8 @@ public class AttachmentViewView extends LinearLayout {
     }
 
     public void initData(String attachmentName, String attachmentSize) {
-        String[] attachmentNames = attachmentName.split("|");
-        String[] attachmentSizes = attachmentSize.split("|");
+        String[] attachmentNames = attachmentName.split("\\|");
+        String[] attachmentSizes = attachmentSize.split("\\|");
         List<Attachment> attachmentList = new ArrayList<Attachment>();
         Attachment attachment;
         for (int i = 0, len = attachmentSizes.length; i < len; i++) {

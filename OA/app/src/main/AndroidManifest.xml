@@ -100,6 +100,9 @@
             android:name=".activity.EmailDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.EmailRecipientActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.ContactsActivity"
             android:screenOrientation="portrait" />
         <activity

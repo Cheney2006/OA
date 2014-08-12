@@ -59,13 +59,16 @@ public class DbOperationManager {
         return dbUtil.findById(clazz, id);
     }
 
-
     public <C> void deleteBean(C bean) throws DbException {
         dbUtil.delete(bean);
     }
 
     public <C> void deleteBean(Class<C> clazz, String id) throws DbException {
         dbUtil.deleteById(clazz, id);
+    }
+
+    public void execSql(String sql) throws DbException {
+        dbUtil.execNonQuery(sql);
     }
 
     public void clearDb() throws DbException {

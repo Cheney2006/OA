@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             style="@style/GrayTxt16"
             android:layout_marginTop="@dimen/dimen_layout_padding_top"
-            android:text="@string/txt_email_recipient" />
+            android:text="@string/txt_label_recipient" />
 
         <com.jxd.oa.view.SelectEditView
             android:id="@+id/recipient_sev"

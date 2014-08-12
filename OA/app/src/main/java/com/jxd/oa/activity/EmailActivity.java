@@ -81,7 +81,10 @@ public class EmailActivity extends AbstractActivity {
     @OnItemClick(R.id.mListView)
     public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(mContext, EmailDetailActivity.class);
-        intent.putExtra("email", adapter.getItem(position));
+        if (adapter.getItem(position).getLocalId() != null) {//草稿直接到发布界面
+            intent.setClass(mContext, EmailAddActivity.class);
+        }
+        intent.putExtra("emailId", adapter.getItem(position).getId());
         startActivity(intent);
     }
 
