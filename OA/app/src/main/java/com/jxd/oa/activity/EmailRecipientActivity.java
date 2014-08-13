@@ -40,7 +40,7 @@ public class EmailRecipientActivity extends AbstractActivity {
             adapter = new EmailRecipientAdapter(mContext, emailRecipientList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setObjects(emailRecipientList);
+            adapter.setDataList(emailRecipientList);
             adapter.notifyDataSetChanged();
         }
     }

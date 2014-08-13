@@ -24,8 +24,9 @@
         android:id="@id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/send_tv"
         android:layout_toRightOf="@id/send_tv"
+        android:layout_below="@id/title_tv"
+        android:layout_marginTop="@dimen/dimen_sub_title_top"
         style="@style/ItemSubTitleTxt" />
 
     <ImageView

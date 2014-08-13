@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_white_bg">
+
+    <TextView
+        android:id="@+id/signDate_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_txt_padding_top"
+        android:layout_gravity="center"
+        android:background="@drawable/sign_date_bg"
+        style="@style/WhiteTxt12" />
+
+    <View
+        android:id="@+id/signDate_line"
+        style="@style/LineRow" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_layout_white"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/signType_ll"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/signType_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WhiteTxt18" />
+
+            <TextView
+                android:id="@+id/signTime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WhiteTxt14" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/signAddress_tv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                style="@style/BlackTxt14" />
+
+            <TextView
+                android:id="@+id/uploadStatus_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_below="@id/signAddress_tv"
+                style="@style/RedTxt12" />
+
+            <TextView
+                android:id="@+id/vicinityAddress_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/GrayTxt12"
+                android:layout_below="@id/signAddress_tv"
+                android:layout_toRightOf="@id/uploadStatus_tv"
+                android:layout_alignWithParentIfMissing="true"
+                android:singleLine="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

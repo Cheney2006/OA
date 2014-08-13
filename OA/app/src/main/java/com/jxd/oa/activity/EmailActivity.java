@@ -17,7 +17,6 @@ import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.EmailAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
-import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
@@ -30,7 +29,6 @@ import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
-import com.yftools.http.client.multipart.content.StringBody;
 import com.yftools.json.Json;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
@@ -65,12 +63,12 @@ public class EmailActivity extends AbstractActivity {
         initTopBar();
         registerForContextMenu(mListView);
         initData();
-        try {
-            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
-            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
+//            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void initData() {
@@ -88,7 +86,7 @@ public class EmailActivity extends AbstractActivity {
             adapter = new EmailAdapter(mContext, emailList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setObjects(emailList);
+            adapter.setDataList(emailList);
             adapter.notifyDataSetChanged();
         }
     }

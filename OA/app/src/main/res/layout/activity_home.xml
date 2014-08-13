@@ -68,6 +68,15 @@
                 style="@style/BlackTxt18"
                 android:text="@string/txt_email" />
 
+            <TextView
+                android:id="@+id/emailNum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_txt_padding_left"
+                style="@style/WhiteTxt14"
+                android:layout_marginRight="@dimen/dimen_txt_padding_left"
+                android:background="@drawable/circle_red_message" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +103,15 @@
                 android:layout_marginLeft="10dp"
                 style="@style/BlackTxt18"
                 android:text="@string/txt_notice" />
+
+            <TextView
+                android:id="@+id/noticeNum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_txt_padding_left"
+                android:layout_marginRight="@dimen/dimen_txt_padding_left"
+                style="@style/WhiteTxt14"
+                android:background="@drawable/circle_red_message" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -181,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_right_icon" />
         </LinearLayout>
+
         <View style="@style/LineRow" />
 
         <LinearLayout
@@ -207,6 +226,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_right_icon" />
         </LinearLayout>
+
         <Button
             android:id="@+id/clearData_btn"
             android:layout_width="match_parent"

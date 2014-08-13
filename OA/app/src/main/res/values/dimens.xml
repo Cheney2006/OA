@@ -1,5 +1,6 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="dimen_font_12">12dp</dimen>
     <dimen name="dimen_font_14">14dp</dimen>
     <dimen name="dimen_font_16">16dp</dimen>
     <dimen name="dimen_font_18">18dp</dimen>

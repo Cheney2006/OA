@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_layout_click"
+        android:background="@drawable/bg_layout_click"
         android:paddingTop="@dimen/dimen_txt_padding_top"
         android:paddingBottom="@dimen/dimen_txt_padding_top">
 
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/btn_phone"
-        android:background="@drawable/btn_layout_click"
+        android:background="@drawable/bg_layout_click"
         android:padding="@dimen/dimen_txt_padding_top"
         android:text="@string/txt_call_phone" />
 
@@ -58,6 +58,6 @@
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/btn_phone"
         android:padding="@dimen/dimen_txt_padding_top"
-        android:background="@drawable/btn_layout_click"
+        android:background="@drawable/bg_layout_click"
         android:text="@string/txt_send_msg" />
 </LinearLayout>

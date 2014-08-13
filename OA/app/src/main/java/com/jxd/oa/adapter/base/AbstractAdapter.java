@@ -17,14 +17,14 @@ import java.util.List;
 public abstract class AbstractAdapter<T> extends BaseAdapter {
 
     private final LayoutInflater inflater;
-    private List<T> mObjects;
+    private List<T> dataList;
     private final Object mLock;
     private boolean mNotifyOnChange;
     private Context mContext;
 
 
-    public List<T> getObjects() {
-        return mObjects;
+    public List<T> getDataList() {
+        return dataList;
     }
 
     /**
@@ -33,11 +33,7 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
      * @param context
      */
     public AbstractAdapter(Context context) {
-        this.mContext = context;
-        this.mLock = new Object();
-        this.mObjects = new ArrayList<T>();
-        this.mNotifyOnChange = true;
-        inflater= LayoutInflater.from(context);
+        this(context, new ArrayList<T>());
     }
 
     /**
@@ -47,10 +43,11 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
      * @param dataList
      */
     public AbstractAdapter(Context context, List<T> dataList) {
-        this(context);
-        if (dataList != null) {
-            this.mObjects.addAll(dataList);
-        }
+        this.mContext = context;
+        this.mLock = new Object();
+        this.dataList = dataList;
+        this.mNotifyOnChange = true;
+        inflater = LayoutInflater.from(context);
     }
 
     /**
@@ -61,12 +58,12 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
      */
     public AbstractAdapter(Context context, T[] arrayOfT) {
         this(context);
-        this.mObjects.addAll(Arrays.asList(arrayOfT));
+        this.dataList.addAll(Arrays.asList(arrayOfT));
     }
 
     public void insert(T object, int index) {
         synchronized (mLock) {
-            mObjects.add(index, object);
+            dataList.add(index, object);
         }
         if (mNotifyOnChange)
             notifyDataSetChanged();
@@ -79,9 +76,9 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
     public void addAll(List<? extends T> List, boolean order) {
         synchronized (mLock) {
             if (order)
-                mObjects.addAll(List);
+                dataList.addAll(List);
             else {
-                mObjects.addAll(0, List);
+                dataList.addAll(0, List);
             }
             if (mNotifyOnChange)
                 notifyDataSetChanged();
@@ -90,13 +87,13 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
 
     public void clear() {
         synchronized (mLock) {
-            mObjects.clear();
+            dataList.clear();
             if (mNotifyOnChange)
                 notifyDataSetChanged();
         }
     }
 
-    public void setNotifyOnChange(boolean tag) {
+    public void setNotifyOnChange(boolean flag) {
         mNotifyOnChange = false;
     }
 
@@ -112,14 +109,12 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return this.mObjects.size();
+        return this.dataList == null ? 0 : this.dataList.size();
     }
 
     @Override
     public T getItem(int position) {
-        if (this.mObjects.isEmpty())
-            return null;
-        return this.mObjects.get(position);
+        return this.dataList == null ? null : this.dataList.get(position);
     }
 
     @Override
@@ -129,16 +124,17 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
     }
 
     public int getPosition(T paramT) {
-        return this.mObjects.indexOf(paramT);
+        return this.dataList.indexOf(paramT);
     }
 
     /**
      * 移除指定位置数据
+     *
      * @param position
      */
     public void remove(int position) {
         synchronized (mLock) {
-            mObjects.remove(position);
+            dataList.remove(position);
             if (mNotifyOnChange)
                 notifyDataSetChanged();
         }
@@ -146,7 +142,7 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
 
     public void remove(T paramT) {
         synchronized (mLock) {
-            mObjects.remove(paramT);
+            dataList.remove(paramT);
             if (mNotifyOnChange)
                 notifyDataSetChanged();
         }
@@ -154,15 +150,15 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
 
     public void removeAll(List<T> arrayOfT) {
         synchronized (mLock) {
-            mObjects.removeAll(arrayOfT);
+            dataList.removeAll(arrayOfT);
             if (mNotifyOnChange)
                 notifyDataSetChanged();
         }
     }
 
-    public void setObjects(List<T> mObjects) {
-        if(mObjects!=null){
-            this.mObjects = mObjects;
+    public void setDataList(List<T> dataList) {
+        if (dataList != null) {
+            this.dataList = dataList;
         }
     }
 

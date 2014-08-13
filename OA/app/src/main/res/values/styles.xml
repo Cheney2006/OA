@@ -8,6 +8,7 @@
         <item name="dropDownListViewStyle">@style/DropDownListView.Appbase</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.Appbase</item>
         <item name="actionBarTabTextStyle">@style/CustomActionBarTabTextStyle</item>
+        <item name="actionBarTabBarStyle">@style/CustomActionBarTabBarStyle</item>
         <item name="actionDropDownStyle">@style/DropDownNav.Appbase</item>
         <item name="actionBarStyle">@style/ActionBar.Solid.Appbase</item>
         <item name="actionModeBackground">@drawable/cab_background_top_appbase</item>
@@ -83,9 +84,13 @@
     </style>
 
     <style name="CustomActionBarTabTextStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
-        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textColor">@color/color_black_font</item>
         <item name="android:textSize">@dimen/dimen_font_18</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CustomActionBarTabBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabBar">
+        <item name="android:divider">@drawable/tab_line</item>
     </style>
 
     <!---->
@@ -152,7 +157,6 @@
     <style name="LineRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dimen_divider_height</item>
-        <!--<item name="android:background">@color/color_line</item>-->
         <item name="android:background">@drawable/bg_list_item</item>
     </style>
 
@@ -162,6 +166,11 @@
         <item name="android:background">@color/color_line</item>
     </style>
     <!--字体样式-->
+    <style name="GrayTxt12">
+        <item name="android:textColor">@color/color_gray_font</item>
+        <item name="android:textSize">@dimen/dimen_font_12</item>
+    </style>
+
     <style name="GrayTxt14">
         <item name="android:textColor">@color/color_gray_font</item>
         <item name="android:textSize">@dimen/dimen_font_14</item>
@@ -196,6 +205,7 @@
         <item name="android:textColor">@color/color_black_font</item>
         <item name="android:textSize">@dimen/dimen_font_18</item>
     </style>
+
     <style name="ItemTitleTxt">
         <item name="android:textColor">@color/color_black_font</item>
         <item name="android:textSize">@dimen/dimen_font_18</item>
@@ -213,6 +223,16 @@
         <item name="android:textSize">@dimen/dimen_font_20</item>
     </style>
 
+    <style name="WhiteTxt12">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_12</item>
+    </style>
+
+    <style name="WhiteTxt14">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/dimen_font_14</item>
+    </style>
+
     <style name="WhiteTxt18">
         <item name="android:textColor">@color/color_white</item>
         <item name="android:textSize">@dimen/dimen_font_18</item>
@@ -223,8 +243,15 @@
         <item name="android:textSize">@dimen/dimen_font_20</item>
     </style>
 
+    <style name="RedTxt12">
+        <item name="android:textColor">@color/color_red</item>
+        <item name="android:textSize">@dimen/dimen_font_12</item>
+    </style>
+
     <style name="RedTxt18">
         <item name="android:textColor">@color/color_red</item>
         <item name="android:textSize">@dimen/dimen_font_18</item>
     </style>
+
+
 </resources>

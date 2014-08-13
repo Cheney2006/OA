@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/delete_normal"
             android:paddingRight="@dimen/dimen_txt_padding_top"
-            android:background="@drawable/btn_layout_click"
+            android:background="@drawable/bg_layout_click"
             android:paddingLeft="@dimen/dimen_txt_padding_top" />
     </LinearLayout>
 

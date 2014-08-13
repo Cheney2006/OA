@@ -12,6 +12,7 @@
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Appbase</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Appbase</item>
         <item name="android:actionBarTabTextStyle">@style/CustomActionBarTabTextStyle</item>
+        <item name="android:actionBarTabBarStyle">@style/CustomActionBarTabBarStyle</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Appbase</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Appbase</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_appbase</item>

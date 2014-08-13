@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.SelectImageActivity;
+import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.service.IncrementUpdateService;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Constant;
@@ -25,6 +26,7 @@ import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.bitmap.BitmapCommonUtil;
+import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
@@ -58,6 +60,8 @@ public class HomeActivity extends SelectImageActivity {
     private ImageView photo_iv;
     @ViewInject(R.id.info_rl)
     private RelativeLayout info_rl;
+    @ViewInject(R.id.emailNum_tv)
+    private TextView emailNum_tv;
     private long mExitTime;
     private Uri imageUri;//The Uri to store the big bitmap，跟输入的区分出来。不然在选择图片裁剪，把原有的图片也裁剪小了。
     private File photo;
@@ -71,6 +75,7 @@ public class HomeActivity extends SelectImageActivity {
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
         initData();
         checkSync();
+        initNum();
     }
 
     private void initData() {
@@ -151,12 +156,12 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.contacts_ll)
     public void contactsClick(View view) {
-//        startActivity(new Intent(mContext, ContactsActivity.class));
+        startActivity(new Intent(mContext, ContactsActivity.class));
     }
 
     @OnClick(R.id.cloud_ll)
     public void cloudClick(View view) {
-//        startActivity(new Intent(mContext, CloudActivity.class));
+        startActivity(new Intent(mContext, CloudActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)
@@ -262,4 +267,18 @@ public class HomeActivity extends SelectImageActivity {
         });
     }
 
+    @Override
+    protected void refreshData() {
+        initNum();
+    }
+
+    private void initNum() {
+        //电子邮件未读数
+        try {
+            long emailNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", null));
+            emailNum_tv.setText(emailNum + "");
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+    }
 }

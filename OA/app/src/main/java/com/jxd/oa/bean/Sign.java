@@ -18,8 +18,8 @@ import java.util.Date;
 public class Sign extends AbstractBean {
     @Id(column = "id")
     private String id;
-    @Column(column = "signDate")
-    private Date signDate;//考勤时间
+    @Column(column = "signTime")
+    private Date signTime;//考勤时间
     @Column(column = "signAddress")
     private String signAddress;//考勤地址
     @Column(column = "signLatitude")
@@ -45,12 +45,12 @@ public class Sign extends AbstractBean {
         this.id = id;
     }
 
-    public Date getSignDate() {
-        return signDate;
+    public Date getSignTime() {
+        return signTime;
     }
 
-    public void setSignDate(Date signDate) {
-        this.signDate = signDate;
+    public void setSignTime(Date signTime) {
+        this.signTime = signTime;
     }
 
     public String getSignAddress() {

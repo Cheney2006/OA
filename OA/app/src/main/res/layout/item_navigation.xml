@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/btn_layout_click"
+    android:background="@drawable/bg_layout_white"
     android:clickable="true">
 
     <TextView
         android:id="@+id/navigationTxt_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/WhiteTxt18"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        style="@style/BlackTxt18"
         android:layout_centerInParent="true"
         android:text="我的公司" />
 
     <View
-        android:id="@+id/selected_line"
-        android:layout_width="fill_parent"
-        android:layout_height="4dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_blue" />
-
-</RelativeLayout>
+        android:id="@+id/line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/LineCell" />
+</LinearLayout>

@@ -18,12 +18,10 @@ import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
-import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnItemClick;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,7 +73,7 @@ public class UserSelectActivity extends AbstractActivity {
             }
             mListView.setAdapter(adapter);
         } else {
-            adapter.setObjects(userList);
+            adapter.setDataList(userList);
             adapter.setSelectedMap(selectedMap);
             adapter.notifyDataSetChanged();
         }

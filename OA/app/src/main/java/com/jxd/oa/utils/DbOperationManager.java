@@ -81,6 +81,10 @@ public class DbOperationManager {
         dbUtil.execNonQuery(sql);
     }
 
+    public long count(Selector selector) throws DbException {
+        return dbUtil.count(selector);
+    }
+
     public void clearDb() throws DbException {
         dbUtil.clearDb();//使用dbUtil.dropDb();再次登录是生成数据报错
     }
