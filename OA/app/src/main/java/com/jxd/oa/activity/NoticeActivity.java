@@ -46,6 +46,7 @@ public class NoticeActivity extends AbstractActivity {
         getSupportActionBar().setTitle("通知公告");
         initView();
         initData();
+
     }
 
     private void initView() {
