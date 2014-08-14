@@ -54,6 +54,10 @@ public class SelectEditView extends LinearLayout {
         content_tv.setHint(hit);
     }
 
+    public String getContent() {
+        return content_tv.getText().toString();
+    }
+
     public Object getValue() {
         return content_tv.getTag();
     }

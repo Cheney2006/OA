@@ -69,8 +69,6 @@ public class SignAdapter extends AbstractAdapter<Sign> {
         private TextView signTime_tv;
         @ViewInject(R.id.signAddress_tv)
         private TextView signAddress_tv;
-        @ViewInject(R.id.uploadStatus_tv)
-        private TextView uploadStatus_tv;
         @ViewInject(R.id.vicinityAddress_tv)
         private TextView vicinityAddress_tv;
     }

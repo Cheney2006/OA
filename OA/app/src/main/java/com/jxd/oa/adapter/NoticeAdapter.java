@@ -10,7 +10,7 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
-import com.jxd.oa.bean.User;
+import com.jxd.oa.bean.Notice;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
@@ -25,12 +25,13 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：邮件
+ * Description ：通知公告
  * Created by cy on 2014/8/6.
  * *****************************************
  */
-public class EmailAdapter extends AbstractAdapter<Email> {
-    public EmailAdapter(Context context, List<Email> dataList) {
+public class NoticeAdapter extends AbstractAdapter<Notice> {
+
+    public NoticeAdapter(Context context, List<Notice> dataList) {
         super(context, dataList);
     }
 
@@ -39,7 +40,7 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         ViewHolder viewHolder = null;
         if (view == null) {
             viewHolder = new ViewHolder();
-            view = getInflater().inflate(R.layout.item_email, null);
+            view = getInflater().inflate(R.layout.item_notice, null);
             ViewUtil.inject(viewHolder, view);
             view.setTag(viewHolder);
         } else {
@@ -51,29 +52,10 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_attach, 0, 0, 0);
         }
-        if (getItem(position).getSendTime() != null) {
-            viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getSendTime()));
+        if (getItem(position).getPublishTime() != null) {
+            viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getPublishTime()));
         }
-        if (!getItem(position).getFromId().equals(SysConfig.getInstance().getUserId())) {//收件箱时
-            if (getItem(position).getFromUser() != null) {
-                viewHolder.send_tv.setVisibility(View.VISIBLE);
-                viewHolder.send_tv.setText(getItem(position).getFromUser().getName());
-            }
-            //取得是否已读
-            try {
-                long notReadNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", "").and("emailId", "=", getItem(position).getId()));
-                if(notReadNum>0){
-                    viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
-                }else{
-                    viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_gray_font));
-                }
-            } catch (DbException e) {
-                LogUtil.e(e);
-            }
-        } else {
-            viewHolder.send_tv.setVisibility(View.GONE);
-        }
-        viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
+        viewHolder.send_tv.setText(getItem(position).getCreatedUser().getName());
         return view;
     }
 
@@ -84,7 +66,5 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         private TextView send_tv;
         @ViewInject(R.id.date_tv)
         private TextView date_tv;
-        @ViewInject(R.id.important_tv)
-        private TextView important_tv;
     }
 }

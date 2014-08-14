@@ -28,8 +28,8 @@ android {
 
     buildTypes {
         debug {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            runProguard false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            proguardFile file('/proguard.cfg')
 //            zipAlign true
 //            runProguard true

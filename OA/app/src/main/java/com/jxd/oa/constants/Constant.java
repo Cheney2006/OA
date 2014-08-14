@@ -26,8 +26,6 @@ public class Constant {
     //圆角
     public final static int ROUND_CORNER = 6;
     public static final int PHOTO_SIZE = 128;
-    //param参数
-    public static final String PARAM_USERID = "userId";
 
     public static final Object[][] SYNC_DATA_TAG = {
             {Department.class, "部门"},

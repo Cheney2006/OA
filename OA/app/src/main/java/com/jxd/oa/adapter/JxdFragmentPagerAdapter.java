@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.jxd.oa.fragment.base.BaseFragment;
+import com.jxd.oa.fragment.base.AbstractFragment;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
 public class JxdFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private FragmentManager fm;
-    private List<BaseFragment> mFragments;
+    private List<AbstractFragment> mFragments;
 
-    public JxdFragmentPagerAdapter(FragmentManager fm, List<BaseFragment> mFragments) {
+    public JxdFragmentPagerAdapter(FragmentManager fm, List<AbstractFragment> mFragments) {
         super(fm);
         this.mFragments = mFragments;
     }

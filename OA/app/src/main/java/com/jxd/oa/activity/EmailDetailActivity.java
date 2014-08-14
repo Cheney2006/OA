@@ -33,6 +33,7 @@ import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,7 +81,6 @@ public class EmailDetailActivity extends AbstractActivity {
         try {
             email = DbOperationManager.getInstance().getBeanById(Email.class, emailId);
             title_tv.setText(email.getTitle());
-
             if (email.getSendTime() != null) {
                 date_tv.setText(DateUtil.dateTimeToString(email.getSendTime()));
             }
@@ -115,7 +115,9 @@ public class EmailDetailActivity extends AbstractActivity {
             if (email.getFromUser() != null) {
                 send_tv.setText(email.getFromUser().getName());
             }
-            readSubmit();
+            if(!email.getFromId().equals(SysConfig.getInstance().getUserId())){
+                readSubmit();
+            }
         } catch (DbException e) {
             LogUtil.e(e);
             displayToast("获取数据失败");
@@ -130,7 +132,8 @@ public class EmailDetailActivity extends AbstractActivity {
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 //更新接收时间
                 try {
-                    DbOperationManager.getInstance().getBeanFirst(Selector.from(EmailRecipient.class).where("emailId", "=", email.getId()).and("toId", "=", SysConfig.getInstance().getUserId()));
+                    String sql = "UPDATE t_email_recipient SET readTime='" + DateUtil.dateTimeToString(new Date()) + "' WHERE toId='" + SysConfig.getInstance().getUserId() + "' and emailId ='" + email.getId() + "'";
+                    DbOperationManager.getInstance().execSql(sql);
                     sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                 } catch (DbException e) {
                     LogUtil.e(e);

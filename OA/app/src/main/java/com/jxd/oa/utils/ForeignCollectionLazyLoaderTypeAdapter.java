@@ -47,6 +47,7 @@ public class ForeignCollectionLazyLoaderTypeAdapter<T> implements JsonSerializer
                     return foreignCollectionLazyLoader;
                     //return getAttachmentForeignCollectionLazyLoader(resCla, json.getAsJsonArray().toString());
                 } catch (Exception e) {
+                    e.printStackTrace();
                     return null;
                 }
             }

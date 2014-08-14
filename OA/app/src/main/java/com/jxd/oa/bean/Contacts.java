@@ -20,7 +20,7 @@ public class Contacts extends AbstractBean {
     @Column(column = "userId")
     private String userId;
     @Column(column = "categoryId")
-    private int groupId;        //组
+    private ContactsCategory category;  //组
     @Column(column = "name")
     private String name;        //姓名
     @Column(column = "sex")
@@ -58,12 +58,12 @@ public class Contacts extends AbstractBean {
         this.userId = userId;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public ContactsCategory getCategory() {
+        return category;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setCategory(ContactsCategory category) {
+        this.category = category;
     }
 
     public String getName() {

@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.jxd.oa.bean.Email;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
@@ -22,6 +23,8 @@ import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -88,7 +91,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
         sendBroadcast(new Intent(Constant.ACTION_EXIT));
     }
 
-    protected <T> void syncData(final Class cls, String startDate) {
+    protected <T> void syncData(final Class<T> cls, String startDate) {
         String name = cls.getSimpleName();
         name = name.substring(0, 1).toLowerCase() + name.substring(1);
         RequestParams params = ParamManager.setDefaultParams();

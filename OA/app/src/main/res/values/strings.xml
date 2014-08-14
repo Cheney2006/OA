@@ -51,5 +51,7 @@
     <string name="txt_no">否</string>
     <string name="txt_action_copy">抄送</string>
     <string name="txt_sign_title">考勤签到</string>
+    <string name="txt_action_edit">修改</string>
+    <string name="txt_contacts_delete">删除联系人</string>
 
 </resources>

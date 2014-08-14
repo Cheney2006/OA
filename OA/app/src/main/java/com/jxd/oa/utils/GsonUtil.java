@@ -1,5 +1,7 @@
 package com.jxd.oa.utils;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -61,6 +63,9 @@ public class GsonUtil {
 				throw new JsonParseException("The date should be a string value");
 			}
 			try {
+                if(TextUtils.isEmpty(json.getAsString())){
+                    return null;
+                }
 				Date date = format.parse(json.getAsString());
 				return new Timestamp(date.getTime());
 			} catch (ParseException e) {

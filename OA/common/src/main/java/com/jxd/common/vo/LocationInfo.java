@@ -2,9 +2,12 @@ package com.jxd.common.vo;
 
 
 public class LocationInfo {
+
 	private double latitude;
 	private double longitude;
     private String address;
+    private float accuracy;
+    private String coorType;
 
 	public double getLatitude() {
 		return latitude;
@@ -28,6 +31,22 @@ public class LocationInfo {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public float getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(float accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public String getCoorType() {
+        return coorType;
+    }
+
+    public void setCoorType(String coorType) {
+        this.coorType = coorType;
     }
 
     public static LocationInfo getDefaultLocation(){

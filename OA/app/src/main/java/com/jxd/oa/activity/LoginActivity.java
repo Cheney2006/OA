@@ -56,6 +56,11 @@ public class LoginActivity extends AbstractActivity {
         username_et.setText(SysConfig.getInstance().getUsername());
     }
 
+    @OnClick(R.id.autoLogin_tv)
+    public void autoLoginClick(View view) {
+        autoLogin_cb.setChecked(!autoLogin_cb.isChecked());
+    }
+
     @OnClick(R.id.login_btn)
     public void loginClick(View view) {
         if (checkValidate()) {

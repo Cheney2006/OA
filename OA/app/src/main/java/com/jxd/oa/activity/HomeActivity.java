@@ -151,17 +151,17 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.myTask_ll)
     public void myTaskClick(View view) {
-        startActivity(new Intent(mContext, AddressMapActivity.class));
+//        startActivity(new Intent(mContext, AddressMapActivity.class));
     }
 
     @OnClick(R.id.contacts_ll)
     public void contactsClick(View view) {
-        startActivity(new Intent(mContext, ContactsActivity.class));
+//        startActivity(new Intent(mContext, ContactsActivity.class));
     }
 
     @OnClick(R.id.cloud_ll)
     public void cloudClick(View view) {
-        startActivity(new Intent(mContext, CloudActivity.class));
+//        startActivity(new Intent(mContext, CloudActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)
@@ -275,8 +275,13 @@ public class HomeActivity extends SelectImageActivity {
     private void initNum() {
         //电子邮件未读数
         try {
-            long emailNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", null));
-            emailNum_tv.setText(emailNum + "");
+            long emailNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
+            if (emailNum > 0) {
+                emailNum_tv.setVisibility(View.VISIBLE);
+                emailNum_tv.setText(emailNum + "");
+            } else {
+                emailNum_tv.setVisibility(View.GONE);
+            }
         } catch (DbException e) {
             LogUtil.e(e);
         }

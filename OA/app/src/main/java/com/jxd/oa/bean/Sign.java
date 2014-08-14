@@ -29,7 +29,7 @@ public class Sign extends AbstractBean {
     @Column(column = "signType")
     private Integer signType;//类型(1:签到,2:签退)
     @Column(column = "signCoorType")
-    private Integer signCoorType; //坐标类型 1 国测局 2 WGS84
+    private String signCoorType; //坐标类型 gcj02, bd0911
     @Column(column = "signAccuracy")
     private Float signAccuracy;//定位精度
     @Column(column = "signDistance")
@@ -85,11 +85,11 @@ public class Sign extends AbstractBean {
         this.signType = signType;
     }
 
-    public Integer getSignCoorType() {
+    public String getSignCoorType() {
         return signCoorType;
     }
 
-    public void setSignCoorType(Integer signCoorType) {
+    public void setSignCoorType(String signCoorType) {
         this.signCoorType = signCoorType;
     }
 

@@ -27,8 +27,8 @@
             android:layout_marginTop="@dimen/dimen_layout_padding_top"
             android:text="@string/txt_label_category" />
 
-        <com.jxd.oa.view.SelectEditView
-            android:id="@+id/category_sev"
+        <com.jxd.oa.view.TypeView
+            android:id="@+id/category_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />

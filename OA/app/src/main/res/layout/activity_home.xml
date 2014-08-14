@@ -72,9 +72,10 @@
                 android:id="@+id/emailNum_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_txt_padding_left"
                 style="@style/WhiteTxt14"
-                android:layout_marginRight="@dimen/dimen_txt_padding_left"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginRight="3dp"
                 android:background="@drawable/circle_red_message" />
 
             <ImageView
@@ -108,8 +109,9 @@
                 android:id="@+id/noticeNum_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_txt_padding_left"
-                android:layout_marginRight="@dimen/dimen_txt_padding_left"
+                android:layout_marginRight="3dp"
+                android:visibility="gone"
+                android:gravity="center"
                 style="@style/WhiteTxt14"
                 android:background="@drawable/circle_red_message" />
 

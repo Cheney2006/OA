@@ -178,21 +178,26 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
     }
 
     private void saveDraft() {
+        if (email != null && email.getLocalId() != null) {
+            finish();
+            return;
+        }
         //是否存为草稿
         new JxdAlertDialog(mContext, getString(R.string.txt_tips), "是否存为草稿？", getString(R.string.txt_yes), getString(R.string.txt_no), getString(R.string.txt_cancel)) {
             @Override
             protected void positive() {
-                setData();
-                //设置ID
-                email.setId(UUIDGenerator.getUUID());
-                email.setLocalId(email.getId());
-                email.setAttachmentName(email_aav.getAttachmentName());
-                try {
-                    DbOperationManager.getInstance().save(email);
-                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
-                    finish();
-                } catch (DbException e) {
-                    LogUtil.e(e);
+                if (validate() && setData()) {
+                    //设置ID
+                    email.setId(UUIDGenerator.getUUID());
+                    email.setLocalId(email.getId());
+                    email.setAttachmentName(email_aav.getAttachmentName());
+                    try {
+                        DbOperationManager.getInstance().save(email);
+                        sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                        finish();
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
                 }
             }
 

@@ -2,6 +2,7 @@ package com.jxd.oa.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -105,7 +106,7 @@ public class LocationProviderHelper {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            if (location == null){
+            if (location == null) {
                 int type = mLocationClient.requestLocation();
                 if (pd != null && pd.isShowing()) {
                     pd.setMessage("定位失败，正在重新定位...");
@@ -117,10 +118,12 @@ public class LocationProviderHelper {
                 LogUtil.d("纬度=" + location.getLatitude() + "，经度=" + location.getLongitude());
                 SysConfig.getInstance().setDefaultLatitude(location.getLatitude());
                 SysConfig.getInstance().setDefaultLongitude(location.getLongitude());
-                LocationInfo locationInfo=new LocationInfo();
+                LocationInfo locationInfo = new LocationInfo();
                 locationInfo.setLatitude(location.getLatitude());
                 locationInfo.setLongitude(location.getLongitude());
                 locationInfo.setAddress(location.getAddrStr());
+                locationInfo.setAccuracy(location.getRadius());
+                locationInfo.setCoorType(location.getCoorType());
                 callback.getLocation(locationInfo);
             }
         }

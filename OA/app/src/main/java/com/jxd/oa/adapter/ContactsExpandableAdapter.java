@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ContactsExpandableAdapter extends AbstractExpandableAdapter<ContactsCategory, Contacts> {
 
-    protected ContactsExpandableAdapter(Context context, List<ContactsCategory> groupList, List<List<Contacts>> childListList) {
+    public ContactsExpandableAdapter(Context context, List<ContactsCategory> groupList, List<List<Contacts>> childListList) {
         super(context, groupList, childListList);
     }
 

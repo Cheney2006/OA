@@ -8,6 +8,8 @@ import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
 import com.yftools.db.annotation.Transient;
 
+import java.util.Date;
+
 /**
  * *****************************************
  * Description ：邮件接收人
@@ -44,14 +46,6 @@ public class EmailRecipient extends AbstractBean {
         this.toId = toId;
     }
 
-    public String getReadTime() {
-        return readTime;
-    }
-
-    public void setReadTime(String readTime) {
-        this.readTime = readTime;
-    }
-
     public String getEmailId() {
         return emailId;
     }
@@ -66,6 +60,14 @@ public class EmailRecipient extends AbstractBean {
 
     public void setToUser(User toUser) {
         this.toUser = toUser;
+    }
+
+    public String getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(String readTime) {
+        this.readTime = readTime;
     }
 
     @Override

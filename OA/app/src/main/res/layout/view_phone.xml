@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/mobile_label"
             android:layout_marginTop="3dp"
-            style="@style/BlackTxt18"
-            android:text="@string/txt_label_mobile" />
+            style="@style/BlackTxt18"/>
 
         <ImageView
             android:id="@+id/indicator_iv"

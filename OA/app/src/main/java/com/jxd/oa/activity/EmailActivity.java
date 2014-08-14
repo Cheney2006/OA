@@ -24,6 +24,7 @@ import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
+import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
@@ -31,9 +32,11 @@ import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.ui.DatePickUtil;
+import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnItemClick;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,12 +66,12 @@ public class EmailActivity extends AbstractActivity {
         initTopBar();
         registerForContextMenu(mListView);
         initData();
-//        try {
-//            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
-//            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
-//        } catch (DbException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
+            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initData() {
@@ -134,37 +137,46 @@ public class EmailActivity extends AbstractActivity {
     }
 
     private void readSubmit() {
-        if (emailList != null) {
-            displayToast("暂无未读邮件");
-            return;
-        }
-        final StringBuffer sb = new StringBuffer();
-        for (Email email : emailList) {
-            sb.append(email.getId()).append(",");
-        }
-        if (sb.length() > 0) {
-            sb.deleteCharAt(sb.length() - 1);
-        }
-        RequestParams params = ParamManager.setDefaultParams();
-        params.addBodyParameter("id", sb.toString());
-        HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readEmail.action"), params, new RequestCallBack<Json>() {
-            @Override
-            public void onSuccess(ResponseInfo<Json> responseInfo) {
-                //更新接收时间
-                try {
-                    DbOperationManager.getInstance().getBeanFirst(Selector.from(EmailRecipient.class).where("emailId", "in", sb.toString()).and("toId", "=", SysConfig.getInstance().getUserId()));
-                    refreshData();
-                    displayToast("邮件全部已读");
-                } catch (DbException e) {
-                    LogUtil.e(e);
+        //取得未读的邮件
+        try {
+            final List<EmailRecipient> notReadEmailList = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
+            if (notReadEmailList == null) {
+                displayToast("暂无未读邮件");
+                return;
+            }
+            final StringBuffer sb = new StringBuffer(),inSb=new StringBuffer();
+            for (EmailRecipient emailRecipient : notReadEmailList) {
+                sb.append(emailRecipient.getId()).append(",");
+                inSb.append("'").append(emailRecipient.getId()).append("',");
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+                inSb.deleteCharAt(inSb.length() - 1);
+            }
+            RequestParams params = ParamManager.setDefaultParams();
+            params.addBodyParameter("id", sb.toString());
+            HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readEmail.action"), params, new RequestCallBack<Json>() {
+                @Override
+                public void onSuccess(ResponseInfo<Json> responseInfo) {
+                    //更新接收时间
+                    try {
+                        String sql = "UPDATE t_email_recipient SET readTime='" + DateUtil.dateTimeToString(new Date()) + "' WHERE toId='" + SysConfig.getInstance().getUserId() + "' and emailId in(" + inSb.toString() + ")";
+                        DbOperationManager.getInstance().execSql(sql);
+                        refreshData();
+                        displayToast("邮件全部已读");
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                displayToast(msg);
-            }
-        });
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    displayToast(msg);
+                }
+            });
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
     }
 
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/CustomViewText" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dimen_layout_padding_top">
+
+            <TextView
+                android:id="@+id/createdUser_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/GrayTxt14"
+                android:layout_marginLeft="@dimen/dimen_layout_padding_left" />
+
+            <TextView
+                android:id="@+id/publishTime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+                style="@style/GrayTxt14" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:id="@+id/content_tv"
+            style="@style/CustomViewText"
+            android:textSize="@dimen/dimen_font_16" />
+
+
+        <TextView
+            android:id="@+id/attachment_label"
+            style="@style/CustomViewText"
+            android:text="@string/txt_attachment" />
+
+        <com.jxd.oa.view.AttachmentViewView
+            android:id="@+id/email_avv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+
+</ScrollView>

@@ -86,7 +86,19 @@ public class TypeView extends LinearLayout {
         });
     }
 
-    private void initData(List<Item> dataList) {
+    public void initData(List<Item> dataList) {
         this.dataList = dataList;
+    }
+
+    public void setValue(String content, String value) {
+        type_sev.setContent(content, value);
+    }
+
+    public String getContent() {
+        return type_sev.getContent();
+    }
+
+    public Object getValue() {
+        return type_sev.getValue();
     }
 }

@@ -108,15 +108,6 @@ public class SyncDataTask extends PriorityAsyncTask<Integer, String, Bundle> {
         name = name.substring(0, 1).toLowerCase() + name.substring(1);
         ResponseStream result = HttpUtil.getInstance().sendSync(ParamManager.parseBaseUrl(name + "List.action"), ParamManager.setDefaultParams());
         String resultStr = result.readString();
-//        Json json = new Json(resultStr);
-//        if (json.getBoolean("success")) {
-//            Type type = new TypeToken<T>() {
-//            }.getType();
-//            List<T> list= GsonUtil.getInstance().getGson().fromJson(json.getString("data"), type);
-//            DbOperationManager.getInstance().save(list);
-//        } else {
-//
-//        }
         LogUtil.d("服务器数据返回:" + resultStr);
         CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(resultStr, cls);
         if (commonJson4List.getSuccess()) {

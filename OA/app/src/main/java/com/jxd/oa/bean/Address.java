@@ -4,6 +4,7 @@ import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
 import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
+import com.yftools.db.annotation.Transient;
 
 /**
  * *****************************************
@@ -38,6 +39,8 @@ public class Address extends AbstractBean {
     private Integer status;
     @Column(column = "collectUserId")
     private String collectUserId;//采集人
+    @Transient
+    private double distance;
 
     public String getId() {
         return id;
@@ -109,5 +112,18 @@ public class Address extends AbstractBean {
 
     public void setCollectUserId(String collectUserId) {
         this.collectUserId = collectUserId;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public String toString() {//用于对话框选择
+        return name;
     }
 }

@@ -53,6 +53,10 @@ public class DbOperationManager {
         dbUtil.update(bean, whereBuilder, updateColumnNames);
     }
 
+    public <C> void update(List<C> beanList, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException {
+        dbUtil.update(beanList, whereBuilder, updateColumnNames);
+    }
+
     public <C> List<C> getBeans(Class<C> clazz) throws DbException {
         return dbUtil.findAll(clazz);
     }
@@ -65,7 +69,7 @@ public class DbOperationManager {
         return dbUtil.findById(clazz, id);
     }
 
-    public <C> List<C> getBeanFirst(Selector selector) throws DbException {
+    public <C> C getBeanFirst(Selector selector) throws DbException {
         return dbUtil.findFirst(selector);
     }
 
