@@ -3,8 +3,10 @@ package com.jxd.oa.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.baidu.mapapi.model.LatLng;
@@ -34,6 +36,7 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
+import com.yftools.view.annotation.event.OnItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +84,13 @@ public class SignActivity extends AbstractActivity {
             adapter.setDataList(signList);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @OnItemClick(R.id.mListView)
+    public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(mContext, SignAddressActivity.class);
+        intent.putExtra("sign", adapter.getItem(position));
+        startActivity(intent);
     }
 
     @OnClick(R.id.signIn_btn)

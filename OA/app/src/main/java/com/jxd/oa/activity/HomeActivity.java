@@ -164,6 +164,11 @@ public class HomeActivity extends SelectImageActivity {
 //        startActivity(new Intent(mContext, CloudActivity.class));
     }
 
+    @OnClick(R.id.sign_ll)
+    public void signClick(View view) {
+        startActivity(new Intent(mContext, SignAddressActivity.class));
+    }
+
     @OnClick(R.id.clearData_btn)
     public void clearDataClick(View view) {
         new JxdAlertDialog(this, getResources().getString(R.string.txt_tips), "确定清空数据？", getResources().getString(R.string.txt_confirm), getResources().getString(R.string.txt_cancel)) {

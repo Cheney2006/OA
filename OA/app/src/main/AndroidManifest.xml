@@ -81,7 +81,7 @@
             android:process=":remote"></service>
 
         <activity
-            android:name=".activity.AddressMapActivity"
+            android:name=".activity.AddressCollectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ScheduleActivity"
@@ -111,7 +111,12 @@
         <activity
             android:name=".activity.CloudActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.SignActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SignAddressActivity"
+            android:screenOrientation="portrait" />
         <service android:name=".service.IncrementUpdateService" />
     </application>
 

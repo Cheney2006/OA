@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.ContactsDetailActivity;
+import com.jxd.oa.activity.SignAddressActivity;
 import com.jxd.oa.adapter.ContactsAdapter;
 import com.jxd.oa.adapter.ContactsExpandableAdapter;
 import com.jxd.oa.bean.Contacts;
@@ -22,6 +23,8 @@ import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
 import com.yftools.view.annotation.ViewInject;
+import com.yftools.view.annotation.event.OnChildClick;
+import com.yftools.view.annotation.event.OnItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,25 +52,19 @@ public class PublicContactsFragment extends AbstractFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View convertView = inflater.inflate(R.layout.fragment_contacts, container, false);
         ViewUtil.inject(this, convertView);
-        initView();
         fillList();
         return convertView;
     }
 
-    private void initView() {
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(adapter.getItem(position));
-            }
-        });
-        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                startActivity(expandableAdapter.getChild(groupPosition, childPosition));
-                return false;
-            }
-        });
+    @OnItemClick(R.id.mListView)
+    public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(adapter.getItem(position));
+    }
+
+    @OnChildClick(R.id.mExpandableListView)
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        startActivity(expandableAdapter.getChild(groupPosition, childPosition));
+        return false;
     }
 
     private void startActivity(Contacts contacts) {

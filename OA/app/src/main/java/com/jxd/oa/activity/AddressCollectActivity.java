@@ -18,7 +18,7 @@ import com.jxd.oa.utils.LocationProviderHelper;
  * Created by cy on 2014/7/30.
  * *****************************************
  */
-public class AddressMapActivity extends BaseMapActivity {
+public class AddressCollectActivity extends BaseMapActivity {
 
     private BaiduMap mBaiduMap;
     private LocationProviderHelper locationProviderHelper;

@@ -22,6 +22,7 @@ import com.yftools.exception.DbException;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
+import com.yftools.view.annotation.event.OnItemClick;
 
 import java.util.List;
 
@@ -43,23 +44,11 @@ public class NoticeActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle("通知公告");
-        initView();
-        initData();
-
-    }
-
-    private void initView() {
+        getSupportActionBar().setTitle(getString(R.string.txt_notice));
         registerForContextMenu(mListView);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(mContext,NoticeDetailActivity.class);
-                intent.putExtra("notice",adapter.getItem(position));
-                startActivity(intent);
-            }
-        });
+        initData();
     }
+
 
     public void initData() {
         try {
@@ -74,6 +63,13 @@ public class NoticeActivity extends AbstractActivity {
             adapter.setDataList(noticeList);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @OnItemClick(R.id.mListView)
+    public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(mContext, NoticeDetailActivity.class);
+        intent.putExtra("notice", adapter.getItem(position));
+        startActivity(intent);
     }
 
     @Override
