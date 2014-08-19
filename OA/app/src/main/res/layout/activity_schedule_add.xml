@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,8 @@
         android:padding="@dimen/activity_horizontal_margin">
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
+            android:layout_marginTop="0dp"
             android:text="@string/txt_label_title" />
 
         <EditText
@@ -21,10 +21,16 @@
             style="@style/CustomEditText" />
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/CustomLabelTextForEdit"
+            android:layout_marginTop="0dp"
+            android:text="@string/txt_label_address" />
+
+        <EditText
+            android:id="@+id/address_et"
+            style="@style/CustomEditText" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_important" />
 
         <com.jxd.oa.view.SelectEditView
@@ -34,23 +40,37 @@
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
-            android:text="@string/txt_label_recipient" />
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_category" />
 
-        <com.jxd.oa.view.SelectEditView
-            android:id="@+id/recipient_sev"
+        <com.jxd.oa.view.TypeView
+            android:id="@+id/category_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_start_date" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/startDate_sev"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_end_date" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/endDate_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <TextView
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_content" />
 
         <EditText
@@ -59,14 +79,11 @@
             android:minHeight="150dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_attachment" />
 
         <com.jxd.oa.view.AttachmentAddView
-            android:id="@+id/email_aav"
+            android:id="@+id/schedule_aav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />

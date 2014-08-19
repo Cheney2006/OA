@@ -9,11 +9,9 @@
     android:background="@drawable/bg_nav">
 
     <com.jxd.oa.view.LabelRequestTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-        style="@style/GrayTxt16"
-        android:text="@string/txt_email_title" />
+        style="@style/CustomLabelText"
+        android:layout_marginTop="0dp"
+        android:text="@string/txt_label_title" />
 
     <TextView
         android:id="@+id/title_tv"
@@ -23,12 +21,8 @@
     <View style="@style/LineRow" />
 
     <com.jxd.oa.view.LabelRequestTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_layout_padding_top"
-        android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-        style="@style/GrayTxt16"
-        android:text="@string/txt_email_title" />
+        style="@style/CustomLabelText"
+        android:text="@string/txt_label_title" />
 
     <TextView
         style="@style/CustomViewText"

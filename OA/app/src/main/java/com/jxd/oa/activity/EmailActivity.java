@@ -144,7 +144,7 @@ public class EmailActivity extends AbstractActivity {
                 displayToast("暂无未读邮件");
                 return;
             }
-            final StringBuffer sb = new StringBuffer(),inSb=new StringBuffer();
+            final StringBuffer sb = new StringBuffer(), inSb = new StringBuffer();
             for (EmailRecipient emailRecipient : notReadEmailList) {
                 sb.append(emailRecipient.getId()).append(",");
                 inSb.append("'").append(emailRecipient.getId()).append("',");
@@ -283,6 +283,17 @@ public class EmailActivity extends AbstractActivity {
             fillList();
         } catch (DbException e) {
             LogUtil.e(e);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (requestCode == CODE_EMAIL_ADD) {
+            refreshData();
         }
     }
 }

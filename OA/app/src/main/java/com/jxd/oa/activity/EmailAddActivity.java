@@ -193,7 +193,8 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                     email.setAttachmentName(email_aav.getAttachmentName());
                     try {
                         DbOperationManager.getInstance().save(email);
-                        sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                        //sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                        setResult(RESULT_OK);
                         finish();
                     } catch (DbException e) {
                         LogUtil.e(e);
@@ -248,7 +249,8 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                         //DbOperationManager.getInstance().update(serverEmail, WhereBuilder.b().expr("localId", "=", email.getLocalId()), "id");
                     }
                     DbOperationManager.getInstance().save(serverEmail);
-                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                    //sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                    setResult(RESULT_OK);
                     finish();
                 } catch (DbException e) {
                     LogUtil.e(e);
@@ -266,7 +268,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
 
     private boolean validate() {
         if (TextUtils.isEmpty(title_et.getText())) {
-            displayToast("请选择邮件主题");
+            displayToast("请输入邮件主题");
             return false;
         }
         if (recipient_sev.getValue() == null) {

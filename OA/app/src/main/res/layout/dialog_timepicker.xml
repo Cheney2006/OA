@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--   android:background="@drawable/dialog_date_top_bg"-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:id="@+id/title_tv"
+        android:text="选择时间"
+        style="@style/BlackTxt20" />
+
+    <LinearLayout
+        android:id="@+id/timePicker_ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.jxd.oa.view.timepicker.WheelView
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <com.jxd.oa.view.timepicker.WheelView
+            android:id="@+id/month"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <com.jxd.oa.view.timepicker.WheelView
+            android:id="@+id/day"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <com.jxd.oa.view.timepicker.WheelView
+            android:id="@+id/hour"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <com.jxd.oa.view.timepicker.WheelView
+            android:id="@+id/min"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <!--  android:background="@drawable/dialog_date_bottom_bg"-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:text="取消"
+            android:background="@drawable/btn_dialog_left"
+            style="@style/BlackTxt18"
+            android:layout_gravity="center" />
+
+        <View style="@style/LineCell" />
+
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:text="确定"
+            android:background="@drawable/btn_dialog_right"
+            style="@style/BlackTxt18"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>

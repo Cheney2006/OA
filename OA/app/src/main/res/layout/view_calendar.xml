@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="2014年07月"
-            style="@style/WhiteTxt20" />
+            style="@style/BlackTxt20" />
 
         <ImageView
             android:id="@+id/next_iv"

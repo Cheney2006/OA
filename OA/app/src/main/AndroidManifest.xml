@@ -74,27 +74,15 @@
         <activity
             android:name=".activity.SyncDataActivity"
             android:screenOrientation="portrait" />
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote"></service>
-
-        <activity
-            android:name=".activity.AddressCollectActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ScheduleActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ScheduleListActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EmailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EmailAddActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserSelectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EmailDetailActivity"
@@ -106,10 +94,36 @@
             android:name=".activity.ContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.UserSelectActivity"
+            android:name=".activity.ContactsAddActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ContactsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NoticeDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CloudActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScheduleListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScheduleAddActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScheduleDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddressCollectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SignActivity"
@@ -117,7 +131,12 @@
         <activity
             android:name=".activity.SignAddressActivity"
             android:screenOrientation="portrait" />
+
         <service android:name=".service.IncrementUpdateService" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
     </application>
 
 </manifest>

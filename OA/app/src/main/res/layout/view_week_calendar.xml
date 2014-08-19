@@ -4,7 +4,7 @@
     tools:showIn="@layout/activity_user_location_list">
 
     <LinearLayout
-        android:id="@+id/ll_week"
+        android:id="@+id/week_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_week_bg"
@@ -68,7 +68,8 @@
         android:id="@+id/flipper1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_week" />
+        android:background="@drawable/layout_white_bg"
+        android:layout_below="@id/week_ll" />
 
 
     <View

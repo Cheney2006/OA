@@ -128,6 +128,14 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="CustomLabelTextForEdit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:textSize">@dimen/dimen_font_16</item>
+        <item name="android:textColor">@color/color_gray_font</item>
+    </style>
+
     <style name="CustomEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -140,6 +148,16 @@
         <item name="android:textSize">@dimen/dimen_font_18</item>
         <item name="android:textColor">@color/color_black_font</item>
         <item name="android:gravity">top</item>
+    </style>
+
+    <style name="CustomLabelText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_layout_padding_top</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_layout_padding_left</item>
+        <item name="android:layout_marginRight">@dimen/dimen_layout_padding_left</item>
+        <item name="android:textSize">@dimen/dimen_font_16</item>
+        <item name="android:textColor">@color/color_gray_font</item>
     </style>
 
     <style name="CustomViewText">

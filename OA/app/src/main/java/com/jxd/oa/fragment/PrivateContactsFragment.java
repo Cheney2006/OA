@@ -43,7 +43,6 @@ public class PrivateContactsFragment extends AbstractFragment {
     private ExpandableListView mExpandableListView;
     private List<Contacts> contactsList;
     private ContactsAdapter adapter;
-
     private List<ContactsCategory> mGroupList;
     private List<List<Contacts>> mChildList;
     private ContactsExpandableAdapter expandableAdapter;

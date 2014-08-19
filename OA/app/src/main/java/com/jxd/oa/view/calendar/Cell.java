@@ -87,8 +87,6 @@ public class Cell {
             } else {
                 drawPoint(canvas, circle_red_color);
             }
-            // canvas.drawText(String.valueOf(mFinishPlanNum), mBound.centerX() + ((mBound.right - mBound.centerX()) / 2) - minDxFinish, mBound.centerY() + dy + 15, mFinishPaint);
-            //  canvas.drawText(String.valueOf(mAllPlanNum), mBound.left + ((mBound.right - mBound.centerX()) / 2) - minDxAll, mBound.centerY() + dy + 15, mAllPaint);
         }
 
     }

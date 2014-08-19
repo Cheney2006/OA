@@ -14,7 +14,7 @@ import com.jxd.oa.utils.LocationProviderHelper;
 
 /**
  * *****************************************
- * Description ：考勤地址地图
+ * Description ：考勤地址采集
  * Created by cy on 2014/7/30.
  * *****************************************
  */

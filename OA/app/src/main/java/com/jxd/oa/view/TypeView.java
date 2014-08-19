@@ -32,10 +32,12 @@ public class TypeView extends LinearLayout {
 
     public TypeView(Context context) {
         super(context);
+        initView();
     }
 
     public TypeView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initView();
     }
 
     private void initView() {
@@ -57,7 +59,7 @@ public class TypeView extends LinearLayout {
                 }
                 nameArray[i] = "自定义";
                 final int finalI = i;
-                Dialog alertDialog = new AlertDialog.Builder(getContext()).setTitle("请选择重要性")
+                Dialog alertDialog = new AlertDialog.Builder(getContext()).setTitle("请选择分组")
                         .setItems(nameArray, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -67,8 +69,8 @@ public class TypeView extends LinearLayout {
                                     //自定义增加类型
                                     View view = inflate.inflate(R.layout.dialog_edit, null);
                                     final EditText typeName_et = (EditText) view.findViewById(R.id.typeName_et);
-                                    new AlertDialog.Builder(getContext()).setTitle("请输入")
-                                            .setView(typeName_et).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    new AlertDialog.Builder(getContext()).setTitle("请输入名称")
+                                            .setView(view).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             if (TextUtils.isEmpty(typeName_et.getText())) {

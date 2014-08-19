@@ -16,8 +16,8 @@
     <color name="color_calendar_next">#C5EAF8</color>
     <!--99CCFF--><!--C5EAF8-->
     <color name="color_circle_red">#F04141</color>
-    <color name="color_week_bg">#33b5e5</color>
-    <!--C5EAF8--><!--33b5e5-->
+    <color name="color_week_bg">#CDF2FF</color>
+    <!--C5EAF8--><!--33b5e5--><!--#CDF2FF-->
     <color name="bg_gray_line">#d3d3d3</color>
     <color name="color_blue_pressed">#33b5e5</color>
     <color name="color_red">#e20400</color>

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:background="@drawable/bg_nav">
+        android:padding="@dimen/activity_horizontal_margin">
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
+            android:layout_marginTop="0dp"
             android:text="@string/txt_label_name" />
 
         <EditText
@@ -21,10 +20,7 @@
             style="@style/CustomEditText" />
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_category" />
 
         <com.jxd.oa.view.TypeView
@@ -34,10 +30,7 @@
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />
 
         <com.jxd.oa.view.LabelRequestTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
-            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_sex" />
 
         <com.jxd.oa.view.SelectEditView
@@ -47,9 +40,7 @@
             android:layout_marginTop="@dimen/dimen_layout_padding_top" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_mobile" />
 
         <EditText
@@ -57,9 +48,7 @@
             style="@style/CustomEditText" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_phone" />
 
         <EditText
@@ -67,9 +56,7 @@
             style="@style/CustomEditText" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_company" />
 
         <EditText
@@ -77,9 +64,7 @@
             style="@style/CustomEditText" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_ministration" />
 
         <EditText
@@ -87,9 +72,7 @@
             style="@style/CustomEditText" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/GrayTxt16"
+            style="@style/CustomLabelTextForEdit"
             android:text="@string/txt_label_company_addr" />
 
         <EditText

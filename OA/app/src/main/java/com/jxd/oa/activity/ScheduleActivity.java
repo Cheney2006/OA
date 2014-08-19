@@ -2,15 +2,26 @@ package com.jxd.oa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
+import com.jxd.oa.bean.Schedule;
+import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.view.calendar.CalendarView;
 import com.jxd.oa.view.calendar.CalendarViewViewPager;
+import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.Selector;
+import com.yftools.ui.DatePickUtil;
+import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * *****************************************
@@ -20,6 +31,7 @@ import java.util.Date;
  */
 public class ScheduleActivity extends AbstractActivity implements CalendarViewViewPager.OnDateSelectListener {
 
+    private static final int CODE_SCHEDULE_LIST = 101;
     @ViewInject(R.id.calendar_view)
     private CalendarViewViewPager mCalendarView;
 
@@ -35,30 +47,77 @@ public class ScheduleActivity extends AbstractActivity implements CalendarViewVi
     private void initView() {
         mCalendarView.setOnDateSelect(this);
         //第一次不能加载
+        mCalendarView.initDataMap(getDataMap());
+    }
+
+    private Map<String, Map<String, Integer>> getDataMap() {
+        //取得数据
+        Map<String, Map<String, Integer>> dataMap = new HashMap<String, Map<String, Integer>>();
         try {
-            mCalendarView.initDataMap(null);
+            Map<String, Integer> data = new HashMap<String, Integer>();
+            Date startDate = mCalendarView.getStarDate();
+            Calendar c = Calendar.getInstance();
+            c.setTime(startDate);
+            for (int i = 0; i < 42; i++) {
+                c.add(Calendar.DAY_OF_MONTH, i);
+                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(c.getTime())).or("date(endDate)", ">=", DateUtil.dateToString(c.getTime())));
+                if (count > 0) {
+                    data.put("planCount", count);
+                    data.put("finishedCount", count);
+                    dataMap.put(DateUtil.dateToString(c.getTime()), data);
+                }
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.e(e);
         }
+        return dataMap;
     }
 
     @Override
     public void onChange(CalendarView view, Date selectedDate, Date today) {
-        startActivity(new Intent(mContext, ScheduleListActivity.class));
+        Intent intent = new Intent(mContext, ScheduleListActivity.class);
+        intent.putExtra("currentDate", selectedDate);
+        startActivityForResult(intent, CODE_SCHEDULE_LIST);
     }
 
     @Override
     public void onMonthChange() {
         try {
-            mCalendarView.refreshView(null);
+            mCalendarView.refreshView(getDataMap());
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.e(e);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mCalendarView.refreshView(null);
+        if (requestCode == CODE_SCHEDULE_LIST) {
+            mCalendarView.refreshView(getDataMap());
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sync_date, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sync:
+                new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
+                    @Override
+                    public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
+                        syncData(Schedule.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                    }
+                }).showDateDialog();
+                return true;
+            case R.id.action_date:
+                mCalendarView.setToday();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

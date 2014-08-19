@@ -9,5 +9,17 @@
         android:id="@+id/weekCalendar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
+
+    <ListView
+        android:id="@+id/mListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/color_transparent"
+        android:divider="@drawable/list_divider"
+        android:background="@drawable/layout_white_bg"
+        android:dividerHeight="@dimen/dimen_divider_height"
+        android:fadingEdge="none">
+
+    </ListView>
 </LinearLayout>

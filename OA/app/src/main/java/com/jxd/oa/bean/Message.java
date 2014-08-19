@@ -28,7 +28,7 @@ public class Message extends AbstractBean {
     private int type;//类型
     @Column(column = "createdDate")
     private Date createdDate;//创建时间
-    @Column(column = "isRead")
+    @Column(column = "isFinished")
     private boolean isRead;//是否已读
     @Column(column = "operation")
     private String operation;//操作

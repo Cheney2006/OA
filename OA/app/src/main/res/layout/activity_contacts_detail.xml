@@ -18,10 +18,8 @@
             android:paddingBottom="@dimen/activity_vertical_margin">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
+                android:layout_marginTop="0dp"
                 android:text="@string/txt_label_name" />
 
             <TextView
@@ -31,11 +29,7 @@
             <View style="@style/LineRow" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                android:layout_marginTop="@dimen/dimen_layout_padding_top"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
                 android:text="@string/txt_label_ministration" />
 
             <TextView
@@ -44,11 +38,7 @@
 
             <View style="@style/LineRow" />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                android:layout_marginTop="@dimen/dimen_layout_padding_top"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
                 android:text="@string/txt_label_category" />
 
             <TextView
@@ -57,11 +47,7 @@
 
             <View style="@style/LineRow" />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                android:layout_marginTop="@dimen/dimen_layout_padding_top"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
                 android:text="@string/txt_label_company" />
 
             <TextView
@@ -71,11 +57,7 @@
             <View style="@style/LineRow" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                android:layout_marginTop="@dimen/dimen_layout_padding_top"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
                 android:text="@string/txt_label_company_addr" />
 
             <TextView
@@ -85,11 +67,7 @@
             <View style="@style/LineRow" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_layout_padding_left"
-                android:layout_marginTop="@dimen/dimen_layout_padding_top"
-                style="@style/GrayTxt16"
+                style="@style/CustomLabelText"
                 android:text="@string/txt_label_sex" />
 
             <TextView

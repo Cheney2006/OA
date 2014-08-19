@@ -1,6 +1,5 @@
 package com.jxd.oa.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
 import com.yftools.db.annotation.Id;
@@ -10,26 +9,33 @@ import java.util.Date;
 
 /**
  * *****************************************
- * Description ：通知公告
- * Created by cywf on 2014/8/9.
+ * Description ：今日日程
+ * Created by cy on 2014/8/18.
  * *****************************************
  */
-@Table(name = "t_notice")
-public class Notice extends AbstractBean {
+@Table(name = "t_schedule")
+public class Schedule extends AbstractBean{
     @Id(column = "id")
     private String id;
     @Column(column = "title")
-    private String title;//标题
+    private String title;//主题
+    @Column(column = "address")
+    private String address;//地点
     @Column(column = "content")
     private String content;//内容
-    @Column(column = "createdUserId")
-    private User createdUser;//发布人
-    @Column(column = "publishTime")
-    private Date publishTime;//发布时间
+    @Column(column = "important")
+    private String important;//重要性
+    @Column(column = "type")
+    private String type;//类型
+    @Column(column = "startData")
+    private Date startData;//开始时间
+    @Column(column = "endData")
+    private Date endData;//结束时间
     @Column(column = "attachmentName")
     private String attachmentName;//邮件列表，XX.doc|xx.xls
     @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
+    private boolean isFinished;
 
     public String getId() {
         return id;
@@ -47,6 +53,14 @@ public class Notice extends AbstractBean {
         this.title = title;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getContent() {
         return content;
     }
@@ -55,20 +69,36 @@ public class Notice extends AbstractBean {
         this.content = content;
     }
 
-    public User getCreatedUser() {
-        return createdUser;
+    public String getImportant() {
+        return important;
     }
 
-    public void setCreatedUser(User createdUser) {
-        this.createdUser = createdUser;
+    public void setImportant(String important) {
+        this.important = important;
     }
 
-    public Date getPublishTime() {
-        return publishTime;
+    public String getType() {
+        return type;
     }
 
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getStartData() {
+        return startData;
+    }
+
+    public void setStartData(Date startData) {
+        this.startData = startData;
+    }
+
+    public Date getEndData() {
+        return endData;
+    }
+
+    public void setEndData(Date endData) {
+        this.endData = endData;
     }
 
     public String getAttachmentName() {
@@ -85,5 +115,13 @@ public class Notice extends AbstractBean {
 
     public void setAttachmentSize(String attachmentSize) {
         this.attachmentSize = attachmentSize;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean isRead) {
+        this.isFinished = isRead;
     }
 }

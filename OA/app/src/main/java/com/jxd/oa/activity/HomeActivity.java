@@ -144,19 +144,24 @@ public class HomeActivity extends SelectImageActivity {
         startActivity(new Intent(mContext, EmailActivity.class));
     }
 
+    @OnClick(R.id.notice_ll)
+    public void noticeClick(View view) {
+        startActivity(new Intent(mContext, NoticeActivity.class));
+    }
+
     @OnClick(R.id.schedule_ll)
     public void scheduleClick(View view) {
-        startActivity(new Intent(mContext, ScheduleActivity.class));
+//        startActivity(new Intent(mContext, ScheduleActivity.class));
     }
 
     @OnClick(R.id.myTask_ll)
     public void myTaskClick(View view) {
-//        startActivity(new Intent(mContext, AddressMapActivity.class));
+//        startActivity(new Intent(mContext, AddressCollectActivity.class));
     }
 
     @OnClick(R.id.contacts_ll)
     public void contactsClick(View view) {
-//        startActivity(new Intent(mContext, ContactsActivity.class));
+        startActivity(new Intent(mContext, ContactsActivity.class));
     }
 
     @OnClick(R.id.cloud_ll)
@@ -166,7 +171,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.sign_ll)
     public void signClick(View view) {
-        startActivity(new Intent(mContext, SignAddressActivity.class));
+//        startActivity(new Intent(mContext, SignAddressActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)

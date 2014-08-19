@@ -46,7 +46,7 @@
         <TextView
             android:id="@+id/attachment_label"
             style="@style/CustomViewText"
-            android:text="@string/txt_attachment" />
+            android:text="@string/txt_label_attachment" />
 
         <com.jxd.oa.view.AttachmentViewView
             android:id="@+id/email_avv"

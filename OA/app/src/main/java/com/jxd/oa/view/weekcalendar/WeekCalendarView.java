@@ -22,10 +22,11 @@ import com.yftools.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * *****************************************
- * Description ：
+ * Description ：周日历
  * Created by cy on 2014/7/11.
  * *****************************************
  */
@@ -57,8 +58,9 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
     private int currentDay;
     private int currentNum;
     private boolean isStart;// 是否是交接的月初
-    private Date mDate;
     private LayoutInflater mInflater;
+    private OnDateSelectedListener onDateSelectedListener;
+    private OnWeekChangeListener OnWeekChangeListener;
 
     public WeekCalendarView(Context context) {
         super(context);
@@ -73,18 +75,16 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
     private void initView() {
         mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mInflater.inflate(R.layout.view_week_calendar, this);
-        //tvDate.setText(year_c + "年" + month_c + "月" + day_c + "日");
-        //getSupportActionBar().setTitle(year_c + "年" + month_c + "月");
         gestureDetector = new GestureDetector(getContext(), this);
         viewFlipper = (ViewFlipper) findViewById(R.id.flipper1);
         addGridView();
         viewFlipper.addView(gridView, 0);
-        initDate(null);
+        //initDate(null);
     }
 
-    private void initDate(Date mDate) {
+    public void initDate(Date mDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
-        if(mDate==null){
+        if (mDate == null) {
             mDate = new Date();
         }
         currentDate = sdf.format(mDate);
@@ -118,9 +118,9 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
                 currentWeek == 1 ? true : false);
         dayNumbers = dateAdapter.getDayNumbers();
         selectPostion = dateAdapter.getDatePosition(mDate);
-        //setDateMap();
         gridView.setAdapter(dateAdapter);
         gridView.setSelection(selectPostion);
+        setDateMap();
     }
 
 
@@ -208,7 +208,6 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtil.d("day:" + dayNumbers[position]);
                 selectPostion = position;
                 dateAdapter.setSeclection(position);
                 dateAdapter.notifyDataSetChanged();
@@ -219,13 +218,12 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
     }
 
     private void refreshDateData(int position) {
-        //getSupportActionBar().setTitle(dateAdapter.getCurrentYear(selectPostion) + "年" + dateAdapter.getCurrentMonth(selectPostion) + "月");
-        String currentDateStr = dateAdapter.getCurrentYear(selectPostion) + "-" + dateAdapter.getCurrentMonth(selectPostion) + "-" + dayNumbers[position];
-        mDate = DateUtil.stringToDate(currentDateStr);
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        onDateSelectedListener.onDateChange(dateAdapter.getCurrentYear(selectPostion), dateAdapter.getCurrentMonth(selectPostion), Integer.parseInt(dayNumbers[position]));
+    }
+
+    public void refreshView(Map<String, Map<String, Integer>> dataMap) {
+        dateAdapter.setDataMap(dataMap);
+        dateAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -304,9 +302,9 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
             getCurrent();
             dateAdapter = new DateAdapter(getContext(), currentYear, currentMonth, currentWeek, currentNum, selectPostion, currentWeek == 1 ? true : false);
             dayNumbers = dateAdapter.getDayNumbers();
-            //setDateMap();
-            gridView.setAdapter(dateAdapter);
 
+            gridView.setAdapter(dateAdapter);
+            setDateMap();
             refreshDateData(selectPostion);
             gvFlag++;
             viewFlipper.addView(gridView, gvFlag);
@@ -325,8 +323,8 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
                     currentMonth, currentWeek, currentNum, selectPostion,
                     currentWeek == 1 ? true : false);
             dayNumbers = dateAdapter.getDayNumbers();
-            //setDateMap();
             gridView.setAdapter(dateAdapter);
+            setDateMap();
             refreshDateData(selectPostion);
             gvFlag++;
             viewFlipper.addView(gridView, gvFlag);
@@ -341,8 +339,31 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
         return false;
     }
 
+    private void setDateMap() {
+        Date startDate = DateUtil.stringToDate(dateAdapter.getCurrentYear(0) + "-" + dateAdapter.getCurrentMonth(0) + "-" + dayNumbers[0]);
+        Date endDate = DateUtil.stringToDate(dateAdapter.getCurrentYear(6) + "-" + dateAdapter.getCurrentMonth(6) + "-" + dayNumbers[6]);
+        OnWeekChangeListener.onWeekChange(startDate, endDate);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return this.gestureDetector.onTouchEvent(event);
     }
+
+    public void setOnDateChangeListener(OnDateSelectedListener onDateSelectedListener) {
+        this.onDateSelectedListener = onDateSelectedListener;
+    }
+
+    public interface OnDateSelectedListener {
+        public void onDateChange(int year, int month, int day);
+    }
+
+    public void setOnWeekChangeListener(WeekCalendarView.OnWeekChangeListener onWeekChangeListener) {
+        OnWeekChangeListener = onWeekChangeListener;
+    }
+
+    public interface OnWeekChangeListener {
+        public void onWeekChange(Date weekStartDate, Date weekEndDate);
+    }
+
 }

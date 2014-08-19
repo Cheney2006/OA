@@ -83,7 +83,7 @@ public class ContactsAddActivity extends AbstractActivity {
         if (contacts != null) {
             name_et.setText(contacts.getName());
             if (contacts.getCategory() != null) {
-                category_tv.setValue(contacts.getCategory().getGroupName(),contacts.getCategory().getId());
+                category_tv.setValue(contacts.getCategory().getGroupName(), contacts.getCategory().getId());
             }
             sex_sev.setContent(contacts.getSex());
             mobile_et.setText(contacts.getMobile());
@@ -116,7 +116,7 @@ public class ContactsAddActivity extends AbstractActivity {
     private void contactsSubmit() {
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contacts));
-        HttpUtil.getInstance().sendInDialog(mContext, "正在上传数据...", ParamManager.parseBaseUrl(""), params, new RequestCallBack<Json>() {
+        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl(""), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 try {
