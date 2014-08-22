@@ -11,9 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jxd.oa.R;
-import com.jxd.oa.adapter.base.AbstractExpandableAdapter;
-import com.jxd.oa.bean.Contacts;
-import com.jxd.oa.bean.ContactsCategory;
+import com.jxd.oa.adapter.base.AbstractAdapter;
+import com.jxd.oa.bean.Contact;
 import com.jxd.oa.constants.Constant;
 import com.yftools.ViewUtil;
 import com.yftools.util.AndroidUtil;
@@ -25,63 +24,46 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：联系人分组显示
+ * Description ：通讯录（公共、个人）
  * Created by cy on 2014/8/8.
  * *****************************************
  */
-public class ContactsExpandableAdapter extends AbstractExpandableAdapter<ContactsCategory, Contacts> {
+public class ContactAdapter extends AbstractAdapter<Contact> {
 
-    public ContactsExpandableAdapter(Context context, List<ContactsCategory> groupList, List<List<Contacts>> childListList) {
-        super(context, groupList, childListList);
+    public ContactAdapter(Context context, List<Contact> dataList) {
+        super(context, dataList);
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
-        if (convertView == null) {
-            viewHolder = new ViewHolder(null);
-            convertView = getInflater().inflate(R.layout.item_contacts_group, null);
-            ViewUtil.inject(viewHolder, convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.categoryName_tv.setText(getGroup(groupPosition).getGroupName() + "（" + getChildListList().get(groupPosition).size() + "）");
-        return convertView;
-    }
-
-    @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        Contacts data = getChild(groupPosition, childPosition);
-        if (convertView == null) {
+        Contact data = getItem(position);
+        if (view == null) {
             viewHolder = new ViewHolder(data);
-            convertView = getInflater().inflate(R.layout.item_contacts, null);
-            ViewUtil.inject(viewHolder, convertView);
-            convertView.setTag(viewHolder);
+            view = getInflater().inflate(R.layout.item_contact, null);
+            ViewUtil.inject(viewHolder, view);
+            view.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) view.getTag();
             viewHolder.update(data);
         }
         viewHolder.name_tv.setText(data.getName());
         viewHolder.sex_tv.setText(data.getSex());
         viewHolder.companyName_tv.setText(data.getCompanyName());
-        return convertView;
+        return view;
     }
 
     private class ViewHolder {
-        private Contacts data;
+        private Contact data;
 
-        public ViewHolder(Contacts data) {
+        public ViewHolder(Contact data) {
             this.data = data;
         }
 
-        public void update(Contacts data) {
+        public void update(Contact data) {
             this.data = data;
         }
 
-        @ViewInject(R.id.categoryName_tv)
-        private TextView categoryName_tv;
         @ViewInject(R.id.name_tv)
         private TextView name_tv;
         @ViewInject(R.id.sex_tv)

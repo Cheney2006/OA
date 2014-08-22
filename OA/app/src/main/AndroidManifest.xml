@@ -91,7 +91,7 @@
             android:name=".activity.EmailRecipientActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ContactsActivity"
+            android:name=".activity.ContactActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ContactsAddActivity"

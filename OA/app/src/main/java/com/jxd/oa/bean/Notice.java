@@ -3,6 +3,7 @@ package com.jxd.oa.bean;
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
+import com.yftools.db.annotation.Finder;
 import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
 
@@ -17,19 +18,27 @@ import java.util.Date;
 @Table(name = "t_notice")
 public class Notice extends AbstractBean {
     @Id(column = "id")
+    @SerializedName("notifyId")
     private String id;
     @Column(column = "title")
+    @SerializedName("subject")
     private String title;//标题
     @Column(column = "content")
     private String content;//内容
     @Column(column = "createdUserId")
-    private User createdUser;//发布人
+    @SerializedName("fromId")
+    private String createdUserId;
+    @Finder(valueColumn = "createdUserId", targetColumn = "id")
+    private User createdUser;//发布人.//因为后台没有用对象。所以这里就直接查一下
     @Column(column = "publishTime")
+    @SerializedName("sendTime")
     private Date publishTime;//发布时间
     @Column(column = "attachmentName")
     private String attachmentName;//邮件列表，XX.doc|xx.xls
     @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
+    @Column(column = "isRead")
+    private boolean isRead;
 
     public String getId() {
         return id;
@@ -59,6 +68,14 @@ public class Notice extends AbstractBean {
         return createdUser;
     }
 
+    public String getCreatedUserId() {
+        return createdUserId;
+    }
+
+    public void setCreatedUserId(String createdUserId) {
+        this.createdUserId = createdUserId;
+    }
+
     public void setCreatedUser(User createdUser) {
         this.createdUser = createdUser;
     }
@@ -85,5 +102,13 @@ public class Notice extends AbstractBean {
 
     public void setAttachmentSize(String attachmentSize) {
         this.attachmentSize = attachmentSize;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean isRead) {
+        this.isRead = isRead;
     }
 }

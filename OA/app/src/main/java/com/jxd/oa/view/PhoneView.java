@@ -28,6 +28,8 @@ public class PhoneView extends LinearLayout {
     private LinearLayout sendMsg_ll;
     private boolean isExpanded;
     private LinearLayout operation_ll;
+    private String labelText;
+    private TextView mobile_label;
 
     public PhoneView(Context context) {
         super(context);
@@ -54,6 +56,7 @@ public class PhoneView extends LinearLayout {
                 isExpanded = !isExpanded;
             }
         });
+        mobile_label = (TextView) findViewById(R.id.mobile_label);
         phone_tv = (TextView) findViewById(R.id.phone_tv);
         operation_ll = (LinearLayout) findViewById(R.id.operation_ll);
         callPhone_ll = (LinearLayout) findViewById(R.id.callPhone_ll);
@@ -63,7 +66,7 @@ public class PhoneView extends LinearLayout {
                 if (!TextUtils.isEmpty(phone_tv.getText())) {
                     AndroidUtil.callPhone(getContext(), phone_tv.getText().toString());
                 } else {
-                    Toast.makeText(getContext(), "号码为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), labelText + "号码为空", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -74,10 +77,15 @@ public class PhoneView extends LinearLayout {
                 if (!TextUtils.isEmpty(phone_tv.getText())) {
                     AndroidUtil.sendMessage(getContext(), phone_tv.getText().toString());
                 } else {
-                    Toast.makeText(getContext(), "号码为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), labelText + "号码为空", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void setLabel(String labelText) {
+        this.labelText = labelText;
+        mobile_label.setText(labelText);
     }
 
     public void initPhone(String phone) {

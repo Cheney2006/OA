@@ -63,46 +63,45 @@ public class LoginActivity extends AbstractActivity {
 
     @OnClick(R.id.login_btn)
     public void loginClick(View view) {
-//        if (checkValidate()) {
-//            RequestParams params = new RequestParams();
-//            params.addBodyParameter("userId", username);
-//            params.addBodyParameter("password", password);
-//            HttpUtil.getInstance().sendInDialog(mContext, "正在登录...", ParamManager.parseBaseUrl("login.action"), params, new RequestCallBack<Json>() {
-//                @Override
-//                public void onSuccess(ResponseInfo<Json> responseInfo) {
-//                    SysConfig.getInstance().setUsername(username);
-//                    if (autoLogin_cb.isChecked()) {//自动登录时保存密码
-//                        SysConfig.getInstance().setPassword(password);
-//                        SysConfig.getInstance().setAutoLogin(true);
-//                    } else {
-//                        SysConfig.getInstance().setPassword("");
-//                        SysConfig.getInstance().setAutoLogin(false);
-//                    }
-//                    String result = responseInfo.result.toString();
-//                    User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
-//                    SysConfig.getInstance().setUserId(user.getId());
-//                    try {
-//                        DbOperationManager.getInstance().save(user);
-//                        if (user.getDepartment() != null) {
-//                            DbOperationManager.getInstance().save(user.getDepartment());
-//                        }
-//                        if (user.getRole() != null) {
-//                            DbOperationManager.getInstance().save(user.getRole());
-//                        }
+        if (checkValidate()) {
+            RequestParams params = new RequestParams();
+            params.addBodyParameter("userId", username);
+            params.addBodyParameter("password", password);
+            HttpUtil.getInstance().sendInDialog(mContext, "正在登录...", ParamManager.parseBaseUrl("login.action"), params, new RequestCallBack<Json>() {
+                @Override
+                public void onSuccess(ResponseInfo<Json> responseInfo) {
+                    SysConfig.getInstance().setUsername(username);
+                    if (autoLogin_cb.isChecked()) {//自动登录时保存密码
+                        SysConfig.getInstance().setPassword(password);
+                        SysConfig.getInstance().setAutoLogin(true);
+                    } else {
+                        SysConfig.getInstance().setPassword("");
+                        SysConfig.getInstance().setAutoLogin(false);
+                    }
+                    String result = responseInfo.result.toString();
+                    User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
+                    SysConfig.getInstance().setUserId(user.getId());
+                    try {
+                        DbOperationManager.getInstance().save(user);
+                        if (user.getDepartment() != null) {
+                            DbOperationManager.getInstance().save(user.getDepartment());
+                        }
+                        if (user.getRole() != null) {
+                            DbOperationManager.getInstance().save(user.getRole());
+                        }
                         startActivity(new Intent(mContext, HomeActivity.class));
                         finish();
-//                    } catch (DbException e) {
-//                        LogUtil.e(e);
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(HttpException error, String msg) {
-//                    displayToast(msg);
-//                }
-//            });
-//        }
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
+                }
 
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    displayToast(msg);
+                }
+            });
+        }
     }
 
     private boolean checkValidate() {

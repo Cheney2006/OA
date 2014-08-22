@@ -40,7 +40,7 @@ public enum Const {
     // 普通方法
     public static String getName(String prefix, Object value) {
         for (Const c : Const.values()) {
-            if (c.name().startsWith(prefix) && c.getValue().toString().equals(value.toString())) {
+            if (c.name().startsWith(prefix) && c.getValue().toString().trim().equals(value.toString().trim())) {
                 return c.getName();
             }
         }

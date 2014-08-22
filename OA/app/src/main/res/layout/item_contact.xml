@@ -3,17 +3,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     style="@style/ListItemLayout"
-    android:paddingTop="0dp"
-    android:paddingBottom="0dp"
-    android:paddingRight="0dp">
+    android:padding="0dp">
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_layout_click"
-        android:paddingTop="@dimen/dimen_txt_padding_top"
-        android:paddingBottom="@dimen/dimen_txt_padding_top">
+        android:padding="@dimen/dimen_txt_padding_top">
 
         <TextView
             android:id="@+id/name_tv"
@@ -56,7 +53,7 @@
         android:id="@+id/msg_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/btn_phone"
+        android:drawableTop="@drawable/btn_msg"
         android:padding="@dimen/dimen_txt_padding_top"
         android:background="@drawable/bg_layout_click"
         android:text="@string/txt_send_msg" />

@@ -12,8 +12,8 @@ import com.yftools.db.annotation.Table;
  * Created by cy on 2014/8/8.
  * *****************************************
  */
-@Table(name = "t_contacts_category")
-public class ContactsCategory extends AbstractBean {
+@Table(name = "t_contact_category")
+public class ContactCategory extends AbstractBean {
     @Id(column = "id")
     @SerializedName("groupId")
     private String id;

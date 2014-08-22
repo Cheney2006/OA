@@ -55,7 +55,9 @@ public class NoticeAdapter extends AbstractAdapter<Notice> {
         if (getItem(position).getPublishTime() != null) {
             viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getPublishTime()));
         }
-        viewHolder.send_tv.setText(getItem(position).getCreatedUser().getName());
+        if((getItem(position).getCreatedUser()!=null)){
+            viewHolder.send_tv.setText(getItem(position).getCreatedUser().getName());
+        }
         return view;
     }
 

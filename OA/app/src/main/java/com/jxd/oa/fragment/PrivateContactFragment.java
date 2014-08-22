@@ -11,11 +11,11 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.ContactsDetailActivity;
-import com.jxd.oa.activity.SignAddressActivity;
-import com.jxd.oa.adapter.ContactsAdapter;
-import com.jxd.oa.adapter.ContactsExpandableAdapter;
-import com.jxd.oa.bean.Contacts;
-import com.jxd.oa.bean.ContactsCategory;
+import com.jxd.oa.adapter.ContactAdapter;
+import com.jxd.oa.adapter.ContactExpandableAdapter;
+import com.jxd.oa.bean.Contact;
+import com.jxd.oa.bean.ContactCategory;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.fragment.base.AbstractFragment;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
@@ -31,22 +31,26 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：公共通讯录
+ * Description ：私人通讯录
  * Created by cy on 2014/8/14.
  * *****************************************
  */
-public class PublicContactsFragment extends AbstractFragment {
+public class PrivateContactFragment extends AbstractFragment {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
     @ViewInject(R.id.mExpandableListView)
     private ExpandableListView mExpandableListView;
-    private List<Contacts> contactsList;
-    private ContactsAdapter adapter;
+    private List<Contact> contactList;
+    private ContactAdapter adapter;
+    private List<ContactCategory> mGroupList;
+    private List<List<Contact>> mChildList;
+    private ContactExpandableAdapter expandableAdapter;
+    private Status status = Status.ALL;
 
-    private List<ContactsCategory> mGroupList;
-    private List<List<Contacts>> mChildList;
-    private ContactsExpandableAdapter expandableAdapter;
+    private enum Status {
+        ALL, GROUP;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +58,30 @@ public class PublicContactsFragment extends AbstractFragment {
         ViewUtil.inject(this, convertView);
         fillList();
         return convertView;
+    }
+
+    private void startActivity(Contact contact) {
+        Intent intent = new Intent(mContext, ContactsDetailActivity.class);
+        intent.putExtra("contacts", contact);
+        startActivity(intent);
+    }
+
+    public void fillList() {
+        status = Status.ALL;
+        mListView.setVisibility(View.VISIBLE);
+        mExpandableListView.setVisibility(View.GONE);
+        try {
+            contactList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("userId", "=", SysConfig.getInstance().getUserId()));
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        if (adapter == null) {
+            adapter = new ContactAdapter(mContext, contactList);
+            mListView.setAdapter(adapter);
+        } else {
+            adapter.setDataList(contactList);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @OnItemClick(R.id.mListView)
@@ -67,43 +95,21 @@ public class PublicContactsFragment extends AbstractFragment {
         return false;
     }
 
-    private void startActivity(Contacts contacts) {
-        Intent intent = new Intent(mContext, ContactsDetailActivity.class);
-        intent.putExtra("contacts", contacts);
-        startActivity(intent);
-    }
-
-    public void fillList() {
-        mListView.setVisibility(View.VISIBLE);
-        mExpandableListView.setVisibility(View.GONE);
-        try {
-            contactsList = DbOperationManager.getInstance().getBeans(Selector.from(Contacts.class).where("userId", "=", null));
-        } catch (DbException e) {
-            LogUtil.e(e);
-        }
-        if (adapter == null) {
-            adapter = new ContactsAdapter(mContext, contactsList);
-            mListView.setAdapter(adapter);
-        } else {
-            adapter.setDataList(contactsList);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
     public void fillExpandableList() {
+        status = Status.GROUP;
         mListView.setVisibility(View.GONE);
         mExpandableListView.setVisibility(View.VISIBLE);
         try {
-            mGroupList = DbOperationManager.getInstance().getBeans(Selector.from(ContactsCategory.class).where("userId", "=", null));
+            mGroupList = DbOperationManager.getInstance().getBeans(Selector.from(ContactCategory.class).where("userId", "=", SysConfig.getInstance().getUserId()));
             if (mGroupList != null) {
-                mChildList = new ArrayList<List<Contacts>>();
-                for (ContactsCategory contactsCategory : mGroupList) {
-                    List<Contacts> childList = DbOperationManager.getInstance().getBeans(Selector.from(Contacts.class).where("userId", "=", null).and("categoryId", "=", contactsCategory.getId()));
+                mChildList = new ArrayList<List<Contact>>();
+                for (ContactCategory contactCategory : mGroupList) {
+                    List<Contact> childList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("userId", "=", SysConfig.getInstance().getUserId()).and("categoryId", "=", contactCategory.getId()));
                     mChildList.add(childList);
                 }
             }
             if (expandableAdapter == null) {
-                expandableAdapter = new ContactsExpandableAdapter(mContext, mGroupList, mChildList);
+                expandableAdapter = new ContactExpandableAdapter(mContext, mGroupList, mChildList);
                 mExpandableListView.setAdapter(expandableAdapter);
             } else {
                 expandableAdapter.setGroupList(mGroupList);
@@ -115,5 +121,12 @@ public class PublicContactsFragment extends AbstractFragment {
         }
     }
 
-
+    @Override
+    protected void refreshData() {
+        if (status == Status.ALL) {
+            fillList();
+        } else if (status == Status.GROUP) {
+            fillExpandableList();
+        }
+    }
 }

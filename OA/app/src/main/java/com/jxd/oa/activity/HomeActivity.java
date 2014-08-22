@@ -15,6 +15,7 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.SelectImageActivity;
 import com.jxd.oa.bean.EmailRecipient;
+import com.jxd.oa.bean.Notice;
 import com.jxd.oa.service.IncrementUpdateService;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Constant;
@@ -62,6 +63,8 @@ public class HomeActivity extends SelectImageActivity {
     private RelativeLayout info_rl;
     @ViewInject(R.id.emailNum_tv)
     private TextView emailNum_tv;
+    @ViewInject(R.id.noticeNum_tv)
+    private TextView noticeNum_tv;
     private long mExitTime;
     private Uri imageUri;//The Uri to store the big bitmap，跟输入的区分出来。不然在选择图片裁剪，把原有的图片也裁剪小了。
     private File photo;
@@ -161,7 +164,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.contacts_ll)
     public void contactsClick(View view) {
-        startActivity(new Intent(mContext, ContactsActivity.class));
+        startActivity(new Intent(mContext, ContactActivity.class));
     }
 
     @OnClick(R.id.cloud_ll)
@@ -291,6 +294,18 @@ public class HomeActivity extends SelectImageActivity {
                 emailNum_tv.setText(emailNum + "");
             } else {
                 emailNum_tv.setVisibility(View.GONE);
+            }
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        //通知未读
+        try {
+            long noticeNum = DbOperationManager.getInstance().count(Selector.from(Notice.class).where("isRead", "=", true));
+            if (noticeNum > 0) {
+                noticeNum_tv.setVisibility(View.VISIBLE);
+                noticeNum_tv.setText(noticeNum + "");
+            } else {
+                noticeNum_tv.setVisibility(View.GONE);
             }
         } catch (DbException e) {
             LogUtil.e(e);

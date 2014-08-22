@@ -1,16 +1,23 @@
 package com.jxd.oa.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import com.jxd.common.vo.Item;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.bean.Contacts;
-import com.jxd.oa.bean.ContactsCategory;
+import com.jxd.oa.bean.Contact;
+import com.jxd.oa.bean.ContactCategory;
+import com.jxd.oa.constants.Const;
+import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
@@ -28,6 +35,7 @@ import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
+import com.yftools.view.annotation.event.OnClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +64,7 @@ public class ContactsAddActivity extends AbstractActivity {
     private EditText ministration_et;
     @ViewInject(R.id.companyAddr_et)
     private EditText companyAddr_et;
-    private Contacts contacts;
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,35 +72,48 @@ public class ContactsAddActivity extends AbstractActivity {
         setContentView(R.layout.activity_contacts_add);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("增加联系人");
-        contacts = (Contacts) getIntent().getSerializableExtra("contacts");
+        contact = (Contact) getIntent().getSerializableExtra("contacts");
         initData();
     }
 
     private void initData() {
         //初始化类型选择
         try {
-            List<ContactsCategory> contactsCategoryList = DbOperationManager.getInstance().getBeans(Selector.from(ContactsCategory.class).where("userId", "=", SysConfig.getInstance().getUserId()));
+            List<ContactCategory> contactCategoryList = DbOperationManager.getInstance().getBeans(Selector.from(ContactCategory.class).where("userId", "=", SysConfig.getInstance().getUserId()));
             List<Item> itemList = new ArrayList<Item>();
-            for (ContactsCategory contactsCategory : contactsCategoryList) {
-                itemList.add(new Item(contactsCategory.getGroupName(), contactsCategory.getId()));
+            for (ContactCategory contactCategory : contactCategoryList) {
+                itemList.add(new Item(contactCategory.getGroupName(), contactCategory.getId()));
             }
             category_tv.initData(itemList);
         } catch (DbException e) {
             LogUtil.e(e);
         }
-        if (contacts != null) {
-            name_et.setText(contacts.getName());
-            if (contacts.getCategory() != null) {
-                category_tv.setValue(contacts.getCategory().getGroupName(), contacts.getCategory().getId());
+        if (contact != null) {
+            name_et.setText(contact.getName());
+            if (contact.getCategory() != null) {
+                category_tv.setValue(contact.getCategory().getGroupName(), contact.getCategory().getId());
             }
-            sex_sev.setContent(contacts.getSex());
-            mobile_et.setText(contacts.getMobile());
-            homeTle_et.setText(contacts.getHomeTel());
-            companyName_et.setText(contacts.getCompanyName());
-            companyAddr_et.setText(contacts.getCompanyAddr());
-            ministration_et.setText(contacts.getMinistration());
+            sex_sev.setContent(contact.getSex());
+            mobile_et.setText(contact.getMobile());
+            homeTle_et.setText(contact.getHomeTel());
+            companyName_et.setText(contact.getCompanyName());
+            companyAddr_et.setText(contact.getCompanyAddr());
+            ministration_et.setText(contact.getMinistration());
         }
 
+    }
+
+    @OnClick(R.id.sex_sev)
+    public void importantClick(View view) {
+        final List<String> nameList = Const.getNameList("SEX_");
+        Dialog alertDialog = new AlertDialog.Builder(this).setTitle("请选择性别")
+                .setItems(nameList.toArray(new String[nameList.size()]), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sex_sev.setContent(nameList.get(which), Const.getValueList("SEX_").get(which) + "");
+                    }
+                }).create();
+        alertDialog.show();
     }
 
     @Override
@@ -115,12 +136,15 @@ public class ContactsAddActivity extends AbstractActivity {
 
     private void contactsSubmit() {
         RequestParams params = ParamManager.setDefaultParams();
-        params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contacts));
-        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl(""), params, new RequestCallBack<Json>() {
+        LogUtil.d("上传字符串：" + GsonUtil.getInstance().getGson().toJson(contact));
+        params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contact));
+        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("contactSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 try {
-                    DbOperationManager.getInstance().save(GsonUtil.getInstance().getGson().fromJson(responseInfo.result.toString(), Contacts.class));
+                    DbOperationManager.getInstance().save(GsonUtil.getInstance().getGson().fromJson(responseInfo.result.toString(), Contact.class));
+                    finish();
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }
@@ -134,22 +158,22 @@ public class ContactsAddActivity extends AbstractActivity {
     }
 
     private boolean setData() {
-        if (contacts == null) {
-            contacts = new Contacts();
+        if (contact == null) {
+            contact = new Contact();
         }
-        contacts.setName(name_et.getText().toString());
-        ContactsCategory contactsCategory = new ContactsCategory();
-        contactsCategory.setGroupName(category_tv.getContent());
+        contact.setName(name_et.getText().toString());
+        ContactCategory contactCategory = new ContactCategory();
+        contactCategory.setGroupName(category_tv.getContent());
         if (category_tv.getValue() != null) {
-            contactsCategory.setId(category_tv.getValue() + "");
+            contactCategory.setId(category_tv.getValue() + "");
         }
-        contacts.setCategory(contactsCategory);
-        contacts.setCompanyName(companyName_et.getText().toString());
-        contacts.setCompanyAddr(companyAddr_et.getText().toString());
-        contacts.setMobile(mobile_et.getText().toString());
-        contacts.setHomeTel(homeTle_et.getText().toString());
-        contacts.setMinistration(ministration_et.getText().toString());
-        contacts.setSex(sex_sev.getValue() + "");
+        contact.setCategory(contactCategory);
+        contact.setCompanyName(companyName_et.getText().toString());
+        contact.setCompanyAddr(companyAddr_et.getText().toString());
+        contact.setMobile(mobile_et.getText().toString());
+        contact.setHomeTel(homeTle_et.getText().toString());
+        contact.setMinistration(ministration_et.getText().toString());
+        contact.setSex(sex_sev.getValue() + "");
         return true;
     }
 
@@ -162,7 +186,7 @@ public class ContactsAddActivity extends AbstractActivity {
             displayToast("请选择分组");
             return false;
         }
-        if (sex_sev.getValue() != null) {
+        if (sex_sev.getValue() == null) {
             displayToast("请选择性别");
             return false;
         }

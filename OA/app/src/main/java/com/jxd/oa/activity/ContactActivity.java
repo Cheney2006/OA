@@ -2,21 +2,17 @@ package com.jxd.oa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.JxdFragmentPagerAdapter;
-import com.jxd.oa.fragment.PrivateContactsFragment;
-import com.jxd.oa.fragment.PublicContactsFragment;
+import com.jxd.oa.fragment.PrivateContactFragment;
+import com.jxd.oa.fragment.PublicContactFragment;
 import com.jxd.oa.fragment.base.AbstractFragment;
 import com.jxd.oa.view.TabNavigationView;
 import com.yftools.ViewUtil;
@@ -31,18 +27,23 @@ import java.util.List;
  * Created by cy on 2014/8/4.
  * *****************************************
  */
-public class ContactsActivity extends AbstractActivity implements TabNavigationView.NavigationClick {
+public class ContactActivity extends AbstractActivity implements TabNavigationView.NavigationClick {
 
     @ViewInject(R.id.tabNavigationView)
     private TabNavigationView tabNavigationView;
     @ViewInject(R.id.mViewPager)
     private ViewPager mViewPager;
     private JxdFragmentPagerAdapter pagerAdapter;
+    private Status status = Status.PUBLIC_CONTACT;
+
+    private enum Status {
+        PUBLIC_CONTACT, PRIVATE_CONTACT;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+        setContentView(R.layout.activity_contact);
         ViewUtil.inject(this);
         initTopBar();
         initTabBar();
@@ -60,8 +61,8 @@ public class ContactsActivity extends AbstractActivity implements TabNavigationV
 
     private void initPagerAdapter() {
         List<AbstractFragment> fragmentList = new ArrayList<AbstractFragment>();
-        fragmentList.add(new PublicContactsFragment());
-        fragmentList.add(new PrivateContactsFragment());
+        fragmentList.add(new PublicContactFragment());
+        fragmentList.add(new PrivateContactFragment());
         pagerAdapter = new JxdFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -73,6 +74,11 @@ public class ContactsActivity extends AbstractActivity implements TabNavigationV
 
             public void onPageSelected(int position) {
                 tabNavigationView.setSelectedPosition(position);
+                if (position == 0) {
+                    status = Status.PUBLIC_CONTACT;
+                } else {
+                    status = Status.PRIVATE_CONTACT;
+                }
                 supportInvalidateOptionsMenu();
             }
         });
@@ -85,7 +91,9 @@ public class ContactsActivity extends AbstractActivity implements TabNavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync_add, menu);
+        if(status==Status.PRIVATE_CONTACT){
+            getMenuInflater().inflate(R.menu.menu_add, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -113,16 +121,16 @@ public class ContactsActivity extends AbstractActivity implements TabNavigationV
             switch (itemPosition) {
                 case 0:
                     if (mViewPager.getCurrentItem() == 0) {
-                        ((PublicContactsFragment) currentFragment).fillList();
+                        ((PublicContactFragment) currentFragment).fillList();
                     } else {
-                        ((PrivateContactsFragment) currentFragment).fillList();
+                        ((PrivateContactFragment) currentFragment).fillList();
                     }
                     break;
                 case 1:
                     if (mViewPager.getCurrentItem() == 0) {
-                        ((PublicContactsFragment) currentFragment).fillExpandableList();
+                        ((PublicContactFragment) currentFragment).fillExpandableList();
                     } else {
-                        ((PrivateContactsFragment) currentFragment).fillExpandableList();
+                        ((PrivateContactFragment) currentFragment).fillExpandableList();
                     }
                     break;
             }

@@ -12,15 +12,15 @@ import com.yftools.db.annotation.Table;
  * Created by cy on 2014/8/8.
  * *****************************************
  */
-@Table(name = "t_contacts")
-public class Contacts extends AbstractBean {
+@Table(name = "t_contact")
+public class Contact extends AbstractBean {
     @Id(column = "id")
     @SerializedName("addressId")
     private String id;
     @Column(column = "userId")
     private String userId;
     @Column(column = "categoryId")
-    private ContactsCategory category;  //组
+    private ContactCategory category;  //组
     @Column(column = "name")
     private String name;        //姓名
     @Column(column = "sex")
@@ -58,11 +58,11 @@ public class Contacts extends AbstractBean {
         this.userId = userId;
     }
 
-    public ContactsCategory getCategory() {
+    public ContactCategory getCategory() {
         return category;
     }
 
-    public void setCategory(ContactsCategory category) {
+    public void setCategory(ContactCategory category) {
         this.category = category;
     }
 

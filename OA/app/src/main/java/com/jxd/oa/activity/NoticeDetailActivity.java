@@ -1,5 +1,6 @@
 package com.jxd.oa.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
@@ -10,11 +11,24 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.Notice;
+import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
+import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.ParamManager;
 import com.jxd.oa.view.AttachmentViewView;
+import com.yftools.HttpUtil;
+import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.exception.DbException;
+import com.yftools.exception.HttpException;
+import com.yftools.http.RequestParams;
+import com.yftools.http.ResponseInfo;
+import com.yftools.http.callback.RequestCallBack;
+import com.yftools.json.Json;
 import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
+
+import java.util.Date;
 
 /**
  * *****************************************
@@ -65,6 +79,29 @@ public class NoticeDetailActivity extends AbstractActivity {
         if (notice.getCreatedUser() != null) {
             createdUser_tv.setText(notice.getCreatedUser().getName());
         }
+        readSubmit();
+    }
 
+    private void readSubmit() {
+        RequestParams params = ParamManager.setDefaultParams();
+        params.addBodyParameter("id", notice.getId());
+        HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readNotice.action"), params, new RequestCallBack<Json>() {
+            @Override
+            public void onSuccess(ResponseInfo<Json> responseInfo) {
+                //更新接收时间
+                try {
+                    notice.setRead(true);
+                    DbOperationManager.getInstance().save(notice);
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                } catch (DbException e) {
+                    LogUtil.e(e);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                displayToast(msg);
+            }
+        });
     }
 }

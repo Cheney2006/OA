@@ -41,7 +41,6 @@ public class Email extends AbstractBean {
     @SerializedName("toId2")
     private String toIds;//接收人
     @Column(column = "sendTime")
-    @SerializedName("tSendTime")
     private Date sendTime;
     @Column(column = "attachmentName")
     private String attachmentName;//邮件列表，XX.doc|xx.xls

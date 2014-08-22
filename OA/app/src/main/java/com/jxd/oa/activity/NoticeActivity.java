@@ -14,16 +14,28 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.NoticeAdapter;
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.Notice;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.ParamManager;
+import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
+import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
+import com.yftools.exception.HttpException;
+import com.yftools.http.RequestParams;
+import com.yftools.http.ResponseInfo;
+import com.yftools.http.callback.RequestCallBack;
+import com.yftools.json.Json;
 import com.yftools.ui.DatePickUtil;
+import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 import com.yftools.view.annotation.event.OnItemClick;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,7 +64,7 @@ public class NoticeActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            noticeList = DbOperationManager.getInstance().getBeans(Notice.class);
+            noticeList = DbOperationManager.getInstance().getBeans(Selector.from(Notice.class).orderBy("publishTime", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -90,9 +102,51 @@ public class NoticeActivity extends AbstractActivity {
                 }).showDateDialog();
                 return true;
             case R.id.action_read:
+                readSubmit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void readSubmit() {
+        //取得未读的邮件
+        try {
+            final List<Notice> notReadNoticeList = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
+            if (notReadNoticeList == null) {
+                displayToast("暂无未读通知");
+                return;
+            }
+            final StringBuffer sb = new StringBuffer();
+            for (Notice notice : notReadNoticeList) {
+                sb.append(notice.getId()).append(",");
+                notice.setRead(true);
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            RequestParams params = ParamManager.setDefaultParams();
+            params.addBodyParameter("id", sb.toString());
+            HttpUtil.getInstance().send(ParamManager.parseBaseUrl("readNotice.action"), params, new RequestCallBack<Json>() {
+                @Override
+                public void onSuccess(ResponseInfo<Json> responseInfo) {
+                    //更新接收时间
+                    try {
+                        DbOperationManager.getInstance().save(notReadNoticeList);
+                        refreshData();
+                        displayToast("通知全部已读");
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
+                }
+
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    displayToast(msg);
+                }
+            });
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
     }
 
     @Override
@@ -122,4 +176,8 @@ public class NoticeActivity extends AbstractActivity {
         return super.onContextItemSelected(item);
     }
 
+    @Override
+    protected void refreshData() {
+        initData();
+    }
 }

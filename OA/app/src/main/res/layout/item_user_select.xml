@@ -8,7 +8,7 @@
         android:id="@+id/photo_iv"
         android:layout_width="@dimen/dimen_photo_width"
         android:layout_height="@dimen/dimen_photo_width"
-        android:background="@drawable/icon_photo_default" />
+        android:src="@drawable/icon_photo_default" />
 
     <TextView
         android:id="@+id/name_tv"

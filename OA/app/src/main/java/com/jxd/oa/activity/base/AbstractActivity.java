@@ -100,6 +100,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 try {
+                    LogUtil.d("服务器返回：" + responseInfo.result);
                     CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
                     if (commonJson4List.getSuccess()) {
                         DbOperationManager.getInstance().save(commonJson4List.getData());

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.bean.Contacts;
+import com.jxd.oa.bean.Contact;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
@@ -25,7 +25,6 @@ import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
-import com.yftools.util.ListUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
@@ -53,7 +52,7 @@ public class ContactsDetailActivity extends AbstractActivity {
     private PhoneView mobile_pv;
     @ViewInject(R.id.homeTel_pv)
     private PhoneView homeTle_pv;
-    private Contacts contacts;
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,30 +60,36 @@ public class ContactsDetailActivity extends AbstractActivity {
         setContentView(R.layout.activity_contacts_detail);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("通讯录详情");
-        contacts = (Contacts) getIntent().getSerializableExtra("contacts");
+        contact = (Contact) getIntent().getSerializableExtra("contacts");
+        initView();
         initData();
     }
 
+    private void initView() {
+        mobile_pv.setLabel(getString(R.string.txt_label_mobile));
+        homeTle_pv.setLabel(getString(R.string.txt_label_phone));
+    }
+
     private void initData() {
-        name_tv.setText(contacts.getName());
-        ministration_tv.setText(contacts.getMinistration());
-        if (contacts.getCategory() != null) {
-            category_tv.setText(contacts.getCategory().getGroupName());
+        name_tv.setText(contact.getName());
+        ministration_tv.setText(contact.getMinistration());
+        if (contact.getCategory() != null) {
+            category_tv.setText(contact.getCategory().getGroupName());
         }
-        companyName_tv.setText(contacts.getCompanyName());
-        companyAddr_tv.setText(contacts.getCompanyAddr());
-        sex_tv.setText(contacts.getSex());
-        if (TextUtils.isEmpty(contacts.getMobile())) {
+        companyName_tv.setText(contact.getCompanyName());
+        companyAddr_tv.setText(contact.getCompanyAddr());
+        sex_tv.setText(contact.getSex());
+        if (TextUtils.isEmpty(contact.getMobile())) {
             mobile_pv.setVisibility(View.GONE);
         } else {
             mobile_pv.setVisibility(View.VISIBLE);
-            mobile_pv.initPhone(contacts.getMobile());
+            mobile_pv.initPhone(contact.getMobile());
         }
-        if (TextUtils.isEmpty(contacts.getHomeTel())) {
+        if (TextUtils.isEmpty(contact.getHomeTel())) {
             homeTle_pv.setVisibility(View.GONE);
         } else {
             homeTle_pv.setVisibility(View.VISIBLE);
-            homeTle_pv.initPhone(contacts.getHomeTel());
+            homeTle_pv.initPhone(contact.getHomeTel());
         }
     }
 
@@ -99,7 +104,7 @@ public class ContactsDetailActivity extends AbstractActivity {
         switch (item.getItemId()) {
             case R.id.action_edit:
                 Intent intent = new Intent(mContext, ContactsAddActivity.class);
-                intent.putExtra("contacts", contacts);
+                intent.putExtra("contacts", contact);
                 startActivity(intent);
                 return true;
         }
@@ -112,12 +117,12 @@ public class ContactsDetailActivity extends AbstractActivity {
             @Override
             protected void positive() {
                 RequestParams params = ParamManager.setDefaultParams();
-                params.addBodyParameter("id", contacts.getId());
-                HttpUtil.getInstance().sendInDialog(mContext, "正在删除联系人...", ParamManager.parseBaseUrl(""), params, new RequestCallBack<Json>() {
+                params.addBodyParameter("id", contact.getId());
+                HttpUtil.getInstance().sendInDialog(mContext, "正在删除联系人...", ParamManager.parseBaseUrl("contactDelete.action"), params, new RequestCallBack<Json>() {
                     @Override
                     public void onSuccess(ResponseInfo<Json> responseInfo) {
                         try {
-                            DbOperationManager.getInstance().deleteBean(contacts);
+                            DbOperationManager.getInstance().deleteBean(contact);
                             sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                             finish();
                         } catch (DbException e) {
