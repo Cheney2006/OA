@@ -9,11 +9,11 @@
         <item>公司资料</item>
         <item>我的下载</item>
     </string-array>
-    <string-array name="menu_tab_contacts">
+    <string-array name="menu_tab_contact">
         <item>公共通讯录</item>
         <item>个人通讯录</item>
     </string-array>
-    <string-array name="menu_contacts">
+    <string-array name="menu_contact">
         <item>显示全部</item>
         <item>分组显示</item>
     </string-array>

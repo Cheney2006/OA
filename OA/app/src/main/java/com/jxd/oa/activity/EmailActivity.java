@@ -66,12 +66,12 @@ public class EmailActivity extends AbstractActivity {
         initTopBar();
         registerForContextMenu(mListView);
         initData();
-        try {
-            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
-            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            List<EmailRecipient> emailRecipients = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()));
+//            DbOperationManager.getInstance().getBeans(Selector.from(Email.class).where("fromId", "!=", SysConfig.getInstance().getUserId()).and("id", "in", emailRecipients));
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void initData() {

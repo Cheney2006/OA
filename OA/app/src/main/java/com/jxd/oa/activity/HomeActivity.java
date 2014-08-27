@@ -162,14 +162,14 @@ public class HomeActivity extends SelectImageActivity {
 //        startActivity(new Intent(mContext, AddressCollectActivity.class));
     }
 
-    @OnClick(R.id.contacts_ll)
-    public void contactsClick(View view) {
+    @OnClick(R.id.contact_ll)
+    public void contactClick(View view) {
         startActivity(new Intent(mContext, ContactActivity.class));
     }
 
     @OnClick(R.id.cloud_ll)
     public void cloudClick(View view) {
-//        startActivity(new Intent(mContext, CloudActivity.class));
+        startActivity(new Intent(mContext, CloudActivity.class));
     }
 
     @OnClick(R.id.sign_ll)
@@ -300,7 +300,7 @@ public class HomeActivity extends SelectImageActivity {
         }
         //通知未读
         try {
-            long noticeNum = DbOperationManager.getInstance().count(Selector.from(Notice.class).where("isRead", "=", true));
+            long noticeNum = DbOperationManager.getInstance().count(Selector.from(Notice.class).where("isRead", "=", false));
             if (noticeNum > 0) {
                 noticeNum_tv.setVisibility(View.VISIBLE);
                 noticeNum_tv.setText(noticeNum + "");

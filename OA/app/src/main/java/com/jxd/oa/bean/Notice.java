@@ -38,6 +38,7 @@ public class Notice extends AbstractBean {
     @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
     @Column(column = "isRead")
+    @SerializedName("read")
     private boolean isRead;
 
     public String getId() {

@@ -62,9 +62,9 @@ public class EmailAdapter extends AbstractAdapter<Email> {
             //取得是否已读
             try {
                 long notReadNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", "").and("emailId", "=", getItem(position).getId()));
-                if(notReadNum>0){
+                if (notReadNum > 0) {
                     viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
-                }else{
+                } else {
                     viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_gray_font));
                 }
             } catch (DbException e) {
@@ -73,7 +73,12 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.send_tv.setVisibility(View.GONE);
         }
-        viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
+        if (Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_MIDDLE.getValue() || Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_HIGH.getValue()) {
+            viewHolder.important_tv.setVisibility(View.VISIBLE);
+            viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
+        } else {
+            viewHolder.important_tv.setVisibility(View.GONE);
+        }
         return view;
     }
 

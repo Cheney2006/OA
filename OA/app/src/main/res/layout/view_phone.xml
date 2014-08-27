@@ -13,8 +13,8 @@
         android:background="@drawable/bg_group_layout"
         android:paddingLeft="@dimen/dimen_layout_padding_left"
         android:paddingRight="@dimen/dimen_layout_padding_left"
-        android:paddingTop="@dimen/dimen_layout_padding_top"
-        android:paddingBottom="@dimen/dimen_layout_padding_top">
+        android:paddingTop="@dimen/dimen_txt_padding_left"
+        android:paddingBottom="@dimen/dimen_txt_padding_left">
 
         <TextView
             android:id="@+id/mobile_label"
@@ -44,7 +44,8 @@
         android:id="@+id/operation_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/callPhone_ll"

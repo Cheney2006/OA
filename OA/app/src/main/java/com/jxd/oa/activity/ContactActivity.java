@@ -52,7 +52,8 @@ public class ContactActivity extends AbstractActivity implements TabNavigationVi
 
     private void initTopBar() {
         ActionBar actionBar = getSupportActionBar();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.menu_contacts));
+        actionBar.setTitle(getString(R.string.txt_cloud));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.menu_contact));
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         ActionBar.OnNavigationListener callback = new MyOnNavigationListener();
@@ -85,7 +86,7 @@ public class ContactActivity extends AbstractActivity implements TabNavigationVi
     }
 
     private void initTabBar() {
-        tabNavigationView.initView(getResources().getStringArray(R.array.menu_tab_contacts));
+        tabNavigationView.initView(getResources().getStringArray(R.array.menu_tab_contact));
         tabNavigationView.setNavigationClick(this);
     }
 
@@ -101,7 +102,7 @@ public class ContactActivity extends AbstractActivity implements TabNavigationVi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                startActivity(new Intent(mContext, ContactsAddActivity.class));
+                startActivity(new Intent(mContext, ContactAddActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

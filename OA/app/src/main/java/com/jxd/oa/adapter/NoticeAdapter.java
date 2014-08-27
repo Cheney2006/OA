@@ -55,8 +55,13 @@ public class NoticeAdapter extends AbstractAdapter<Notice> {
         if (getItem(position).getPublishTime() != null) {
             viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getPublishTime()));
         }
-        if((getItem(position).getCreatedUser()!=null)){
+        if ((getItem(position).getCreatedUser() != null)) {
             viewHolder.send_tv.setText(getItem(position).getCreatedUser().getName());
+        }
+        if (getItem(position).isRead()) {
+            viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_gray_font));
+        } else {
+            viewHolder.title_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
         }
         return view;
     }

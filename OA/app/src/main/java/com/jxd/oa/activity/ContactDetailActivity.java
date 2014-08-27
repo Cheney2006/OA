@@ -34,7 +34,7 @@ import com.yftools.view.annotation.event.OnClick;
  * Created by cywf on 2014/8/9.
  * *****************************************
  */
-public class ContactsDetailActivity extends AbstractActivity {
+public class ContactDetailActivity extends AbstractActivity {
 
     @ViewInject(R.id.name_tv)
     private TextView name_tv;
@@ -57,10 +57,10 @@ public class ContactsDetailActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_detail);
+        setContentView(R.layout.activity_contact_detail);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("通讯录详情");
-        contact = (Contact) getIntent().getSerializableExtra("contacts");
+        contact = (Contact) getIntent().getSerializableExtra("contact");
         initView();
         initData();
     }
@@ -103,16 +103,16 @@ public class ContactsDetailActivity extends AbstractActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit:
-                Intent intent = new Intent(mContext, ContactsAddActivity.class);
-                intent.putExtra("contacts", contact);
+                Intent intent = new Intent(mContext, ContactAddActivity.class);
+                intent.putExtra("contact", contact);
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.contactsDelete_btn)
-    public void contactsDeleteClick(View view) {
+    @OnClick(R.id.contactDelete_btn)
+    public void contactDeleteClick(View view) {
         new JxdAlertDialog(mContext, getString(R.string.txt_tips), "确定删除联系人", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
             @Override
             protected void positive() {

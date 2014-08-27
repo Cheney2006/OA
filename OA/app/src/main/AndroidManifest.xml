@@ -94,11 +94,11 @@
             android:name=".activity.ContactActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ContactsAddActivity"
+            android:name=".activity.ContactAddActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ContactsDetailActivity"
+            android:name=".activity.ContactDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NoticeActivity"

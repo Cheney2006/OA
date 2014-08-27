@@ -92,7 +92,7 @@ public class NoticeDetailActivity extends AbstractActivity {
                 try {
                     notice.setRead(true);
                     DbOperationManager.getInstance().save(notice);
-                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }

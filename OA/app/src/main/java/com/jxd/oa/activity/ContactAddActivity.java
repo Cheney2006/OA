@@ -46,7 +46,7 @@ import java.util.List;
  * Created by cywf on 2014/8/9.
  * *****************************************
  */
-public class ContactsAddActivity extends AbstractActivity {
+public class ContactAddActivity extends AbstractActivity {
 
     @ViewInject(R.id.name_et)
     private EditText name_et;
@@ -69,10 +69,10 @@ public class ContactsAddActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_add);
+        setContentView(R.layout.activity_contact_add);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("增加联系人");
-        contact = (Contact) getIntent().getSerializableExtra("contacts");
+        contact = (Contact) getIntent().getSerializableExtra("contact");
         initData();
     }
 
@@ -127,16 +127,15 @@ public class ContactsAddActivity extends AbstractActivity {
         switch (item.getItemId()) {
             case R.id.action_save:
                 if (validate() && setData()) {
-                    contactsSubmit();
+                    contactSubmit();
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void contactsSubmit() {
+    private void contactSubmit() {
         RequestParams params = ParamManager.setDefaultParams();
-        LogUtil.d("上传字符串：" + GsonUtil.getInstance().getGson().toJson(contact));
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contact));
         HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("contactSave.action"), params, new RequestCallBack<Json>() {
             @Override
@@ -167,6 +166,7 @@ public class ContactsAddActivity extends AbstractActivity {
         if (category_tv.getValue() != null) {
             contactCategory.setId(category_tv.getValue() + "");
         }
+        contact.setUserId(SysConfig.getInstance().getUserId());
         contact.setCategory(contactCategory);
         contact.setCompanyName(companyName_et.getText().toString());
         contact.setCompanyAddr(companyAddr_et.getText().toString());

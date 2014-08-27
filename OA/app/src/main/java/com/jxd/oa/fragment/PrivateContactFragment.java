@@ -10,7 +10,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.jxd.oa.R;
-import com.jxd.oa.activity.ContactsDetailActivity;
+import com.jxd.oa.activity.ContactDetailActivity;
 import com.jxd.oa.adapter.ContactAdapter;
 import com.jxd.oa.adapter.ContactExpandableAdapter;
 import com.jxd.oa.bean.Contact;
@@ -54,15 +54,15 @@ public class PrivateContactFragment extends AbstractFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View convertView = inflater.inflate(R.layout.fragment_contacts, container, false);
+        View convertView = inflater.inflate(R.layout.fragment_contact, container, false);
         ViewUtil.inject(this, convertView);
         fillList();
         return convertView;
     }
 
     private void startActivity(Contact contact) {
-        Intent intent = new Intent(mContext, ContactsDetailActivity.class);
-        intent.putExtra("contacts", contact);
+        Intent intent = new Intent(mContext, ContactDetailActivity.class);
+        intent.putExtra("contact", contact);
         startActivity(intent);
     }
 

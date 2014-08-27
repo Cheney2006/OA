@@ -178,7 +178,7 @@
         <View style="@style/LineRow" />
 
         <LinearLayout
-            android:id="@+id/contacts_ll"
+            android:id="@+id/contact_ll"
             style="@style/WhiteIconLayout"
             android:clickable="true"
             android:orientation="horizontal">

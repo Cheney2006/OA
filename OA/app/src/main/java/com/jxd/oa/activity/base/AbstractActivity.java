@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
@@ -104,7 +105,8 @@ public abstract class AbstractActivity extends ActionBarActivity {
                     CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
                     if (commonJson4List.getSuccess()) {
                         DbOperationManager.getInstance().save(commonJson4List.getData());
-                        refreshData();
+                        //refreshData();
+                        sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                     } else {
                         displayToast(commonJson4List.getMessage());
                     }

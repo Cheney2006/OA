@@ -16,6 +16,7 @@ import com.jxd.oa.adapter.NoticeAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.Notice;
+import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
@@ -111,7 +112,7 @@ public class NoticeActivity extends AbstractActivity {
     private void readSubmit() {
         //取得未读的邮件
         try {
-            final List<Notice> notReadNoticeList = DbOperationManager.getInstance().getBeans(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
+            final List<Notice> notReadNoticeList = DbOperationManager.getInstance().getBeans(Selector.from(Notice.class).where("isRead", "=", false));
             if (notReadNoticeList == null) {
                 displayToast("暂无未读通知");
                 return;
@@ -132,7 +133,7 @@ public class NoticeActivity extends AbstractActivity {
                     //更新接收时间
                     try {
                         DbOperationManager.getInstance().save(notReadNoticeList);
-                        refreshData();
+                        sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
                         displayToast("通知全部已读");
                     } catch (DbException e) {
                         LogUtil.e(e);
@@ -167,7 +168,7 @@ public class NoticeActivity extends AbstractActivity {
             protected void positive() {
                 try {
                     DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
-                    refreshData();
+                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }

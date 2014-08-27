@@ -4,13 +4,25 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.JxdFragmentPagerAdapter;
+import com.jxd.oa.bean.Cloud;
+import com.jxd.oa.bean.Notice;
+import com.jxd.oa.fragment.CloudDownloadFragment;
+import com.jxd.oa.fragment.CloudFragment;
+import com.jxd.oa.fragment.PrivateContactFragment;
+import com.jxd.oa.fragment.PublicContactFragment;
+import com.jxd.oa.fragment.base.AbstractFragment;
 import com.yftools.ViewUtil;
+import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ViewInject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * *****************************************
@@ -34,7 +46,10 @@ public class CloudActivity extends AbstractActivity {
     }
 
     private void initPagerAdapter() {
-        pagerAdapter = new JxdFragmentPagerAdapter(getSupportFragmentManager(), null);
+        List<AbstractFragment> fragmentList = new ArrayList<AbstractFragment>();
+        fragmentList.add(new CloudFragment());
+        fragmentList.add(new CloudDownloadFragment());
+        pagerAdapter = new JxdFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int arg0) {
@@ -80,4 +95,33 @@ public class CloudActivity extends AbstractActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sync, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sync:
+                new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
+                    @Override
+                    public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
+                        syncData(Cloud.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                    }
+                }).showDateDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void setPageIndex(int index) {
+        mViewPager.setCurrentItem(index);
+    }
+
+    @Override
+    protected void refreshData() {
+        super.refreshData();
+    }
 }

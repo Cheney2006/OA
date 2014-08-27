@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg_nav">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_nav">
+        android:layout_weight="1">
 
         <LinearLayout
             android:orientation="vertical"
@@ -89,7 +89,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/contactsDelete_btn"
+        android:id="@+id/contactDelete_btn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_button_height"
         android:layout_margin="@dimen/dimen_button_margin"
