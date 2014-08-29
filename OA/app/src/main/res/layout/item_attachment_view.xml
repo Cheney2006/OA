@@ -24,15 +24,14 @@
                 android:id="@+id/name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                style="@style/BlackTxt18" />
+                style="@style/ItemTitleTxt" />
 
             <TextView
                 android:id="@+id/size_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_txt_padding_left"
-                style="@style/BlackTxt18" />
+                style="@style/ItemSubTitleTxt" />
         </LinearLayout>
 
         <View
