@@ -28,12 +28,10 @@ android {
 
     buildTypes {
         debug {
-//            runProguard false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            proguardFile file('/proguard.cfg')
-            zipAlign true
-            runProguard true
-            signingConfig signingConfigs.debug
+//            proguardFile file('/proguard.cfg')
+//            zipAlign true
+//            runProguard true
+//            signingConfig signingConfigs.debug
         }
         release {
             proguardFile file('/proguard.cfg')

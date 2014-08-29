@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.jxd.oa.R;
 import com.jxd.oa.bean.Attachment;
 import com.jxd.oa.constants.Constant;
+import com.jxd.oa.utils.ParamManager;
 import com.yftools.BitmapUtil;
 import com.yftools.HttpUtil;
 import com.yftools.bitmap.BitmapCommonUtil;
@@ -80,7 +81,7 @@ public class AttachmentViewView extends LinearLayout {
     }
 
     private void initData(List<Attachment> attachmentList) {
-        for (Attachment attachment : attachmentList) {
+        for (final Attachment attachment : attachmentList) {
             final View view = inflater.inflate(R.layout.item_attachment_view, null);
             TextView name_tv = (TextView) view.findViewById(R.id.name_tv);
             TextView size_tv = (TextView) view.findViewById(R.id.size_tv);
@@ -103,10 +104,10 @@ public class AttachmentViewView extends LinearLayout {
                         AndroidUtil.viewFile(getContext(), file);
                     } else {
                         //如果已经下载，直接打开
-                        HttpUtil.getInstance().download("", file.getAbsolutePath(), new RequestCallBack<File>() {
+                        HttpUtil.getInstance().download(ParamManager.parseDownUrl(attachment.getSavePath()), file.getAbsolutePath(), new RequestCallBack<File>() {
                             @Override
                             public void onLoading(long total, long current, boolean isUploading) {
-                                download_tv.setText(DigitUtil.getPercent(current / total));
+                                download_tv.setText(DigitUtil.getPercent(current * 1.0 / total));
                             }
 
                             @Override

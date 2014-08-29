@@ -10,7 +10,10 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_layout_click"
-        android:padding="@dimen/dimen_txt_padding_top">
+        android:paddingLeft="@dimen/dimen_txt_padding_top"
+        android:paddingRight="@dimen/dimen_txt_padding_top"
+        android:paddingBottom="@dimen/dimen_txt_padding_left"
+        android:paddingTop="@dimen/dimen_txt_padding_left">
 
         <TextView
             android:id="@+id/name_tv"
@@ -44,7 +47,10 @@
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/btn_phone"
         android:background="@drawable/bg_layout_click"
-        android:padding="@dimen/dimen_txt_padding_top"
+        android:paddingLeft="@dimen/dimen_txt_padding_top"
+        android:paddingRight="@dimen/dimen_txt_padding_top"
+        android:paddingBottom="@dimen/dimen_txt_padding_left"
+        android:paddingTop="@dimen/dimen_txt_padding_left"
         android:text="@string/txt_call_phone" />
 
     <View style="@style/LineCell" />
@@ -54,7 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/btn_msg"
-        android:padding="@dimen/dimen_txt_padding_top"
         android:background="@drawable/bg_layout_click"
+        android:paddingLeft="@dimen/dimen_txt_padding_top"
+        android:paddingRight="@dimen/dimen_txt_padding_top"
+        android:paddingBottom="@dimen/dimen_txt_padding_left"
+        android:paddingTop="@dimen/dimen_txt_padding_left"
         android:text="@string/txt_send_msg" />
 </LinearLayout>

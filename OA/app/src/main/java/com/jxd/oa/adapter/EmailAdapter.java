@@ -73,10 +73,14 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.send_tv.setVisibility(View.GONE);
         }
-        if (Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_MIDDLE.getValue() || Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_HIGH.getValue()) {
-            viewHolder.important_tv.setVisibility(View.VISIBLE);
-            viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
-        } else {
+        if(!TextUtils.isEmpty(getItem(position).getImportant())){
+            if (Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_MIDDLE.getValue() || Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_HIGH.getValue()) {
+                viewHolder.important_tv.setVisibility(View.VISIBLE);
+                viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
+            } else {
+                viewHolder.important_tv.setVisibility(View.GONE);
+            }
+        }else {
             viewHolder.important_tv.setVisibility(View.GONE);
         }
         return view;

@@ -105,7 +105,6 @@ public abstract class AbstractActivity extends ActionBarActivity {
                     CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
                     if (commonJson4List.getSuccess()) {
                         DbOperationManager.getInstance().save(commonJson4List.getData());
-                        //refreshData();
                         sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                     } else {
                         displayToast(commonJson4List.getMessage());

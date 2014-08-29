@@ -59,7 +59,7 @@ public class CloudDownloadFragment extends AbstractFragment {
         if (file.exists()) {
             AndroidUtil.viewFile(mContext, file);
         } else {
-            displayToast("文件不存，请重新下载");
+            displayToast("文件不存在，请重新下载");
         }
     }
 

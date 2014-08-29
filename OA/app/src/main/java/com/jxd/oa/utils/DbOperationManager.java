@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.bean.Email;
+import com.jxd.oa.bean.User;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.DbUtil;
+import com.yftools.db.sqlite.DbModelSelector;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
