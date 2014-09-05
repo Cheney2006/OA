@@ -154,7 +154,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.schedule_ll)
     public void scheduleClick(View view) {
-//        startActivity(new Intent(mContext, ScheduleActivity.class));
+        startActivity(new Intent(mContext, ScheduleActivity.class));
     }
 
     @OnClick(R.id.myTask_ll)

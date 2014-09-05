@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.jxd.common.vo.Item;
 import com.jxd.oa.R;
-import com.jxd.oa.constants.Const;
 
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class TypeView extends LinearLayout {
                                             if (TextUtils.isEmpty(typeName_et.getText())) {
                                                 Toast.makeText(getContext(), "请输入名称", Toast.LENGTH_SHORT).show();
                                             } else {
-                                                type_sev.setContent(typeName_et.getText().toString());
+                                                type_sev.setContent(typeName_et.getText().toString(),null);
                                             }
                                         }
                                     }).setNegativeButton("取消", null).create().show();
