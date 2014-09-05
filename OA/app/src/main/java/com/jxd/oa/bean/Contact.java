@@ -3,6 +3,7 @@ package com.jxd.oa.bean;
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
+import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
 
@@ -19,7 +20,7 @@ public class Contact extends AbstractBean {
     private String id;
     @Column(column = "userId")
     private String userId;
-    @Column(column = "categoryId")
+    @Foreign(column = "categoryId", foreign = "id", foreignAutoCreate = true)
     private ContactCategory category;  //组
     @Column(column = "name")
     private String name;        //姓名

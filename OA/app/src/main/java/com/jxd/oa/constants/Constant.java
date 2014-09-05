@@ -2,7 +2,6 @@ package com.jxd.oa.constants;
 
 
 import com.jxd.oa.bean.Contact;
-import com.jxd.oa.bean.ContactCategory;
 import com.jxd.oa.bean.Department;
 import com.jxd.oa.bean.Role;
 import com.jxd.oa.bean.User;
@@ -32,7 +31,6 @@ public class Constant {
             {Department.class, "部门"},
             {User.class, "用户"},
             {Role.class, "角色"},
-            {ContactCategory.class, "通讯录分组"},
             {Contact.class, "通讯录"}
     };
 
