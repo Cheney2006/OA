@@ -75,7 +75,7 @@ public class MyTaskActivity extends AbstractActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync_read, menu);
+        getMenuInflater().inflate(R.menu.menu_sync, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
