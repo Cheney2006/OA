@@ -159,7 +159,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.myTask_ll)
     public void myTaskClick(View view) {
-//        startActivity(new Intent(mContext, AddressCollectActivity.class));
+        startActivity(new Intent(mContext, MyTaskActivity.class));
     }
 
     @OnClick(R.id.contact_ll)
@@ -218,7 +218,6 @@ public class HomeActivity extends SelectImageActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-
     }
 
     @Override

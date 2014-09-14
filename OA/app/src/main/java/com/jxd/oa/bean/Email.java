@@ -4,16 +4,12 @@ import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
 import com.yftools.db.annotation.Finder;
-import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.ForeignCollection;
 import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
-import com.yftools.db.sqlite.FinderLazyLoader;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
-import com.yftools.db.sqlite.ForeignLazyLoader;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * *****************************************
@@ -32,7 +28,7 @@ public class Email extends AbstractBean {
     @Column(column = "content")
     private String content;//内容
     @Column(column = "important")
-    private String important;//重要性
+    private int important;//重要性
     @Column(column = "fromId")
     private String fromId;//发送人
     @Finder(valueColumn = "fromId", targetColumn = "id")
@@ -68,11 +64,11 @@ public class Email extends AbstractBean {
         this.title = title;
     }
 
-    public String getImportant() {
+    public int getImportant() {
         return important;
     }
 
-    public void setImportant(String important) {
+    public void setImportant(int important) {
         this.important = important;
     }
 

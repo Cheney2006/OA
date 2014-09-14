@@ -38,6 +38,8 @@ public class ScheduleDetailActivity extends AbstractActivity {
     private TextView starDate_tv;
     @ViewInject(R.id.endDate_tv)
     private TextView endDate_tv;
+    @ViewInject(R.id.address_tv)
+    private TextView address_tv;
     @ViewInject(R.id.content_tv)
     private TextView content_tv;
     @ViewInject(R.id.attachment_label)
@@ -53,14 +55,16 @@ public class ScheduleDetailActivity extends AbstractActivity {
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.txt_title_schedule_detail));
         schedule = (Schedule) getIntent().getSerializableExtra("schedule");
+        initData();
     }
 
     public void initData() {
         title_tv.setText(schedule.getTitle());
         important_tv.setText(Const.getName("TYPE_IMPORTANT_", schedule.getImportant()));
-        //category_tv.setText();
-        starDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getStartData()));
-        endDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getEndData()));
+        category_tv.setText(schedule.getCategory().getName());
+        starDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getStartDate()));
+        endDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getEndDate()));
+        address_tv.setText(schedule.getAddress());
         content_tv.setText(schedule.getContent());
         if (!TextUtils.isEmpty(schedule.getAttachmentName()) && !TextUtils.isEmpty(schedule.getAttachmentSize())) {
             attachment_label.setVisibility(View.VISIBLE);

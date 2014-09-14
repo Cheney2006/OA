@@ -1,6 +1,5 @@
 package com.jxd.oa.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.Table;
@@ -9,28 +8,19 @@ import java.util.Date;
 
 /**
  * *****************************************
- * Description ：今日日程
- * Created by cy on 2014/8/18.
+ * Description ：我的工作
+ * Created by cy on 2014/9/14.
  * *****************************************
  */
-@Table(name = "t_schedule")
-public class Schedule extends AbstractBean {
-    @SerializedName("caSid")
+@Table(name = "t_task")
+public class Task extends AbstractBean {
     private String id;
-    @SerializedName("caSubject")
     private String title;//主题
-    @SerializedName("caArea")
-    private String address;//地点
-    @SerializedName("caDesc")
     private String content;//内容
-    @SerializedName("caClass")
     private int important;//重要性
     @Foreign(column = "categoryId", foreign = "id", foreignAutoCreate = true)
-    @SerializedName("scheduleCategory")
-    private ScheduleCategory category;//类型
-    @SerializedName("caBtime")
+    private TaskCategory category;//类型
     private Date startDate;//开始时间
-    @SerializedName("caEtime")
     private Date endDate;//结束时间
     private String attachmentName;//附件列表，XX.doc|xx.xls
     private String attachmentSize;//附件大小,10923|23432
@@ -52,14 +42,6 @@ public class Schedule extends AbstractBean {
         this.title = title;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getContent() {
         return content;
     }
@@ -76,11 +58,11 @@ public class Schedule extends AbstractBean {
         this.important = important;
     }
 
-    public ScheduleCategory getCategory() {
+    public TaskCategory getCategory() {
         return category;
     }
 
-    public void setCategory(ScheduleCategory category) {
+    public void setCategory(TaskCategory category) {
         this.category = category;
     }
 
@@ -120,7 +102,7 @@ public class Schedule extends AbstractBean {
         return isFinished;
     }
 
-    public void setFinished(boolean isRead) {
-        this.isFinished = isRead;
+    public void setFinished(boolean isFinished) {
+        this.isFinished = isFinished;
     }
 }

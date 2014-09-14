@@ -82,7 +82,7 @@ public class ContactAddActivity extends AbstractActivity {
             List<ContactCategory> contactCategoryList = DbOperationManager.getInstance().getBeans(Selector.from(ContactCategory.class).where("userId", "=", SysConfig.getInstance().getUserId()));
             List<Item> itemList = new ArrayList<Item>();
             for (ContactCategory contactCategory : contactCategoryList) {
-                itemList.add(new Item(contactCategory.getGroupName(), contactCategory.getId()));
+                itemList.add(new Item(contactCategory.getName(), contactCategory.getId()));
             }
             category_tv.initData(itemList);
         } catch (DbException e) {
@@ -91,7 +91,7 @@ public class ContactAddActivity extends AbstractActivity {
         if (contact != null) {
             name_et.setText(contact.getName());
             if (contact.getCategory() != null) {
-                category_tv.setValue(contact.getCategory().getGroupName(), contact.getCategory().getId());
+                category_tv.setValue(contact.getCategory().getName(), contact.getCategory().getId());
             }
             sex_sev.setContent(contact.getSex());
             mobile_et.setText(contact.getMobile());
@@ -136,6 +136,7 @@ public class ContactAddActivity extends AbstractActivity {
 
     private void contactSubmit() {
         RequestParams params = ParamManager.setDefaultParams();
+        LogUtil.d("上传的数据："+GsonUtil.getInstance().getGson().toJson(contact));
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contact));
         HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("contactSave.action"), params, new RequestCallBack<Json>() {
             @Override
@@ -162,7 +163,7 @@ public class ContactAddActivity extends AbstractActivity {
         }
         contact.setName(name_et.getText().toString());
         ContactCategory contactCategory = new ContactCategory();
-        contactCategory.setGroupName(category_tv.getContent());
+        contactCategory.setName(category_tv.getContent());
         if (category_tv.getValue() != null) {
             contactCategory.setId(category_tv.getValue() + "");
         }

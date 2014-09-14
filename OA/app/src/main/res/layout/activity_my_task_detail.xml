@@ -1,32 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/bg_nav">
 
-    <com.jxd.oa.view.LabelRequestTextView
-        style="@style/CustomLabelText"
-        android:layout_marginTop="0dp"
-        android:text="@string/txt_label_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title_tv"
-        style="@style/CustomViewText"
-        android:text="测试下子" />
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_title" />
 
-    <View style="@style/LineRow" />
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/CustomViewText" />
 
-    <com.jxd.oa.view.LabelRequestTextView
-        style="@style/CustomLabelText"
-        android:text="@string/txt_label_title" />
+        <View style="@style/LineRow" />
 
-    <TextView
-        style="@style/CustomViewText"
-        android:text="测试下子" />
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_important" />
 
-    <View style="@style/LineRow" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/important_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_category" />
+
+        <TextView
+            android:id="@+id/category_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_start_date" />
+
+        <TextView
+            android:id="@+id/starDate_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_end_date" />
+
+        <TextView
+            android:id="@+id/endDate_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_content" />
+
+        <TextView
+            android:id="@+id/content_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            android:id="@+id/attachment_label"
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_attachment" />
+
+        <com.jxd.oa.view.AttachmentViewView
+            android:id="@+id/schedule_avv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+</ScrollView>

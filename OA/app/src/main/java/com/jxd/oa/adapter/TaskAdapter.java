@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
-import com.jxd.oa.bean.Schedule;
+import com.jxd.oa.bean.Task;
 import com.yftools.ViewUtil;
 import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
@@ -17,13 +17,12 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：日程
- * Created by cy on 2014/8/18.
+ * Description ：我的工作
+ * Created by cy on 2014/9/14.
  * *****************************************
  */
-public class ScheduleAdapter extends AbstractAdapter<Schedule> {
-
-    public ScheduleAdapter(Context context, List<Schedule> dataList) {
+public class TaskAdapter extends AbstractAdapter<Task> {
+    public TaskAdapter(Context context, List<Task> dataList) {
         super(context, dataList);
     }
 
@@ -32,7 +31,7 @@ public class ScheduleAdapter extends AbstractAdapter<Schedule> {
         ViewHolder viewHolder = null;
         if (view == null) {
             viewHolder = new ViewHolder();
-            view = getInflater().inflate(R.layout.item_schedule, null);
+            view = getInflater().inflate(R.layout.item_notice, null);
             ViewUtil.inject(viewHolder, view);
             view.setTag(viewHolder);
         } else {
@@ -44,28 +43,22 @@ public class ScheduleAdapter extends AbstractAdapter<Schedule> {
         } else {
             viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_attach, 0, 0, 0);
         }
-        //显示开始时间
-        if (getItem(position).getStartDate() != null) {
-            viewHolder.date_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", getItem(position).getStartDate()));
-        }
-        viewHolder.address_tv.setText(getItem(position).getAddress());
+        viewHolder.date_tv.setText("完成时间："+ DateUtil.dateTimeToString(getItem(position).getEndDate()));
         if (!getItem(position).isFinished()) {
-            viewHolder.finished_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
+            viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
         } else {
-            viewHolder.finished_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
+            viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
         }
-        viewHolder.finished_tv.setText(getItem(position).isFinished() ? "已完成" : "未完成");
+        viewHolder.status_tv.setText(getItem(position).isFinished() ? "已完成" : "待办理");
         return view;
     }
 
     static class ViewHolder {
         @ViewInject(R.id.title_tv)
         private TextView title_tv;
-        @ViewInject(R.id.address_tv)
-        private TextView address_tv;
         @ViewInject(R.id.date_tv)
         private TextView date_tv;
-        @ViewInject(R.id.finished_tv)
-        private TextView finished_tv;
+        @ViewInject(R.id.status_tv)
+        private TextView status_tv;
     }
 }

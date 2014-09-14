@@ -74,7 +74,7 @@ public class ContactDetailActivity extends AbstractActivity {
         name_tv.setText(contact.getName());
         ministration_tv.setText(contact.getMinistration());
         if (contact.getCategory() != null) {
-            category_tv.setText(contact.getCategory().getGroupName());
+            category_tv.setText(contact.getCategory().getName());
         }
         companyName_tv.setText(contact.getCompanyName());
         companyAddr_tv.setText(contact.getCompanyAddr());

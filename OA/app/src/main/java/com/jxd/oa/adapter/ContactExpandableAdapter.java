@@ -46,7 +46,7 @@ public class ContactExpandableAdapter extends AbstractExpandableAdapter<ContactC
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.categoryName_tv.setText(getGroup(groupPosition).getGroupName() + "（" + getChildListList().get(groupPosition).size() + "）");
+        viewHolder.categoryName_tv.setText(getGroup(groupPosition).getName() + "（" + getChildListList().get(groupPosition).size() + "）");
         return convertView;
     }
 

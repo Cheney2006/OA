@@ -96,9 +96,10 @@ public abstract class BaseApplication extends Application {
         };
         DateTimeStateReceiver.registerObserver(BaseApplication.dateTimeChangeObserver);
         DateTimeStateReceiver.registerDateTimeStateReceiver(context);
-
-        //开始时间校准
-        startNtpTimeServer();
+        if(differTime==null){
+            //开始时间校准
+            startNtpTimeServer();
+        }
     }
 
     @Override

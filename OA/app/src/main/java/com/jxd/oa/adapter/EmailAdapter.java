@@ -10,7 +10,6 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
-import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
@@ -73,14 +72,10 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.send_tv.setVisibility(View.GONE);
         }
-        if(!TextUtils.isEmpty(getItem(position).getImportant())){
-            if (Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_MIDDLE.getValue() || Integer.parseInt(getItem(position).getImportant()) == Const.TYPE_IMPORTANT_HIGH.getValue()) {
-                viewHolder.important_tv.setVisibility(View.VISIBLE);
-                viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
-            } else {
-                viewHolder.important_tv.setVisibility(View.GONE);
-            }
-        }else {
+        if (getItem(position).getImportant() == Const.TYPE_IMPORTANT_MIDDLE.getValue() || getItem(position).getImportant() == Const.TYPE_IMPORTANT_HIGH.getValue()) {
+            viewHolder.important_tv.setVisibility(View.VISIBLE);
+            viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
+        } else {
             viewHolder.important_tv.setVisibility(View.GONE);
         }
         return view;

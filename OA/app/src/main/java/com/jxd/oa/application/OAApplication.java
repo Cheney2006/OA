@@ -3,7 +3,6 @@ package com.jxd.oa.application;
 import android.content.Context;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.yftools.DbUtil;
 
 public class OAApplication extends BaseApplication {
 
@@ -17,7 +16,7 @@ public class OAApplication extends BaseApplication {
         super.onCreate();
         context = this.getApplicationContext();
         mInstance = this;
-        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext,百度定位时，会重新执行application整个生命周期
         SDKInitializer.initialize(this);
     }
 

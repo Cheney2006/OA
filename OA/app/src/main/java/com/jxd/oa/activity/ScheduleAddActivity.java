@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Schedule;
+import com.jxd.oa.bean.ScheduleCategory;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
@@ -141,7 +142,7 @@ public class ScheduleAddActivity extends AbstractActivity {
                 }
             }
         }
-        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("emailSave.action"), params, new RequestCallBack<Json>() {
+        HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("scheduleSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 String result = responseInfo.result.toString();
@@ -169,16 +170,16 @@ public class ScheduleAddActivity extends AbstractActivity {
     private boolean setData() {
         schedule = new Schedule();
         schedule.setTitle(title_et.getText().toString());
-        schedule.setImportant(important_sev.getValue().toString());
-        //TODO 设置类型
-//        ContactsCategory contactsCategory = new ContactsCategory();
-//        contactsCategory.setGroupName(category_tv.getContent());
-//        if (category_tv.getValue() != null) {
-//            contactsCategory.setId(category_tv.getValue() + "");
-//        }
-//        schedule.setType(category_tv.getValue().toString());
-        schedule.setStartData(DateUtil.stringToDate("yyyy-MM-dd HH:mm", startDate_sev.getValue().toString()));
-        schedule.setEndData(DateUtil.stringToDate("yyyy-MM-dd HH:mm", endDate_sev.getValue().toString()));
+        schedule.setImportant(Integer.parseInt(important_sev.getValue().toString()));
+        //设置类型
+        ScheduleCategory category = new ScheduleCategory();
+        category.setName(category_tv.getContent());
+        if (category_tv.getValue() != null) {
+            category.setId(category_tv.getValue() + "");
+        }
+        schedule.setCategory(category);
+        schedule.setStartDate(DateUtil.stringToDate("yyyy-MM-dd HH:mm", startDate_sev.getValue().toString()));
+        schedule.setEndDate(DateUtil.stringToDate("yyyy-MM-dd HH:mm", endDate_sev.getValue().toString()));
         schedule.setContent(content_et.getText().toString());
         return true;
     }

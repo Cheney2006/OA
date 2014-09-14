@@ -8,20 +8,18 @@ import com.yftools.db.annotation.Table;
 
 /**
  * *****************************************
- * Description ：通讯录分类
+ * Description ：今日日程分类
  * Created by cy on 2014/8/8.
  * *****************************************
  */
-@Table(name = "t_contact_category")
-public class ContactCategory extends AbstractBean {
+@Table(name = "t_schedule_category")
+public class ScheduleCategory extends AbstractBean {
     @Id(column = "id")
-    @SerializedName("groupId")
+    @SerializedName("cgSid")
     private String id;
     @Column(column = "name")
-    @SerializedName("groupName")
+    @SerializedName("cgName")
     private String name;
-    @Column(column = "userId")
-    private String userId;
 
     public String getId() {
         return id;
@@ -39,11 +37,5 @@ public class ContactCategory extends AbstractBean {
         this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

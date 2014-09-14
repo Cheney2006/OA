@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.jxd.oa.R;
-import com.yftools.LogUtil;
 import com.yftools.util.DateUtil;
 
 import java.text.SimpleDateFormat;
@@ -340,8 +339,10 @@ public class WeekCalendarView extends LinearLayout implements GestureDetector.On
     }
 
     private void setDateMap() {
-        Date startDate = DateUtil.stringToDate(dateAdapter.getCurrentYear(0) + "-" + dateAdapter.getCurrentMonth(0) + "-" + dayNumbers[0]);
-        Date endDate = DateUtil.stringToDate(dateAdapter.getCurrentYear(6) + "-" + dateAdapter.getCurrentMonth(6) + "-" + dayNumbers[6]);
+        //取得当前时间
+        String time=DateUtil.dateToString("HH:mm:ss",new Date());
+        Date startDate = DateUtil.stringToDateTime(dateAdapter.getCurrentYear(0) + "-" + dateAdapter.getCurrentMonth(0) + "-" + dayNumbers[0]+" "+time);
+        Date endDate = DateUtil.stringToDateTime(dateAdapter.getCurrentYear(6) + "-" + dateAdapter.getCurrentMonth(6) + "-" + dayNumbers[6]+" "+time);
         OnWeekChangeListener.onWeekChange(startDate, endDate);
     }
 

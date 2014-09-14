@@ -131,6 +131,9 @@
         <activity
             android:name=".activity.SignAddressActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyTaskActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".service.IncrementUpdateService" />
         <service

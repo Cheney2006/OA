@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.jxd.common.view.JxdAlertDialog;
@@ -69,7 +68,13 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
 
     private void initData() {
         try {
-            scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(currentDate)).or("date(endDate)", ">=", DateUtil.dateToString(currentDate)));
+            //取得当前时间
+//            String time = DateUtil.dateToString("HH:mm:ss", new Date());
+//            String dayTime = DateUtil.dateToString(currentDate) + " " + time;
+//            currentDate = DateUtil.stringToDateTime(dayTime);
+
+            //scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(currentDate)).or("date(endDate)", ">=", DateUtil.dateToString(currentDate)));
+            scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("startDate", "<=", currentDate.getTime()).and("endDate", ">=", currentDate.getTime()));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -122,9 +127,11 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
 
     @Override
     public void onDateChange(int year, int month, int day) {
-        String currentDateStr = year + "-" + month + "-" + day;
+        //取得当前时间
+        String time = DateUtil.dateToString("HH:mm:ss", new Date());
+        String currentDateStr = year + "-" + month + "-" + day + " " + time;
         LogUtil.d("currentDateStr=" + currentDateStr);
-        currentDate = DateUtil.stringToDate(currentDateStr);
+        currentDate = DateUtil.stringToDateTime(currentDateStr);
         getSupportActionBar().setTitle(year + "年" + month + "月");
         initData();
     }
@@ -143,17 +150,19 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
             Calendar c = Calendar.getInstance();
             c.setTime(weekStartDate);
             for (int i = 0; i < 7; i++) {
-                c.add(Calendar.DAY_OF_MONTH, i);
-                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(c.getTime())).or("date(endDate)", ">=", DateUtil.dateToString(c.getTime())));
+                //int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(c.getTime())).and("date(endDate)", ">=", DateUtil.dateToString(c.getTime())));
+                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("startDate", "<=", c.getTime().getTime()).and("endDate", ">=", c.getTime().getTime()));
                 if (count > 0) {
                     data.put("planCount", count);
                     data.put("finishedCount", count);
                     dataMap.put(DateUtil.dateToString(c.getTime()), data);
                 }
+                c.add(Calendar.DAY_OF_MONTH, 1);
             }
         } catch (Exception e) {
             LogUtil.e(e);
         }
+        LogUtil.d("dataMap=" + dataMap);
         return dataMap;
     }
 

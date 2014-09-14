@@ -2,8 +2,7 @@
 
     <style name="Theme.Appbase" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_appbase</item>
-        <item name="dropdownListPreferredItemHeight">@dimen/dimen_icon_width</item>
-        <!--不起作用-->
+        <item name="dropdownListPreferredItemHeight">@dimen/dimen_icon_width</item><!--不起作用-->
         <item name="popupMenuStyle">@style/PopupMenu.Appbase</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Appbase</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.Appbase</item>

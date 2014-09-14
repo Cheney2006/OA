@@ -20,7 +20,6 @@ import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
-import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
@@ -30,7 +29,6 @@ import com.jxd.oa.view.SelectEditView;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
-import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
@@ -38,13 +36,9 @@ import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.util.AndroidUtil;
-import com.yftools.util.FileUtil;
-import com.yftools.util.StorageUtil;
 import com.yftools.util.UUIDGenerator;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
-
-import org.apache.http.protocol.HTTP;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,9 +88,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                 if (!TextUtils.isEmpty(email.getContent())) {
                     content_et.setText(Html.fromHtml(email.getContent()));
                 }
-                if (!TextUtils.isEmpty(email.getImportant())) {
-                    important_sev.setContent(Const.getName("TYPE_IMPORTANT_", email.getImportant()), email.getImportant());
-                }
+                important_sev.setContent(Const.getName("TYPE_IMPORTANT_", email.getImportant()), email.getImportant() + "");
                 if (email.getToIds() != null) {
                     String[] ids = email.getToIds().split(",");
                     if (ids != null) {
@@ -216,7 +208,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
         email.setToIds(recipient_sev.getValue() + "");
         email.setFromId(SysConfig.getInstance().getUserId());
         if (important_sev.getValue() != null) {
-            email.setImportant(important_sev.getValue() + "");
+            email.setImportant(Integer.parseInt(important_sev.getValue().toString()));
         }
         return true;
     }

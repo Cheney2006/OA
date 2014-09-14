@@ -59,13 +59,13 @@ public class ScheduleActivity extends AbstractActivity implements CalendarViewVi
             Calendar c = Calendar.getInstance();
             c.setTime(startDate);
             for (int i = 0; i < 42; i++) {
-                c.add(Calendar.DAY_OF_MONTH, i);
-                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(c.getTime())).or("date(endDate)", ">=", DateUtil.dateToString(c.getTime())));
+                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("startDate", "<=", c.getTime().getTime()).and("endDate", ">=", c.getTime().getTime()));
                 if (count > 0) {
                     data.put("planCount", count);
                     data.put("finishedCount", count);
                     dataMap.put(DateUtil.dateToString(c.getTime()), data);
                 }
+                c.add(Calendar.DAY_OF_MONTH, 1);
             }
         } catch (Exception e) {
             LogUtil.e(e);
@@ -82,11 +82,12 @@ public class ScheduleActivity extends AbstractActivity implements CalendarViewVi
 
     @Override
     public void onMonthChange() {
-        try {
-            mCalendarView.refreshView(getDataMap());
-        } catch (Exception e) {
-            LogUtil.e(e);
-        }
+        mCalendarView.refreshView(getDataMap());
+    }
+
+    @Override
+    protected void refreshData() {
+        mCalendarView.refreshView(getDataMap());
     }
 
     @Override
