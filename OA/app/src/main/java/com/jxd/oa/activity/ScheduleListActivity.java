@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.ScheduleAdapter;
@@ -68,13 +67,7 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
 
     private void initData() {
         try {
-            //取得当前时间
-//            String time = DateUtil.dateToString("HH:mm:ss", new Date());
-//            String dayTime = DateUtil.dateToString(currentDate) + " " + time;
-//            currentDate = DateUtil.stringToDateTime(dayTime);
-
-            //scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(currentDate)).or("date(endDate)", ">=", DateUtil.dateToString(currentDate)));
-            scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("startDate", "<=", currentDate.getTime()).and("endDate", ">=", currentDate.getTime()));
+            scheduleList = DbOperationManager.getInstance().getBeans(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(currentDate)).and("date(endDate)", ">=", DateUtil.dateToString(currentDate)));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -127,11 +120,8 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
 
     @Override
     public void onDateChange(int year, int month, int day) {
-        //取得当前时间
-        String time = DateUtil.dateToString("HH:mm:ss", new Date());
-        String currentDateStr = year + "-" + month + "-" + day + " " + time;
-        LogUtil.d("currentDateStr=" + currentDateStr);
-        currentDate = DateUtil.stringToDateTime(currentDateStr);
+        String currentDateStr = year + "-" + month + "-" + day ;
+        currentDate = DateUtil.stringToDate(currentDateStr);
         getSupportActionBar().setTitle(year + "年" + month + "月");
         initData();
     }
@@ -151,7 +141,8 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
             c.setTime(weekStartDate);
             for (int i = 0; i < 7; i++) {
                 //int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", DateUtil.dateToString(c.getTime())).and("date(endDate)", ">=", DateUtil.dateToString(c.getTime())));
-                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("startDate", "<=", c.getTime().getTime()).and("endDate", ">=", c.getTime().getTime()));
+                String dateStr = DateUtil.dateToString(c.getTime());
+                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", dateStr).and("date(endDate)", ">=", dateStr));
                 if (count > 0) {
                     data.put("planCount", count);
                     data.put("finishedCount", count);
@@ -178,18 +169,12 @@ public class ScheduleListActivity extends AbstractActivity implements WeekCalend
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int currentSelectedPosition = info.position;
-        //删除
-        new JxdAlertDialog(this, getString(R.string.txt_tips), "确定删除？", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
-            @Override
-            protected void positive() {
-                try {
-                    DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
-                    initData();
-                } catch (DbException e) {
-                    LogUtil.e(e);
-                }
-            }
-        }.show();
+        try {
+            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            initData();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
         return super.onContextItemSelected(item);
     }
 }

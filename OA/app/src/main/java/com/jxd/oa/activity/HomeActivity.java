@@ -75,7 +75,7 @@ public class HomeActivity extends SelectImageActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+        getSupportActionBar().setTitle(getString(R.string.app_name));
         initData();
         checkSync();
         initNum();
@@ -174,7 +174,12 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.sign_ll)
     public void signClick(View view) {
-//        startActivity(new Intent(mContext, SignAddressActivity.class));
+        startActivity(new Intent(mContext, AddressCollectActivity.class));
+    }
+
+    @OnClick(R.id.messageCenter_ll)
+    public void messageCenterClick(View view) {
+        startActivity(new Intent(mContext, MessageCenterActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)
@@ -264,7 +269,7 @@ public class HomeActivity extends SelectImageActivity {
                 if (user != null) {
                     user.setPhoto(photos);
                     try {
-                        DbOperationManager.getInstance().save(user);
+                        DbOperationManager.getInstance().saveOrUpdate(user);
                     } catch (DbException e) {
                         LogUtil.d(e);
                         displayToast("保存图像失败：" + e.getMessage());

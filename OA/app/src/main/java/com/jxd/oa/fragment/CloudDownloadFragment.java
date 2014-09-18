@@ -1,7 +1,10 @@
 package com.jxd.oa.fragment;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,6 +51,7 @@ public class CloudDownloadFragment extends AbstractFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        registerForContextMenu(mListView);
         fillList();
     }
 
@@ -81,6 +85,27 @@ public class CloudDownloadFragment extends AbstractFragment {
     @Override
     protected void refreshData() {
         fillList();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        //添加菜单项
+        menu.add(Menu.NONE, 0, 0, "删除");
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.setHeaderTitle(adapter.getItem(info.position).getFileName());
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int currentSelectedPosition = info.position;
+        try {
+            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            fillList();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        return super.onContextItemSelected(item);
     }
 
 }

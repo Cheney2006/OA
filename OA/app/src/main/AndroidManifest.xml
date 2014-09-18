@@ -134,6 +134,11 @@
         <activity
             android:name=".activity.MyTaskActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyTaskDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MessageCenterActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".service.IncrementUpdateService" />
         <service

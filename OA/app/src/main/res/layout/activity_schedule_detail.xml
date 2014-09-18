@@ -68,6 +68,8 @@
             android:id="@+id/address_tv"
             style="@style/CustomViewText" />
 
+        <View style="@style/LineRow" />
+
         <TextView
             style="@style/CustomLabelText"
             android:text="@string/txt_label_content" />
@@ -87,6 +89,8 @@
             android:id="@+id/schedule_avv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top"
+            android:layout_marginBottom="@dimen/dimen_layout_padding_top"
             android:layout_marginLeft="@dimen/dimen_layout_padding_left"
             android:layout_marginRight="@dimen/dimen_layout_padding_left" />
     </LinearLayout>

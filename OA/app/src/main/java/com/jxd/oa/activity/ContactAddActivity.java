@@ -93,7 +93,7 @@ public class ContactAddActivity extends AbstractActivity {
             if (contact.getCategory() != null) {
                 category_tv.setValue(contact.getCategory().getName(), contact.getCategory().getId());
             }
-            sex_sev.setContent(contact.getSex());
+            sex_sev.setContent(Const.getName("SEX_",contact.getSex()),contact.getSex());
             mobile_et.setText(contact.getMobile());
             homeTle_et.setText(contact.getHomeTel());
             companyName_et.setText(contact.getCompanyName());
@@ -142,7 +142,7 @@ public class ContactAddActivity extends AbstractActivity {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 try {
-                    DbOperationManager.getInstance().save(GsonUtil.getInstance().getGson().fromJson(responseInfo.result.toString(), Contact.class));
+                    DbOperationManager.getInstance().saveOrUpdate(GsonUtil.getInstance().getGson().fromJson(responseInfo.result.toString(), Contact.class));
                     finish();
                     sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                 } catch (DbException e) {

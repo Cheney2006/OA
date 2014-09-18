@@ -160,6 +160,22 @@ public class SysConfig {
         return mPreferenceConfig.getInt("maxVersion", 0);
     }
 
+    public boolean getSyncDate() {
+        return mPreferenceConfig.getBoolean("syncDate", false);
+    }
+
+    public void setSyncDate(boolean syncDate) {
+        mPreferenceConfig.setBoolean("syncDate", syncDate);
+    }
+
+    public long getDifferTime() {
+        return mPreferenceConfig.getLong("differTime", 0L);
+    }
+
+    public void setDifferTime(long differTime) {
+        mPreferenceConfig.setLong("differTime", differTime);
+    }
+
     public void clearData() {
         mPreferenceConfig.clear();
     }

@@ -24,10 +24,11 @@
         <TextView
             android:id="@+id/sex_tv"
             android:layout_toRightOf="@id/name_tv"
-            android:layout_alignBottom="@id/name_tv"
+            android:layout_marginTop="@dimen/dimen_sub_title_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/ItemTitleTxt" />
+            android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+            style="@style/BlackTxt14" />
 
         <TextView
             android:id="@+id/companyName_tv"

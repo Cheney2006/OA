@@ -48,6 +48,7 @@
             android:paddingRight="@dimen/dimen_txt_padding_top"
             android:drawableTop="@drawable/icon_download"
             android:drawablePadding="3dp"
+            android:minWidth="@dimen/dimen_download_width"
             android:text="@string/txt_download" />
     </LinearLayout>
 

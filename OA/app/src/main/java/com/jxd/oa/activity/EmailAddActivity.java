@@ -184,7 +184,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                     email.setLocalId(email.getId());
                     email.setAttachmentName(email_aav.getAttachmentName());
                     try {
-                        DbOperationManager.getInstance().save(email);
+                        DbOperationManager.getInstance().saveOrUpdate(email);
                         //sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                         setResult(RESULT_OK);
                         finish();
@@ -223,7 +223,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
             for (String filePath : email_aav.getFilePathList()) {
                 File file = new File(filePath);
                 if (file.exists()) {
-                    params.addBodyParameter("attachments", new File(filePath));
+                    params.addBodyParameter(new String("attachments"), file);
                 }
             }
         }
@@ -240,7 +240,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                         DbOperationManager.getInstance().execSql("UPDATE t_email SET id = '" + serverEmail.getId() + "' WHERE localId = '" + email.getLocalId() + "' ");
                         //DbOperationManager.getInstance().update(serverEmail, WhereBuilder.b().expr("localId", "=", email.getLocalId()), "id");
                     }
-                    DbOperationManager.getInstance().save(serverEmail);
+                    DbOperationManager.getInstance().saveOrUpdate(serverEmail);
                     //sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                     setResult(RESULT_OK);
                     finish();

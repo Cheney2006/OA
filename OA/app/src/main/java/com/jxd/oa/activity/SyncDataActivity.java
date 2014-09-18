@@ -1,6 +1,5 @@
 package com.jxd.oa.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ListView;
@@ -12,7 +11,6 @@ import com.jxd.oa.adapter.SyncDataAdapter;
 import com.jxd.oa.asynctask.SyncDataTask;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
-import com.jxd.oa.service.IncrementUpdateService;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.HttpUtil;
 import com.yftools.ViewUtil;
@@ -94,7 +92,7 @@ public class SyncDataActivity extends AbstractActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            new JxdAlertDialog(this, getResources().getString(R.string.txt_tips), "正在同步，是否确定退出？", getResources().getString(R.string.txt_confirm), getResources().getString(R.string.txt_cancel)) {
+            new JxdAlertDialog(this,getString(R.string.txt_tips), "正在同步，是否确定退出？", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
                 @Override
                 protected void positive() {
                     syncDataTask.cancel(true);

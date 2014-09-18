@@ -10,7 +10,6 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Schedule;
 import com.yftools.ViewUtil;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
 import java.util.List;
@@ -46,7 +45,7 @@ public class ScheduleAdapter extends AbstractAdapter<Schedule> {
         }
         //显示开始时间
         if (getItem(position).getStartDate() != null) {
-            viewHolder.date_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", getItem(position).getStartDate()));
+            viewHolder.date_tv.setText(getItem(position).getStartDate());
         }
         viewHolder.address_tv.setText(getItem(position).getAddress());
         if (!getItem(position).isFinished()) {

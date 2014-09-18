@@ -12,6 +12,7 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Contact;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
@@ -78,7 +79,7 @@ public class ContactDetailActivity extends AbstractActivity {
         }
         companyName_tv.setText(contact.getCompanyName());
         companyAddr_tv.setText(contact.getCompanyAddr());
-        sex_tv.setText(contact.getSex());
+        sex_tv.setText(Const.getName("SEX_",contact.getSex()));
         if (TextUtils.isEmpty(contact.getMobile())) {
             mobile_pv.setVisibility(View.GONE);
         } else {
@@ -137,5 +138,15 @@ public class ContactDetailActivity extends AbstractActivity {
                 });
             }
         }.show();
+    }
+
+    @Override
+    protected void refreshData() {
+        try {
+            contact=DbOperationManager.getInstance().getBeanById(Contact.class,contact.getId());
+            initData();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
     }
 }

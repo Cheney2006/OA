@@ -70,13 +70,7 @@
 
             <TextView
                 android:id="@+id/emailNum_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/WhiteTxt14"
-                android:gravity="center"
-                android:visibility="gone"
-                android:layout_marginRight="3dp"
-                android:background="@drawable/circle_red_message" />
+                style="@style/NumViewText"  />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -107,13 +101,38 @@
 
             <TextView
                 android:id="@+id/noticeNum_tv"
+                style="@style/NumViewText" />
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="3dp"
-                android:visibility="gone"
-                android:gravity="center"
-                style="@style/WhiteTxt14"
-                android:background="@drawable/circle_red_message" />
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/messageCenter_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_message_center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_message_center" />
+
+            <TextView
+                android:id="@+id/messageNum_tv"
+                style="@style/NumViewText"  />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -228,6 +247,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_right_icon" />
         </LinearLayout>
+
         <View style="@style/LineRow" />
 
         <LinearLayout
@@ -248,6 +268,110 @@
                 android:layout_marginLeft="10dp"
                 style="@style/BlackTxt18"
                 android:text="@string/txt_sign_title" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/salary_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_salary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_title_salary" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/leaveBill_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_leave_bill" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_title_leave_bill" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/reimburseBill_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_reimburse_bill" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_title_reimburse_bill" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon" />
+        </LinearLayout>
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/todoCenter_ll"
+            style="@style/WhiteIconLayout"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_width"
+                android:layout_height="@dimen/dimen_icon_width"
+                android:src="@drawable/icon_todo_center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                style="@style/BlackTxt18"
+                android:text="@string/txt_title_todo_center" />
 
             <ImageView
                 android:layout_width="wrap_content"

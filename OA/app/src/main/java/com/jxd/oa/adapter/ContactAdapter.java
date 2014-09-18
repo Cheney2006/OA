@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Contact;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.Constant;
 import com.yftools.ViewUtil;
 import com.yftools.util.AndroidUtil;
@@ -48,7 +49,7 @@ public class ContactAdapter extends AbstractAdapter<Contact> {
             viewHolder.update(data);
         }
         viewHolder.name_tv.setText(data.getName());
-        viewHolder.sex_tv.setText(data.getSex());
+        viewHolder.sex_tv.setText(Const.getName("SEX_", data.getSex()));
         viewHolder.companyName_tv.setText(data.getCompanyName());
         return view;
     }

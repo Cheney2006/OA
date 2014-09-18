@@ -9,15 +9,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.NoticeAdapter;
-import com.jxd.oa.bean.Email;
-import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.Notice;
 import com.jxd.oa.constants.Constant;
-import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.HttpUtil;
@@ -31,12 +27,9 @@ import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.ui.DatePickUtil;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
-import com.yftools.view.annotation.event.OnClick;
 import com.yftools.view.annotation.event.OnItemClick;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -113,7 +106,8 @@ public class NoticeActivity extends AbstractActivity {
         //取得未读的邮件
         try {
             final List<Notice> notReadNoticeList = DbOperationManager.getInstance().getBeans(Selector.from(Notice.class).where("isRead", "=", false));
-            if (notReadNoticeList == null) {
+            LogUtil.d("notReadNoticeList=" + notReadNoticeList.size());
+            if (notReadNoticeList == null || notReadNoticeList.size() == 0) {
                 displayToast("暂无未读通知");
                 return;
             }
@@ -132,7 +126,7 @@ public class NoticeActivity extends AbstractActivity {
                 public void onSuccess(ResponseInfo<Json> responseInfo) {
                     //更新接收时间
                     try {
-                        DbOperationManager.getInstance().save(notReadNoticeList);
+                        DbOperationManager.getInstance().saveOrUpdate(notReadNoticeList);
                         sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
                         displayToast("通知全部已读");
                     } catch (DbException e) {
@@ -162,18 +156,12 @@ public class NoticeActivity extends AbstractActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int currentSelectedPosition = info.position;
-        //删除
-        new JxdAlertDialog(this, getString(R.string.txt_tips), "确定删除？", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
-            @Override
-            protected void positive() {
-                try {
-                    DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
-                    sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
-                } catch (DbException e) {
-                    LogUtil.e(e);
-                }
-            }
-        }.show();
+        try {
+            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
         return super.onContextItemSelected(item);
     }
 

@@ -15,9 +15,7 @@ import com.jxd.common.vo.LocationInfo;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.SignAdapter;
-import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.bean.Address;
-import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.Sign;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.utils.DbOperationManager;
@@ -159,7 +157,7 @@ public class SignActivity extends AbstractActivity {
                 String result = responseInfo.result.toString();
                 Sign sign = GsonUtil.getInstance().getGson().fromJson(result, Sign.class);
                 try {
-                    DbOperationManager.getInstance().save(sign);
+                    DbOperationManager.getInstance().saveOrUpdate(sign);
                     initData();
                 } catch (DbException e) {
                     LogUtil.e(e);

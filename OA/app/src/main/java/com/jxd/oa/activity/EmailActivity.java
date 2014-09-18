@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.EmailAdapter;
@@ -24,7 +23,6 @@ import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
-import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.RequestParams;
@@ -251,18 +249,12 @@ public class EmailActivity extends AbstractActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int currentSelectedPosition = info.position;
-        //删除
-        new JxdAlertDialog(this, getString(R.string.txt_tips), "确定删除？", getString(R.string.txt_confirm), getString(R.string.txt_cancel)) {
-            @Override
-            protected void positive() {
-                try {
-                    DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
-                    refreshData();
-                } catch (DbException e) {
-                    LogUtil.e(e);
-                }
-            }
-        }.show();
+        try {
+            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            refreshData();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
         return super.onContextItemSelected(item);
     }
 

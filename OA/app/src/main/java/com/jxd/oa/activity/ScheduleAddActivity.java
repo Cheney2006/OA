@@ -3,14 +3,16 @@ package com.jxd.oa.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.jxd.common.vo.Item;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Schedule;
@@ -32,12 +34,13 @@ import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
-import com.yftools.util.DateUtil;
+import com.yftools.util.AndroidUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,10 +49,14 @@ import java.util.List;
  * Created by cy on 2014/8/18.
  * *****************************************
  */
-public class ScheduleAddActivity extends AbstractActivity {
+public class ScheduleAddActivity extends AbstractActivity implements AttachmentAddView.FileChooseListener {
+
+    private static final int CODE_FILE_CHOOSE = 101;
 
     @ViewInject(R.id.title_et)
-    private TextView title_et;
+    private EditText title_et;
+    @ViewInject(R.id.address_et)
+    private EditText address_et;
     @ViewInject(R.id.important_sev)
     private SelectEditView important_sev;
     @ViewInject(R.id.category_tv)
@@ -70,6 +77,22 @@ public class ScheduleAddActivity extends AbstractActivity {
         setContentView(R.layout.activity_schedule_add);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.txt_title_schedule_add));
+        schedule_aav.setFileChooseListener(this);
+        initData();
+    }
+
+    private void initData() {
+        //初始化类型选择
+        try {
+            List<ScheduleCategory> scheduleCategoryList = DbOperationManager.getInstance().getBeans(ScheduleCategory.class);
+            List<Item> itemList = new ArrayList<Item>();
+            for (ScheduleCategory scheduleCategory : scheduleCategoryList) {
+                itemList.add(new Item(scheduleCategory.getName(), scheduleCategory.getId()));
+            }
+            category_tv.initData(itemList);
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
     }
 
     @OnClick(R.id.important_sev)
@@ -138,7 +161,7 @@ public class ScheduleAddActivity extends AbstractActivity {
             for (String filePath : schedule_aav.getFilePathList()) {
                 File file = new File(filePath);
                 if (file.exists()) {
-                    params.addBodyParameter("attachments", new File(filePath));
+                    params.addBodyParameter(new String("attachments"), file);
                 }
             }
         }
@@ -150,7 +173,7 @@ public class ScheduleAddActivity extends AbstractActivity {
                 try {
                     //复制文件到项目目录
                     schedule_aav.copyFile(serverSchedule.getAttachmentName());
-                    DbOperationManager.getInstance().save(serverSchedule);
+                    DbOperationManager.getInstance().saveOrUpdate(serverSchedule);
                     setResult(RESULT_OK);
                     finish();
                 } catch (DbException e) {
@@ -170,6 +193,7 @@ public class ScheduleAddActivity extends AbstractActivity {
     private boolean setData() {
         schedule = new Schedule();
         schedule.setTitle(title_et.getText().toString());
+        schedule.setAddress(address_et.getText().toString());
         schedule.setImportant(Integer.parseInt(important_sev.getValue().toString()));
         //设置类型
         ScheduleCategory category = new ScheduleCategory();
@@ -178,8 +202,8 @@ public class ScheduleAddActivity extends AbstractActivity {
             category.setId(category_tv.getValue() + "");
         }
         schedule.setCategory(category);
-        schedule.setStartDate(DateUtil.stringToDate("yyyy-MM-dd HH:mm", startDate_sev.getValue().toString()));
-        schedule.setEndDate(DateUtil.stringToDate("yyyy-MM-dd HH:mm", endDate_sev.getValue().toString()));
+        schedule.setStartDate(startDate_sev.getValue().toString() + ":00");
+        schedule.setEndDate(endDate_sev.getValue().toString() + ":00");
         schedule.setContent(content_et.getText().toString());
         return true;
     }
@@ -206,5 +230,24 @@ public class ScheduleAddActivity extends AbstractActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CODE_FILE_CHOOSE:
+                    Uri uri = data.getData();
+                    String path = AndroidUtil.getPath(mContext, uri);
+                    schedule_aav.addAttachment(path);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onFileChoose() {
+        AndroidUtil.showFileChooser(this, CODE_FILE_CHOOSE);
     }
 }

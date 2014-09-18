@@ -1,5 +1,6 @@
 package com.jxd.oa.activity.base;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,26 +10,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.jxd.oa.bean.Email;
-import com.jxd.oa.constants.Const;
+import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
-import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
+import com.yftools.BitmapUtil;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
+import com.yftools.http.HttpHandler;
 import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
-import com.yftools.json.Json;
+import com.yftools.ui.ProgressDialogUtil;
+import com.yftools.util.AndroidUtil;
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.lang.reflect.Type;
-import java.util.List;
+import java.io.File;
 
 /**
  * *****************************************
@@ -40,6 +39,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
 
     protected Context mContext;
+    private HttpHandler<File> handle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +101,9 @@ public abstract class AbstractActivity extends ActionBarActivity {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 try {
-                    LogUtil.d("服务器返回：" + responseInfo.result);
                     CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
                     if (commonJson4List.getSuccess()) {
-                        DbOperationManager.getInstance().save(commonJson4List.getData());
+                        DbOperationManager.getInstance().saveOrUpdate(commonJson4List.getData());
                         sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                     } else {
                         displayToast(commonJson4List.getMessage());
@@ -120,6 +119,51 @@ public abstract class AbstractActivity extends ActionBarActivity {
                 displayToast(msg);
             }
         });
+    }
+
+    protected void sendRefresh(){
+        sendBroadcast(new Intent(Constant.ACTION_REFRESH));
+    }
+
+    private void downloadConfirm(final int size, final String url) {
+        new JxdAlertDialog(mContext, "提示", "检查到新的版本，是否升级?", "确定", null, "取消") {
+            @Override
+            protected void positive() {
+                downloadApk(ParamManager.parseDownUrl(url));
+            }
+        }.show();
+    }
+
+    private void downloadApk(String url) {
+        // 更新软件
+        File downloadFile = new File(BitmapUtil.getInstance(mContext).getCachePath(), "mmip.apk");
+        handle = HttpUtil.getInstance().downloadInDialog(mContext, "正在下载", ProgressDialog.STYLE_HORIZONTAL, url, downloadFile.getAbsolutePath(),
+                true, // 如果目标文件存在，接着未完成的部分继续下载。服务器不支持RANGE时将从新下载。
+                true, // 如果从请求返回信息中获取到文件名，下载完成后自动重命名。
+                new ProgressDialogUtil.OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        onCancelDownload();
+                    }
+                },
+                new RequestCallBack<File>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<File> responseInfo) {
+                        AndroidUtil.viewFile(mContext, responseInfo.result);
+                        displayToast("下载成功");
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        displayToast(msg);
+                    }
+                });
+    }
+
+    protected void onCancelDownload() {
+        if (handle != null) {
+            handle.cancel();
+        }
     }
 }
 

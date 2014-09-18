@@ -8,16 +8,11 @@ import com.jxd.oa.bean.base.AbstractBean;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
-import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
-import com.yftools.http.ResponseStream;
 import com.yftools.task.PriorityAsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * *****************************************
@@ -71,10 +66,10 @@ public class IncrementUpdateTask extends PriorityAsyncTask<Integer, String, Bund
 //                String clazzName = "com.jxd.oa.bean." + message.getBeanName();
 //                Class clazz = Class.forName(clazzName).newInstance().getClass();
 //                AbstractBean bean = (AbstractBean) GsonUtil.getInstance().getGson().fromJson(message.getBeanData(), clazz);
-//                DbOperationManager.getInstance().save(bean);
+//                DbOperationManager.getInstance().saveOrUpdate(bean);
 //                SysConfig.getInstance().setMaxVersion(message.getVersion());
 //            }
-//            DbOperationManager.getInstance().save(messageList);
+//            DbOperationManager.getInstance().saveOrUpdate(messageList);
 
 
             JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -90,7 +85,7 @@ public class IncrementUpdateTask extends PriorityAsyncTask<Integer, String, Bund
                     String clazzName = "com.jxd.oa.bean." + message.getBeanName();
                     Class clazz = Class.forName(clazzName).newInstance().getClass();
                     AbstractBean bean = (AbstractBean) GsonUtil.getInstance().getGson().fromJson(beanData, clazz);
-                    DbOperationManager.getInstance().save(bean);
+                    DbOperationManager.getInstance().saveOrUpdate(bean);
                     SysConfig.getInstance().setMaxVersion(jsonObject.getInt("version"));
                 }
             }

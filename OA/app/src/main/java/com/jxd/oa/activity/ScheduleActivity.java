@@ -59,7 +59,8 @@ public class ScheduleActivity extends AbstractActivity implements CalendarViewVi
             Calendar c = Calendar.getInstance();
             c.setTime(startDate);
             for (int i = 0; i < 42; i++) {
-                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("startDate", "<=", c.getTime().getTime()).and("endDate", ">=", c.getTime().getTime()));
+                String dateStr = DateUtil.dateToString(c.getTime());
+                int count = (int) DbOperationManager.getInstance().count(Selector.from(Schedule.class).where("date(startDate)", "<=", dateStr).and("date(endDate)", ">=", dateStr));
                 if (count > 0) {
                     data.put("planCount", count);
                     data.put("finishedCount", count);

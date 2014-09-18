@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +13,7 @@ import com.jxd.oa.R;
 import com.jxd.oa.bean.Attachment;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.ParamManager;
-import com.yftools.BitmapUtil;
 import com.yftools.HttpUtil;
-import com.yftools.bitmap.BitmapCommonUtil;
-import com.yftools.bitmap.core.BitmapCache;
 import com.yftools.exception.HttpException;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
@@ -67,9 +63,9 @@ public class AttachmentViewView extends LinearLayout {
         for (int i = 0, len = attachmentSizes.length; i < len; i++) {
             String savePath = attachmentNames[i];
             if (!TextUtils.isEmpty(attachmentSizes[i]) && !TextUtils.isEmpty(savePath)) {
-                int start = savePath.lastIndexOf("/");
+                //int start = savePath.lastIndexOf("/");
                 int end = savePath.lastIndexOf("_");
-                String name = savePath.substring(start + 1, end);
+                String name = savePath.substring(end + 1);
                 attachment = new Attachment();
                 attachment.setFileSize(Integer.parseInt(attachmentSizes[i]));
                 attachment.setFileName(name);

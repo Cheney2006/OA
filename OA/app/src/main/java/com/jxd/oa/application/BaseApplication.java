@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.PowerManager;
 
+import com.jxd.oa.constants.SysConfig;
 import com.yftools.LogUtil;
 import com.yftools.datetimestate.DateTimeChangeObserver;
 import com.yftools.datetimestate.DateTimeStateReceiver;
@@ -34,10 +35,7 @@ public abstract class BaseApplication extends Application {
     protected static SDChangeObserver sdChangeObserver;
     protected static DateTimeChangeObserver dateTimeChangeObserver;
     protected static PowerManager.WakeLock wl;
-    /**
-     * 时间服务器时间
-     */
-    protected static Long differTime;
+
     protected boolean isLogOutFile = false;
 
     @Override
@@ -96,7 +94,7 @@ public abstract class BaseApplication extends Application {
         };
         DateTimeStateReceiver.registerObserver(BaseApplication.dateTimeChangeObserver);
         DateTimeStateReceiver.registerDateTimeStateReceiver(context);
-        if(differTime==null){
+        if (!SysConfig.getInstance().getSyncDate()) {
             //开始时间校准
             startNtpTimeServer();
         }
@@ -116,19 +114,20 @@ public abstract class BaseApplication extends Application {
             public void run() {
                 try {
                     LogUtil.d("开始时间校准......");
-                    //在第一次时已经检验，再手动调时间，假如这样判断就不会再重新校验了。
-                    setCpuKeepOn();
+//                    setCpuKeepOn();
                     Date sysDate = new Date();
                     Date ntpDate = NtpUtil.getInstance().getNtpTime();
-                    releaseCpuWL();
+//                    releaseCpuWL();
                     if (ntpDate != null) {
-                        differTime = ntpDate.getTime() - sysDate.getTime();
+                        long differTime = ntpDate.getTime() - sysDate.getTime();
+                        SysConfig.getInstance().setDifferTime(differTime);
+                        SysConfig.getInstance().setSyncDate(true);
                         LogUtil.d("校准时间:" + DateUtil.dateTimeToString(getSysCurrentDate()));
                     } else {
-                        differTime = null;
+                        SysConfig.getInstance().setSyncDate(false);
                     }
                 } catch (Exception e) {
-                    differTime = null;
+                    SysConfig.getInstance().setSyncDate(false);
                     LogUtil.e("NTP时间校准失败！", e);
                 }
             }
@@ -139,7 +138,7 @@ public abstract class BaseApplication extends Application {
      * 获取系统当前时间
      */
     public static Date getSysCurrentDate() throws BaseException {
-        if (differTime == null) {
+        if (!SysConfig.getInstance().getSyncDate()) {
             try {
                 //开始时间校准
                 startNtpTimeServer();
@@ -148,12 +147,8 @@ public abstract class BaseApplication extends Application {
             }
             throw new BaseException("系统时间未校准");
         } else {
-            return new Date(new Date().getTime() + differTime);
+            return new Date(new Date().getTime() + SysConfig.getInstance().getDifferTime());
         }
-    }
-
-    public static Long getDifferTime() {
-        return differTime;
     }
 
     /**

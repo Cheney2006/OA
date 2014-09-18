@@ -38,11 +38,11 @@ public class DbOperationManager {
         return SingletonHolder.INSTANCE;
     }
 
-    public <C> void save(C bean) throws DbException {
+    public <C> void saveOrUpdate(C bean) throws DbException {
         dbUtil.saveOrUpdate(bean);
     }
 
-    public <C> void save(List<C> beanList) throws DbException {
+    public <C> void saveOrUpdate(List<C> beanList) throws DbException {
         dbUtil.saveOrUpdateAll(beanList);
     }
 

@@ -171,6 +171,17 @@
         <item name="android:gravity">top</item>
     </style>
 
+    <style name="NumViewText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/dimen_sub_title_top</item>
+        <item name="android:textSize">@dimen/dimen_font_14</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/circle_red_message</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
     <style name="LineRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dimen_divider_height</item>

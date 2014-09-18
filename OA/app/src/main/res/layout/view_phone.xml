@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/group_down_icon" />
+            android:src="@drawable/icon_group_down" />
     </RelativeLayout>
 
     <LinearLayout

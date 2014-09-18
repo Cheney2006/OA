@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.Notice;
 import com.jxd.oa.constants.Constant;
-import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
 import com.jxd.oa.view.AttachmentViewView;
@@ -27,8 +25,6 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
-
-import java.util.Date;
 
 /**
  * *****************************************
@@ -79,7 +75,8 @@ public class NoticeDetailActivity extends AbstractActivity {
         if (notice.getCreatedUser() != null) {
             createdUser_tv.setText(notice.getCreatedUser().getName());
         }
-        readSubmit();
+        if (!notice.isRead())
+            readSubmit();
     }
 
     private void readSubmit() {
@@ -91,7 +88,7 @@ public class NoticeDetailActivity extends AbstractActivity {
                 //更新接收时间
                 try {
                     notice.setRead(true);
-                    DbOperationManager.getInstance().save(notice);
+                    DbOperationManager.getInstance().saveOrUpdate(notice);
                     sendBroadcast(new Intent(Constant.ACTION_REFRESH));//要刷新未读数
                 } catch (DbException e) {
                     LogUtil.e(e);

@@ -82,12 +82,12 @@ public class LoginActivity extends AbstractActivity {
                     User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
                     SysConfig.getInstance().setUserId(user.getId());
                     try {
-                        DbOperationManager.getInstance().save(user);
+                        DbOperationManager.getInstance().saveOrUpdate(user);
                         if (user.getDepartment() != null) {
-                            DbOperationManager.getInstance().save(user.getDepartment());
+                            DbOperationManager.getInstance().saveOrUpdate(user.getDepartment());
                         }
                         if (user.getRole() != null) {
-                            DbOperationManager.getInstance().save(user.getRole());
+                            DbOperationManager.getInstance().saveOrUpdate(user.getRole());
                         }
                         startActivity(new Intent(mContext, HomeActivity.class));
                         finish();

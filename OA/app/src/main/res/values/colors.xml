@@ -24,4 +24,8 @@
     <color name="color_gray">#EFF2F4</color>
     <color name="color_sign_out">#EFAE30</color>
     <color name="color_read">#b2b2b2</color>
+    <color name="color_message_work">#6633FF</color>
+    <color name="color_operation_remind">#87C032</color>
+    <color name="color_tips">#21AABD</color>
+    <color name="color_base">#FFA500</color>
 </resources>

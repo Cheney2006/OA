@@ -60,5 +60,21 @@
     <string name="txt_title_schedule_detail">日程详情</string>
     <string name="txt_title_sign_address">考勤签到位置</string>
     <string name="txt_label_address">地点</string>
+    <string name="txt_title_my_task_detail">我的工作详情</string>
+    <string name="txt_message_center">消息中心</string>
+    <string name="txt_work">工作信息</string>
+    <string name="txt_work_tips">待办中心、今日日程、我的工作、请假单、报销单</string>
+    <string name="txt_operation_remind">操作提醒</string>
+    <string name="txt_operation_remind_tips">考勤位置采集</string>
+    <string name="txt_tips_title">提示信息</string>
+    <string name="txt_tips_sub_title">邮件、通知公告、工资查看、文档中心</string>
+    <string name="txt_message_center_base">基本信息</string>
+    <string name="txt_message_center_base_sub">用户、部门、角色</string>
+    <string name="txt_label_principal">负责人</string>
+    <string name="txt_label_participant">参与人</string>
+    <string name="txt_title_salary">我的工资</string>
+    <string name="txt_title_leave_bill">请假单</string>
+    <string name="txt_title_reimburse_bill">报销单</string>
+    <string name="txt_title_todo_center">待办中心</string>
 
 </resources>

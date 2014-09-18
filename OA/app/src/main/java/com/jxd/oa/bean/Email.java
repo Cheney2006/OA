@@ -2,10 +2,8 @@ package com.jxd.oa.bean;
 
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
-import com.yftools.db.annotation.Column;
 import com.yftools.db.annotation.Finder;
 import com.yftools.db.annotation.ForeignCollection;
-import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 
@@ -20,31 +18,21 @@ import java.util.Date;
 @Table(name = "t_email")
 public class Email extends AbstractBean {
 
-    @Id(column = "id")
     private String id;
-    @Column(column = "title")
     @SerializedName("subject")
     private String title;//标题
-    @Column(column = "content")
     private String content;//内容
-    @Column(column = "important")
     private int important;//重要性
-    @Column(column = "fromId")
     private String fromId;//发送人
     @Finder(valueColumn = "fromId", targetColumn = "id")
     private User fromUser;//因为后台没有用对象。所以这里就直接查一下
-    @Column(column = "toIds")
     @SerializedName("toId2")
     private String toIds;//接收人
-    @Column(column = "sendTime")
     private Date sendTime;
-    @Column(column = "attachmentName")
     private String attachmentName;//邮件列表，XX.doc|xx.xls
-    @Column(column = "attachmentSize")
     private String attachmentSize;//邮件大小,10923|23432
     @ForeignCollection(valueColumn = "id", foreign = "emailId", foreignAutoCreate = true)
     private ForeignCollectionLazyLoader<EmailRecipient> emailRecipientList;//该对像不能序列化,transient
-    @Column(column = "localId")
     private String localId;//本地id,用于存放草稿用
 
 

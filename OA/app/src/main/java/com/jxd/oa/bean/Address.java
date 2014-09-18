@@ -1,8 +1,6 @@
 package com.jxd.oa.bean;
 
 import com.jxd.oa.bean.base.AbstractBean;
-import com.yftools.db.annotation.Column;
-import com.yftools.db.annotation.Id;
 import com.yftools.db.annotation.Table;
 import com.yftools.db.annotation.Transient;
 
@@ -14,19 +12,12 @@ import com.yftools.db.annotation.Transient;
  */
 @Table(name = "t_address")
 public class Address extends AbstractBean {
-    @Id(column = "id")
     private String id;
-    @Column(column = "name")
     private String name;//采集名称
-    @Column(column = "accuracy")
     private Float accuracy;//精度
-    @Column(column = "address")
     private String address;//地址
-    @Column(column = "coorType")
     private Integer coorType;//坐标类型
-    @Column(column = "latitude")
     private Double latitude;//纬度
-    @Column(column = "longitude")
     private Double longitude;//经度
     /**
      * 状态
@@ -35,9 +26,7 @@ public class Address extends AbstractBean {
      * 3 完成采集——手机提交，后台审核通过后状态
      * 4 废弃采集——后台取消采集状态或者后台重新采集状态
      */
-    @Column(column = "status")
     private Integer status;
-    @Column(column = "collectUserId")
     private String collectUserId;//采集人
     @Transient
     private double distance;

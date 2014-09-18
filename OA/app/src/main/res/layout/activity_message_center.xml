@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/work_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/bg_layout_white">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_message_work" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_layout_padding_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ItemTitleTxt"
+                android:text="@string/txt_work" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_sub_title_top"
+                style="@style/ItemSubTitleTxt"
+                android:text="@string/txt_work_tips" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/workNum_tv"
+            style="@style/NumViewText" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_icon"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+
+    <View style="@style/LineRow" />
+
+    <LinearLayout
+        android:id="@+id/operationRemind_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/bg_layout_white">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_operation_remind" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_layout_padding_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ItemTitleTxt"
+                android:text="@string/txt_operation_remind" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_sub_title_top"
+                style="@style/ItemSubTitleTxt"
+                android:text="@string/txt_operation_remind_tips" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/operationRemindNum_tv"
+            style="@style/NumViewText" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_icon"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+
+    <View style="@style/LineRow" />
+
+    <LinearLayout
+        android:id="@+id/tips_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/bg_layout_white">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_tips" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_layout_padding_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ItemTitleTxt"
+                android:text="@string/txt_tips_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_sub_title_top"
+                style="@style/ItemSubTitleTxt"
+                android:text="@string/txt_tips_sub_title" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tipsNum_tv"
+            style="@style/NumViewText" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_icon"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+
+    <View style="@style/LineRow" />
+
+    <LinearLayout
+        android:id="@+id/base_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/bg_layout_white">
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_base" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_layout_padding_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ItemTitleTxt"
+                android:text="@string/txt_message_center_base" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_sub_title_top"
+                style="@style/ItemSubTitleTxt"
+                android:text="@string/txt_message_center_base_sub" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/baseNum_tv"
+            style="@style/NumViewText" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_icon"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -20,7 +20,7 @@ public class Constant {
 
     //服务器地址
     public final static String BASE_URL = "http://116.255.136.99/jxdoa/";
-//    public final static String BASE_URL = "http://192.168.173.1:8080/jxdoa/";
+//    public final static String BASE_URL = "http://192.168.1.111:8080/jxdoa/";
     //下载更新UI广播uri
     public final static String ACTION_REFRESH = "com.oa.uiRefresh.action";
     public static final String ACTION_EXIT = "com.oa.exitApp.action";

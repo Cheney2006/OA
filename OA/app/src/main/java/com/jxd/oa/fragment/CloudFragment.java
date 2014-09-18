@@ -8,13 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.CloudActivity;
-import com.jxd.oa.activity.EmailAddActivity;
-import com.jxd.oa.activity.EmailDetailActivity;
 import com.jxd.oa.adapter.CloudAdapter;
 import com.jxd.oa.bean.Cloud;
 import com.jxd.oa.constants.Constant;
@@ -28,7 +25,6 @@ import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
-import com.yftools.util.AndroidUtil;
 import com.yftools.util.DigitUtil;
 import com.yftools.util.StorageUtil;
 import com.yftools.view.annotation.ViewInject;
@@ -96,7 +92,7 @@ public class CloudFragment extends AbstractFragment {
             public void onSuccess(ResponseInfo<File> responseInfo) {
                 data.setDownload(true);
                 try {
-                    DbOperationManager.getInstance().save(data);
+                    DbOperationManager.getInstance().saveOrUpdate(data);
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }

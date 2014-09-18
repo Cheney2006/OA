@@ -16,6 +16,6 @@
         android:id="@+id/indicator_iv"
         android:layout_width="wrap_content"
         android:layout_marginLeft="5dp"
-        android:src="@drawable/bg_expand_icon"
+        android:src="@drawable/icon_group_down"
         android:layout_height="wrap_content" />
 </LinearLayout>

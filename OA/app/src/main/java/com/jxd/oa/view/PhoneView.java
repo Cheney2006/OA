@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,8 +13,6 @@ import android.widget.Toast;
 
 import com.jxd.oa.R;
 import com.yftools.util.AndroidUtil;
-
-import java.util.TooManyListenersException;
 
 /**
  * *****************************************
@@ -30,6 +29,7 @@ public class PhoneView extends LinearLayout {
     private LinearLayout operation_ll;
     private String labelText;
     private TextView mobile_label;
+    private ImageView indicator_iv;
 
     public PhoneView(Context context) {
         super(context);
@@ -50,12 +50,15 @@ public class PhoneView extends LinearLayout {
             public void onClick(View v) {
                 if (isExpanded) {
                     operation_ll.setVisibility(GONE);
+                    indicator_iv.setImageResource(R.drawable.icon_group_down);
                 } else {
+                    indicator_iv.setImageResource(R.drawable.icon_group_up);
                     operation_ll.setVisibility(VISIBLE);
                 }
                 isExpanded = !isExpanded;
             }
         });
+        indicator_iv= (ImageView) findViewById(R.id.indicator_iv);
         mobile_label = (TextView) findViewById(R.id.mobile_label);
         phone_tv = (TextView) findViewById(R.id.phone_tv);
         operation_ll = (LinearLayout) findViewById(R.id.operation_ll);

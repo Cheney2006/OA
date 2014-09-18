@@ -1,7 +1,6 @@
 package com.jxd.oa.constants;
 
 import com.jxd.common.vo.Item;
-import com.yftools.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ public enum Const {
     IMAGE_QUALITY_LOW("低", 480), IMAGE_QUALITY_MIDDLE("中", 800), IMAGE_QUALITY_HIGH("高", 1024),
     TYPE_IMPORTANT_LOW("一般", 0), TYPE_IMPORTANT_MIDDLE("重要", 1), TYPE_IMPORTANT_HIGH("非常重要", 2),
     TYPE_SIGN_IN("签到", 1), TYPE_SIGN_OUT("签退", 2),
-    SEX_FEMALE("男", 1), SEX_MALE("女", 2);
+    SEX_FEMALE("男", 0), SEX_MALE("女", 1);
     // 成员变量
     private String name;
     private Object value;

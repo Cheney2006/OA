@@ -81,6 +81,7 @@ public class ContactActivity extends AbstractActivity implements TabNavigationVi
                     status = Status.PRIVATE_CONTACT;
                 }
                 supportInvalidateOptionsMenu();
+                refreshFragment(getSupportActionBar().getSelectedNavigationIndex());
             }
         });
     }
@@ -118,24 +119,28 @@ public class ContactActivity extends AbstractActivity implements TabNavigationVi
     private class MyOnNavigationListener implements ActionBar.OnNavigationListener {
         @Override
         public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-            AbstractFragment currentFragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.mViewPager + ":" + mViewPager.getCurrentItem());
-            switch (itemPosition) {
-                case 0:
-                    if (mViewPager.getCurrentItem() == 0) {
-                        ((PublicContactFragment) currentFragment).fillList();
-                    } else {
-                        ((PrivateContactFragment) currentFragment).fillList();
-                    }
-                    break;
-                case 1:
-                    if (mViewPager.getCurrentItem() == 0) {
-                        ((PublicContactFragment) currentFragment).fillExpandableList();
-                    } else {
-                        ((PrivateContactFragment) currentFragment).fillExpandableList();
-                    }
-                    break;
-            }
+            refreshFragment(itemPosition);
             return true;
+        }
+    }
+
+    private void refreshFragment(int itemPosition) {
+        AbstractFragment currentFragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.mViewPager + ":" + mViewPager.getCurrentItem());
+        switch (itemPosition) {
+            case 0:
+                if (mViewPager.getCurrentItem() == 0) {
+                    ((PublicContactFragment) currentFragment).fillList();
+                } else {
+                    ((PrivateContactFragment) currentFragment).fillList();
+                }
+                break;
+            case 1:
+                if (mViewPager.getCurrentItem() == 0) {
+                    ((PublicContactFragment) currentFragment).fillExpandableList();
+                } else {
+                    ((PrivateContactFragment) currentFragment).fillExpandableList();
+                }
+                break;
         }
     }
 }

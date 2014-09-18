@@ -6,29 +6,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
 
-import com.google.gson.reflect.TypeToken;
 import com.jxd.oa.adapter.SyncDataAdapter;
-import com.jxd.oa.bean.User;
-import com.jxd.oa.bean.base.AbstractBean;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
-import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.http.ResponseStream;
-import com.yftools.json.Json;
 import com.yftools.task.PriorityAsyncTask;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * *****************************************
@@ -111,7 +98,7 @@ public class SyncDataTask extends PriorityAsyncTask<Integer, String, Bundle> {
         LogUtil.d("服务器数据返回:" + resultStr);
         CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(resultStr, cls);
         if (commonJson4List.getSuccess()) {
-            DbOperationManager.getInstance().save(commonJson4List.getData());
+            DbOperationManager.getInstance().saveOrUpdate(commonJson4List.getData());
         } else {
             throw new Exception(commonJson4List.getMessage());
         }

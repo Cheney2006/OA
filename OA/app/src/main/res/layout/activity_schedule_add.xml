@@ -22,7 +22,6 @@
 
         <com.jxd.oa.view.LabelRequestTextView
             style="@style/CustomLabelTextForEdit"
-            android:layout_marginTop="0dp"
             android:text="@string/txt_label_address" />
 
         <EditText

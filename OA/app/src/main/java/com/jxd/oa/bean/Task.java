@@ -1,10 +1,9 @@
 package com.jxd.oa.bean;
 
+import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.Table;
-
-import java.util.Date;
 
 /**
  * *****************************************
@@ -14,14 +13,20 @@ import java.util.Date;
  */
 @Table(name = "t_task")
 public class Task extends AbstractBean {
+    @SerializedName("tid")
     private String id;
     private String title;//主题
     private String content;//内容
     private int important;//重要性
+    private String principal; // 负责人
+    private String participant; // 参与人
     @Foreign(column = "categoryId", foreign = "id", foreignAutoCreate = true)
     private TaskCategory category;//类型
-    private Date startDate;//开始时间
-    private Date endDate;//结束时间
+    @SerializedName("btime")
+    private String startDate;//开始时间
+    @SerializedName("etime")
+    private String endDate;//结束时间
+    @SerializedName("file")
     private String attachmentName;//附件列表，XX.doc|xx.xls
     private String attachmentSize;//附件大小,10923|23432
     private boolean isFinished;
@@ -66,19 +71,35 @@ public class Task extends AbstractBean {
         this.category = category;
     }
 
-    public Date getStartDate() {
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(String participant) {
+        this.participant = participant;
+    }
+
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

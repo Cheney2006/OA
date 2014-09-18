@@ -20,6 +20,7 @@ import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.db.sqlite.Selector;
+import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.exception.DbException;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnChildClick;
@@ -76,7 +77,7 @@ public class PublicContactFragment extends AbstractFragment {
         mListView.setVisibility(View.VISIBLE);
         mExpandableListView.setVisibility(View.GONE);
         try {
-            contactList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("userId", "=", null));
+            contactList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("userId", "=", null).or("userId", "=", ""));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -93,11 +94,11 @@ public class PublicContactFragment extends AbstractFragment {
         mListView.setVisibility(View.GONE);
         mExpandableListView.setVisibility(View.VISIBLE);
         try {
-            mGroupList = DbOperationManager.getInstance().getBeans(Selector.from(ContactCategory.class).where("userId", "=", null));
+            mGroupList = DbOperationManager.getInstance().getBeans(Selector.from(ContactCategory.class).where("userId", "=", null).or("userId", "=", ""));
             if (mGroupList != null) {
                 mChildList = new ArrayList<List<Contact>>();
                 for (ContactCategory contactCategory : mGroupList) {
-                    List<Contact> childList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("userId", "=", null).and("categoryId", "=", contactCategory.getId()));
+                    List<Contact> childList = DbOperationManager.getInstance().getBeans(Selector.from(Contact.class).where("categoryId", "=", contactCategory.getId()).and(WhereBuilder.b("userId", "=", null).or("userId", "=", "")));
                     mChildList.add(childList);
                 }
             }

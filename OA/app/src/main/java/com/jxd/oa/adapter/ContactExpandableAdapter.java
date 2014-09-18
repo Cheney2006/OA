@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractExpandableAdapter;
 import com.jxd.oa.bean.Contact;
 import com.jxd.oa.bean.ContactCategory;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.Constant;
 import com.yftools.ViewUtil;
 import com.yftools.util.AndroidUtil;
@@ -47,6 +49,11 @@ public class ContactExpandableAdapter extends AbstractExpandableAdapter<ContactC
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.categoryName_tv.setText(getGroup(groupPosition).getName() + "（" + getChildListList().get(groupPosition).size() + "）");
+        if (isExpanded) {
+            viewHolder.indicator_iv.setImageResource(R.drawable.icon_group_up);
+        } else {
+            viewHolder.indicator_iv.setImageResource(R.drawable.icon_group_down);
+        }
         return convertView;
     }
 
@@ -64,7 +71,7 @@ public class ContactExpandableAdapter extends AbstractExpandableAdapter<ContactC
             viewHolder.update(data);
         }
         viewHolder.name_tv.setText(data.getName());
-        viewHolder.sex_tv.setText(data.getSex());
+        viewHolder.sex_tv.setText(Const.getName("SEX_", data.getSex()));
         viewHolder.companyName_tv.setText(data.getCompanyName());
         return convertView;
     }
@@ -82,6 +89,8 @@ public class ContactExpandableAdapter extends AbstractExpandableAdapter<ContactC
 
         @ViewInject(R.id.categoryName_tv)
         private TextView categoryName_tv;
+        @ViewInject(R.id.indicator_iv)
+        private ImageView indicator_iv;
         @ViewInject(R.id.name_tv)
         private TextView name_tv;
         @ViewInject(R.id.sex_tv)

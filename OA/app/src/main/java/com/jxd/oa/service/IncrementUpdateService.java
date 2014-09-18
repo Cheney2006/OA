@@ -59,8 +59,8 @@ public class IncrementUpdateService extends IntentService {
                             String clazzName = "com.jxd.oa.bean." + message.getBeanName();
                             Class clazz = Class.forName(clazzName).newInstance().getClass();
                             AbstractBean bean = (AbstractBean) GsonUtil.getInstance().getGson().fromJson(beanData, clazz);
-                            DbOperationManager.getInstance().save(bean);
-                            DbOperationManager.getInstance().save(message);
+                            DbOperationManager.getInstance().saveOrUpdate(bean);
+                            DbOperationManager.getInstance().saveOrUpdate(message);
                             SysConfig.getInstance().setMaxVersion(jsonObject.getInt("id"));
                         }
                         sendBroadcast(new Intent(Constant.ACTION_REFRESH));

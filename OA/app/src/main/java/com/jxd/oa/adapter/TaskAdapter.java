@@ -10,7 +10,6 @@ import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Task;
 import com.yftools.ViewUtil;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class TaskAdapter extends AbstractAdapter<Task> {
         ViewHolder viewHolder = null;
         if (view == null) {
             viewHolder = new ViewHolder();
-            view = getInflater().inflate(R.layout.item_notice, null);
+            view = getInflater().inflate(R.layout.item_task, null);
             ViewUtil.inject(viewHolder, view);
             view.setTag(viewHolder);
         } else {
@@ -43,7 +42,7 @@ public class TaskAdapter extends AbstractAdapter<Task> {
         } else {
             viewHolder.title_tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_attach, 0, 0, 0);
         }
-        viewHolder.date_tv.setText("完成时间："+ DateUtil.dateTimeToString(getItem(position).getEndDate()));
+        viewHolder.date_tv.setText("完成时间：" + getItem(position).getEndDate());
         if (!getItem(position).isFinished()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
         } else {

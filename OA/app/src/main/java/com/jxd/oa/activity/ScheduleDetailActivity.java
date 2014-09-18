@@ -17,7 +17,6 @@ import com.jxd.oa.view.AttachmentViewView;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.exception.DbException;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
 /**
@@ -62,8 +61,8 @@ public class ScheduleDetailActivity extends AbstractActivity {
         title_tv.setText(schedule.getTitle());
         important_tv.setText(Const.getName("TYPE_IMPORTANT_", schedule.getImportant()));
         category_tv.setText(schedule.getCategory().getName());
-        starDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getStartDate()));
-        endDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", schedule.getEndDate()));
+        starDate_tv.setText(schedule.getStartDate());
+        endDate_tv.setText(schedule.getEndDate());
         address_tv.setText(schedule.getAddress());
         content_tv.setText(schedule.getContent());
         if (!TextUtils.isEmpty(schedule.getAttachmentName()) && !TextUtils.isEmpty(schedule.getAttachmentSize())) {
@@ -91,7 +90,7 @@ public class ScheduleDetailActivity extends AbstractActivity {
                     protected void positive() {
                         try {
                             schedule.setFinished(true);
-                            DbOperationManager.getInstance().save(schedule);
+                            DbOperationManager.getInstance().saveOrUpdate(schedule);
                             setResult(RESULT_OK);
                             finish();
                         } catch (DbException e) {

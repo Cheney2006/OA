@@ -76,12 +76,12 @@ public class WelcomeActivity extends AbstractActivity {
                 String result = responseInfo.result.toString();
                 User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
                 try {
-                    DbOperationManager.getInstance().save(user);
+                    DbOperationManager.getInstance().saveOrUpdate(user);
                     if (user.getDepartment() != null) {
-                        DbOperationManager.getInstance().save(user.getDepartment());
+                        DbOperationManager.getInstance().saveOrUpdate(user.getDepartment());
                     }
                     if (user.getRole() != null) {
-                        DbOperationManager.getInstance().save(user.getRole());
+                        DbOperationManager.getInstance().saveOrUpdate(user.getRole());
                     }
                     goHome();
                 } catch (DbException e) {

@@ -11,13 +11,13 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.Task;
+import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.view.AttachmentViewView;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.exception.DbException;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ContentView;
 import com.yftools.view.annotation.ViewInject;
 
@@ -32,6 +32,10 @@ public class MyTaskDetailActivity extends AbstractActivity {
 
     @ViewInject(R.id.title_tv)
     private TextView title_tv;
+    @ViewInject(R.id.principal_tv)
+    private TextView principal_tv;
+    @ViewInject(R.id.participant_tv)
+    private TextView participant_tv;
     @ViewInject(R.id.important_tv)
     private TextView important_tv;
     @ViewInject(R.id.category_tv)
@@ -52,7 +56,7 @@ public class MyTaskDetailActivity extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_schedule_detail));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_my_task_detail));
         task = (Task) getIntent().getSerializableExtra("task");
         initData();
     }
@@ -60,9 +64,11 @@ public class MyTaskDetailActivity extends AbstractActivity {
     public void initData() {
         title_tv.setText(task.getTitle());
         important_tv.setText(Const.getName("TYPE_IMPORTANT_", task.getImportant()));
-        category_tv.setText(task.getCategory().getName());
-        starDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", task.getStartDate()));
-        endDate_tv.setText(DateUtil.dateToString("yyyy-MM-dd HH:mm", task.getEndDate()));
+        if (task.getCategory() != null) {
+            category_tv.setText(task.getCategory().getName());
+        }
+        starDate_tv.setText(task.getStartDate());
+        endDate_tv.setText(task.getEndDate());
         content_tv.setText(task.getContent());
         if (!TextUtils.isEmpty(task.getAttachmentName()) && !TextUtils.isEmpty(task.getAttachmentSize())) {
             attachment_label.setVisibility(View.VISIBLE);
@@ -71,6 +77,37 @@ public class MyTaskDetailActivity extends AbstractActivity {
         } else {
             attachment_label.setVisibility(View.GONE);
             schedule_avv.setVisibility(View.GONE);
+        }
+        //负责人
+        try {
+            User principalUser = DbOperationManager.getInstance().getBeanById(User.class, task.getPrincipal());
+            if (principalUser != null) {
+                principal_tv.setText(principalUser.getName());
+            }
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        //参与人
+        if (!TextUtils.isEmpty(task.getParticipant())) {
+            StringBuffer sb = new StringBuffer();
+            String[] participants = task.getParticipant().split(",");
+            if (participants != null) {
+                for (String participant : participants) {
+                    try {
+                        User participantUser = DbOperationManager.getInstance().getBeanById(User.class, participant);
+                        if (participantUser != null) {
+                            sb.append(participantUser.getName()).append(";");
+                        }
+                    } catch (DbException e) {
+                        LogUtil.e(e);
+                    }
+
+                }
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            participant_tv.setText(sb.toString());
         }
     }
 
@@ -89,8 +126,8 @@ public class MyTaskDetailActivity extends AbstractActivity {
                     protected void positive() {
                         try {
                             task.setFinished(true);
-                            DbOperationManager.getInstance().save(task);
-                            setResult(RESULT_OK);
+                            DbOperationManager.getInstance().saveOrUpdate(task);
+                            sendRefresh();
                             finish();
                         } catch (DbException e) {
                             LogUtil.e(e);
