@@ -11,14 +11,12 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.JxdFragmentPagerAdapter;
 import com.jxd.oa.bean.Cloud;
-import com.jxd.oa.bean.Notice;
 import com.jxd.oa.fragment.CloudDownloadFragment;
 import com.jxd.oa.fragment.CloudFragment;
-import com.jxd.oa.fragment.PrivateContactFragment;
-import com.jxd.oa.fragment.PublicContactFragment;
 import com.jxd.oa.fragment.base.AbstractFragment;
 import com.yftools.ViewUtil;
 import com.yftools.ui.DatePickUtil;
+import com.yftools.view.annotation.ContentView;
 import com.yftools.view.annotation.ViewInject;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ import java.util.List;
  * Created by cy on 2014/8/6.
  * *****************************************
  */
+@ContentView(R.layout.activity_view_pager)
 public class CloudActivity extends AbstractActivity {
 
     @ViewInject(R.id.mViewPager)
@@ -39,7 +38,6 @@ public class CloudActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
         ViewUtil.inject(this);
         initTabBar();
         initPagerAdapter();
@@ -66,7 +64,7 @@ public class CloudActivity extends AbstractActivity {
     }
 
     private void initTabBar() {
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle(getString(R.string.txt_cloud));
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         for (String s : getResources().getStringArray(R.array.menu_tab_cloud)) {
             ActionBar.Tab tab = getSupportActionBar().newTab().setText(s).setTabListener(new MyTabListener());

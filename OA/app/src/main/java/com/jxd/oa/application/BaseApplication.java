@@ -27,7 +27,7 @@ import java.util.Date;
  * BaseApplication
  */
 public abstract class BaseApplication extends Application {
-    private static final String LOG_PREFIX = "jxd";
+    private static final String LOG_PREFIX = "jxd_";
     protected static Context context;
     protected static String packageName;
     protected static Application application;
@@ -94,10 +94,7 @@ public abstract class BaseApplication extends Application {
         };
         DateTimeStateReceiver.registerObserver(BaseApplication.dateTimeChangeObserver);
         DateTimeStateReceiver.registerDateTimeStateReceiver(context);
-        if (!SysConfig.getInstance().getSyncDate()) {
-            //开始时间校准
-            startNtpTimeServer();
-        }
+
     }
 
     @Override
@@ -108,7 +105,7 @@ public abstract class BaseApplication extends Application {
         DateTimeStateReceiver.unRegisterDateTimeStateReceiver(context);
     }
 
-    private static void startNtpTimeServer() {
+    public static void startNtpTimeServer() {
         new Thread() {
             @Override
             public void run() {

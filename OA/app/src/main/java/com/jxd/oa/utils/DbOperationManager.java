@@ -74,6 +74,14 @@ public class DbOperationManager {
         dbUtil.delete(bean);
     }
 
+    public <C> void deleteBeans(List<C> beanList) throws DbException {
+        dbUtil.deleteAll(beanList);
+    }
+
+    public <C> void deleteBean(Class<C> clazz, WhereBuilder whereBuilder) throws DbException {
+        dbUtil.delete(clazz, whereBuilder);
+    }
+
     public <C> void deleteBean(Class<C> clazz, String id) throws DbException {
         dbUtil.deleteById(clazz, id);
     }

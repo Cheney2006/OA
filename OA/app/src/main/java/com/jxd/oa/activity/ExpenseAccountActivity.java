@@ -11,8 +11,8 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.adapter.TaskAdapter;
-import com.jxd.oa.bean.Task;
+import com.jxd.oa.adapter.SalaryAdapter;
+import com.jxd.oa.bean.Salary;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -27,23 +27,23 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：我的工作
+ * Description ：报销单
  * Created by cy on 2014/9/14.
  * *****************************************
  */
 @ContentView(R.layout.activity_list_view)
-public class MyTaskActivity extends AbstractActivity {
+public class ExpenseAccountActivity extends AbstractActivity {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
-    private List<Task> taskList;
-    private TaskAdapter adapter;
+    private List<Salary> salaryList;
+    private SalaryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getString(R.string.txt_my_task));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_salary));
         registerForContextMenu(mListView);
         initData();
     }
@@ -51,23 +51,23 @@ public class MyTaskActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            taskList = DbOperationManager.getInstance().getBeans(Selector.from(Task.class).orderBy("isFinished", true));
+            salaryList = DbOperationManager.getInstance().getBeans(Selector.from(Salary.class).orderBy("yearMonth", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
         if (adapter == null) {
-            adapter = new TaskAdapter(mContext, taskList);
+            adapter = new SalaryAdapter(mContext, salaryList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setDataList(taskList);
+            adapter.setDataList(salaryList);
             adapter.notifyDataSetChanged();
         }
     }
 
     @OnItemClick(R.id.mListView)
     public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, MyTaskDetailActivity.class);
-        intent.putExtra("task", adapter.getItem(position));
+        Intent intent = new Intent(mContext, SalaryDetailActivity.class);
+        intent.putExtra("salary", adapter.getItem(position));
         startActivity(intent);
     }
 
@@ -84,7 +84,7 @@ public class MyTaskActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(Task.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(Salary.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
                 return true;
@@ -98,7 +98,7 @@ public class MyTaskActivity extends AbstractActivity {
         //添加菜单项
         menu.add(Menu.NONE, 0, 0, "删除");
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(adapter.getItem(info.position).getTitle());
+        menu.setHeaderTitle(adapter.getItem(info.position).getYearMonth());
     }
 
     @Override

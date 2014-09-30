@@ -11,6 +11,7 @@ import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.HttpUtil;
+import com.yftools.LogUtil;
 import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseStream;
 import com.yftools.util.DateUtil;
@@ -70,8 +71,7 @@ public class IncrementUpdateService extends IntentService {
                 }
             }
         } catch (Exception e) {
-            //发送广播来处理错误消息
-            e.printStackTrace();
+            LogUtil.e(e);
         }
     }
 }

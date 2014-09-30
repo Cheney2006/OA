@@ -108,7 +108,7 @@ public class EmailAddActivity extends AbstractActivity implements AttachmentAddV
                         recipient_sev.setContent(name_sb.toString(), email.getToIds());
                     }
                 }
-                if (email.getAttachmentName() != null) {
+                if (email.getLocalId() != null && email.getAttachmentName() != null) {//草稿时，才显示附件，转发时，不显示附件因为有可能附件还没有下载下来
                     String[] attachmentNames = email.getAttachmentName().split("\\|");
                     if (attachmentNames != null) {
                         for (String attachmentName : attachmentNames) {

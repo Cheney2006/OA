@@ -1,6 +1,7 @@
 package com.jxd.oa.constants;
 
 
+import com.jxd.oa.bean.Address;
 import com.jxd.oa.bean.Contact;
 import com.jxd.oa.bean.ContactCategory;
 import com.jxd.oa.bean.Department;
@@ -33,11 +34,15 @@ public class Constant {
             {User.class, "用户"},
             {Role.class, "角色"},
             {ContactCategory.class, "通讯录分类"},
-            {Contact.class, "通讯录"}
+            {Contact.class, "通讯录"},
+            {Address.class, "考勤位置"}
     };
 
     public static final String FOLDER_DOWNLOAD = "download";
 
     public static final int CALL_PHONE = 1;
     public static final int SEND_MSG = 2;
+    //消息中操作类型
+    public static final String OPERATION_ADD="ADD";
+    public static final String OPERATION_EDIT="EDIT";
 }

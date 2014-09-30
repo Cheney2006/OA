@@ -2,19 +2,24 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup">
+
     <TextView
-        android:id="@id/signTime_tv"
+        android:id="@id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_label_title"
-        style="@style/BlackTxt14"/>
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+        android:layout_marginRight="@dimen/dimen_txt_padding_left"
+        style="@style/BlackTxt14" />
+
     <TextView
-        android:id="@id/signAddress_tv"
+        android:id="@id/address_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
-        android:text="@string/txt_title_address"
-        style="@style/BlackTxt14"/>
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+        android:layout_marginRight="@dimen/dimen_txt_padding_left"
+        style="@style/BlackTxt14" />
 </LinearLayout>

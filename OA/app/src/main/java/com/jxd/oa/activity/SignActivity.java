@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -32,6 +35,8 @@ import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
+import com.yftools.ui.DatePickUtil;
+import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 import com.yftools.view.annotation.event.OnItemClick;
@@ -47,6 +52,7 @@ import java.util.List;
  */
 public class SignActivity extends AbstractActivity {
 
+    public static final int MAX_DISTANCE = 100;//100米以内
     @ViewInject(R.id.mListView)
     private ListView mListView;
     private List<Sign> signList;
@@ -60,13 +66,18 @@ public class SignActivity extends AbstractActivity {
         setContentView(R.layout.activity_sign);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.txt_sign_title));
+        initView();
         initData();
+    }
+
+    private void initView() {
+        registerForContextMenu(mListView);
     }
 
 
     private void initData() {
         try {
-            signList = DbOperationManager.getInstance().getBeans(Selector.from(Sign.class).orderBy("singTime"));
+            signList = DbOperationManager.getInstance().getBeans(Selector.from(Sign.class).orderBy("signTime", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
@@ -109,14 +120,20 @@ public class SignActivity extends AbstractActivity {
                             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                             LatLng addressLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                             double distance = DistanceUtil.getDistance(latLng, addressLatLng);
-                            if (distance <= 100) {
+                            if (distance <= MAX_DISTANCE) {
                                 address.setDistance(distance);
                                 vicinityAddressList.add(address);
                             }
                         }
                         if (vicinityAddressList.size() > 0) {
+                            String[] titles = new String[vicinityAddressList.size()];
+                            int i = 0;
+                            for (Address address : vicinityAddressList) {
+                                titles[0] = address.getName();
+                                i++;
+                            }
                             Dialog alertDialog = new AlertDialog.Builder(mContext).setTitle("请选择参考位置")
-                                    .setItems(vicinityAddressList.toArray(new String[vicinityAddressList.size()]), new DialogInterface.OnClickListener() {
+                                    .setItems(titles, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             signSubmit(location, vicinityAddressList.get(which), type);
@@ -127,7 +144,7 @@ public class SignActivity extends AbstractActivity {
                             displayToast("附近无考勤参考位置");
                         }
                     } else {
-                        displayToast("暂无考勤参考位置，请联系管理先采集位置");
+                        displayToast("暂无考勤参考位置，请联系管理员先采集位置");
                     }
 
                 } catch (DbException e) {
@@ -143,15 +160,15 @@ public class SignActivity extends AbstractActivity {
         sign.setSignType(type);
         sign.setSignAccuracy(location.getAccuracy());
         sign.setSignAddress(location.getAddress());
-        sign.setSignCoorType(location.getCoorType());
+        sign.setSignCoorType(Const.COOR_TYPE_BD.getValue() + "");
         sign.setSignLatitude(location.getLatitude());
         sign.setSignLongitude(location.getLongitude());
         sign.setSignDistance(address.getDistance());
+        sign.setSignTime(getNowDate());
         sign.setVicinityAddress(address);
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(sign));
-
-        HttpUtil.getInstance().sendInDialog(mContext, "正在上传数据...", ParamManager.parseBaseUrl(""), params, new RequestCallBack<Json>() {
+        HttpUtil.getInstance().sendInDialog(mContext, "正在上传数据...", ParamManager.parseBaseUrl("signSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 String result = responseInfo.result.toString();
@@ -162,8 +179,6 @@ public class SignActivity extends AbstractActivity {
                 } catch (DbException e) {
                     LogUtil.e(e);
                 }
-
-                //OAApplication.getSysCurrentDate()
             }
 
             @Override
@@ -176,5 +191,53 @@ public class SignActivity extends AbstractActivity {
     @OnClick(R.id.signOut_btn)
     public void signOutClick(View view) {
         signStart((Integer) Const.TYPE_SIGN_OUT.getValue());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sync, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sync:
+                new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
+                    @Override
+                    public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
+                        syncData(Sign.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                    }
+                }).showDateDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        //添加菜单项
+        menu.add(Menu.NONE, 0, 0, "删除");
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        String title = DateUtil.dateTimeToString(adapter.getItem(info.position).getSignTime()) + "(" + Const.getName("TYPE_SIGN_", adapter.getItem(info.position).getSignType()) + ")";
+        menu.setHeaderTitle(title);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int currentSelectedPosition = info.position;
+        try {
+            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            initData();
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    protected void refreshData() {
+        initData();
     }
 }

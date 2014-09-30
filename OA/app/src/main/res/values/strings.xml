@@ -73,8 +73,35 @@
     <string name="txt_label_principal">负责人</string>
     <string name="txt_label_participant">参与人</string>
     <string name="txt_title_salary">我的工资</string>
-    <string name="txt_title_leave_bill">请假单</string>
-    <string name="txt_title_reimburse_bill">报销单</string>
+    <string name="txt_title_leave_application">请假单</string>
+    <string name="txt_title_expense_account">报销单</string>
     <string name="txt_title_todo_center">待办中心</string>
+    <string name="txt_action_delete">全部清空</string>
+    <string name="txt_title_salary_detail">工资详情</string>
+    <string name="txt_label_payable_total">应发合计</string>
+    <string name="txt_label_pay_salary">薪级工资</string>
+    <string name="txt_label_merit_salary">绩效工资</string>
+    <string name="txt_label_transitivity_subsidy">过渡性补贴</string>
+    <string name="txt_label_post_allowance">岗位津贴</string>
+    <string name="txt_label_deduct_total">扣款合计</string>
+    <string name="txt_label_employee_benefit">员工福利</string>
+    <string name="txt_label_overtime_fee">加班费</string>
+    <string name="txt_label_medicine_fee">特保药费</string>
+    <string name="txt_label_premium">特保费</string>
+    <string name="txt_label_telephone_fee">电话费</string>
+    <string name="txt_label_health_fee">保键费</string>
+    <string name="txt_label_life_allowance">生活补贴</string>
+    <string name="txt_label_service_fee">劳务费</string>
+    <string name="txt_label_other_fee">其它费用</string>
+    <string name="txt_label_leave_deduction">病事假扣款</string>
+    <string name="txt_label_rent">房租</string>
+    <string name="txt_label_pension_insurance">养老保险</string>
+    <string name="txt_label_medical_insurance">医疗保险</string>
+    <string name="txt_label_birth_insurance">生育保险</string>
+    <string name="txt_label_unemployment_insurance">失业保险</string>
+    <string name="txt_label_work_insurance">工伤保险</string>
+    <string name="txt_label_housing_fund">住房公积金</string>
+    <string name="txt_label_withhold_tax">代扣税</string>
+    <string name="txt_label_other_deductions">其它扣税</string>
 
 </resources>

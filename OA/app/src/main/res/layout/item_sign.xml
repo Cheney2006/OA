@@ -10,7 +10,7 @@
         android:id="@+id/signDate_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_txt_padding_top"
+        android:layout_margin="@dimen/dimen_txt_padding_left"
         android:layout_gravity="center"
         android:background="@drawable/sign_date_bg"
         style="@style/WhiteTxt12" />
@@ -50,15 +50,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="4dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/signAddress_tv"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:singleLine="true"
                 style="@style/BlackTxt14" />
 
@@ -67,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/GrayTxt12"
+                android:layout_marginTop="@dimen/dimen_sub_title_top"
                 android:layout_below="@id/signAddress_tv"
                 android:singleLine="true" />
         </RelativeLayout>

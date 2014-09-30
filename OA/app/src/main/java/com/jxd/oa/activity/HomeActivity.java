@@ -15,11 +15,12 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.SelectImageActivity;
 import com.jxd.oa.bean.EmailRecipient;
+import com.jxd.oa.bean.Message;
 import com.jxd.oa.bean.Notice;
-import com.jxd.oa.service.IncrementUpdateService;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
+import com.jxd.oa.service.IncrementUpdateService;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.BitmapUtil;
@@ -36,7 +37,9 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.util.AndroidUtil;
 import com.yftools.util.BitmapDecodeUtil;
+import com.yftools.util.DateUtil;
 import com.yftools.util.UUIDGenerator;
+import com.yftools.view.annotation.ContentView;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
@@ -48,6 +51,7 @@ import java.io.File;
  * Created by cy on 2014/7/29.
  * *****************************************
  */
+@ContentView(R.layout.activity_home)
 public class HomeActivity extends SelectImageActivity {
 
     public static final int BACK_DELAY_MILLIS = 2000;
@@ -65,6 +69,8 @@ public class HomeActivity extends SelectImageActivity {
     private TextView emailNum_tv;
     @ViewInject(R.id.noticeNum_tv)
     private TextView noticeNum_tv;
+    @ViewInject(R.id.messageNum_tv)
+    private TextView messageNum_tv;
     private long mExitTime;
     private Uri imageUri;//The Uri to store the big bitmap，跟输入的区分出来。不然在选择图片裁剪，把原有的图片也裁剪小了。
     private File photo;
@@ -73,9 +79,12 @@ public class HomeActivity extends SelectImageActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.app_name));
+        //TODO 正式时，取消
+        if (DateUtil.dateToString(getNowDate()).compareTo("2014-11-01") >= 0) {
+            exitApp();
+        }
         initData();
         checkSync();
         initNum();
@@ -174,12 +183,22 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.sign_ll)
     public void signClick(View view) {
-        startActivity(new Intent(mContext, AddressCollectActivity.class));
+        startActivity(new Intent(mContext, SignActivity.class));
     }
 
     @OnClick(R.id.messageCenter_ll)
     public void messageCenterClick(View view) {
         startActivity(new Intent(mContext, MessageCenterActivity.class));
+    }
+
+    @OnClick(R.id.salary_ll)
+    public void salaryClick(View view) {
+        startActivity(new Intent(mContext, SalaryActivity.class));
+    }
+
+    @OnClick(R.id.expenseAccount_ll)
+    public void expenseAccountClick(View view) {
+        startActivity(new Intent(mContext, ExpenseAccountActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)
@@ -291,18 +310,28 @@ public class HomeActivity extends SelectImageActivity {
 
     private void initNum() {
         //电子邮件未读数
+        initEmailNum();
+        //通知未读
+        initNoticeNum();
+        //消息中心
+        initMessageNum();
+    }
+
+    private void initMessageNum() {
         try {
-            long emailNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
-            if (emailNum > 0) {
-                emailNum_tv.setVisibility(View.VISIBLE);
-                emailNum_tv.setText(emailNum + "");
+            long messageNum = DbOperationManager.getInstance().count(Selector.from(Message.class).where("isRead", "=", false));
+            if (messageNum > 0) {
+                messageNum_tv.setVisibility(View.VISIBLE);
+                messageNum_tv.setText(messageNum + "");
             } else {
-                emailNum_tv.setVisibility(View.GONE);
+                messageNum_tv.setVisibility(View.GONE);
             }
         } catch (DbException e) {
             LogUtil.e(e);
         }
-        //通知未读
+    }
+
+    private void initNoticeNum() {
         try {
             long noticeNum = DbOperationManager.getInstance().count(Selector.from(Notice.class).where("isRead", "=", false));
             if (noticeNum > 0) {
@@ -310,6 +339,20 @@ public class HomeActivity extends SelectImageActivity {
                 noticeNum_tv.setText(noticeNum + "");
             } else {
                 noticeNum_tv.setVisibility(View.GONE);
+            }
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+    }
+
+    private void initEmailNum() {
+        try {
+            long emailNum = DbOperationManager.getInstance().count(Selector.from(EmailRecipient.class).where("toId", "=", SysConfig.getInstance().getUserId()).and("readTime", "=", ""));
+            if (emailNum > 0) {
+                emailNum_tv.setVisibility(View.VISIBLE);
+                emailNum_tv.setText(emailNum + "");
+            } else {
+                emailNum_tv.setVisibility(View.GONE);
             }
         } catch (DbException e) {
             LogUtil.e(e);

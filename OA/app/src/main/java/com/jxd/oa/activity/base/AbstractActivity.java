@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.jxd.common.view.JxdAlertDialog;
+import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
@@ -18,6 +19,7 @@ import com.jxd.oa.utils.ParamManager;
 import com.yftools.BitmapUtil;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
+import com.yftools.exception.BaseException;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.http.HttpHandler;
@@ -28,6 +30,7 @@ import com.yftools.ui.ProgressDialogUtil;
 import com.yftools.util.AndroidUtil;
 
 import java.io.File;
+import java.util.Date;
 
 /**
  * *****************************************
@@ -121,7 +124,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
         });
     }
 
-    protected void sendRefresh(){
+    protected void sendRefresh() {
         sendBroadcast(new Intent(Constant.ACTION_REFRESH));
     }
 
@@ -164,6 +167,22 @@ public abstract class AbstractActivity extends ActionBarActivity {
         if (handle != null) {
             handle.cancel();
         }
+    }
+
+    protected Date getNowDate() {
+        try {
+            return OAApplication.getSysCurrentDate();
+        } catch (BaseException e) {
+            LogUtil.e(e);
+//            new JxdAlertDialog(mContext, "错误", "系统错误 : 系统时间未校准") {
+//                @Override
+//                protected void positive() {
+//                    super.positive();
+//                    finish();
+//                }
+//            }.show();
+        }
+        return new Date();
     }
 }
 

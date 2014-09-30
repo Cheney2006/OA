@@ -2,8 +2,7 @@ package com.jxd.oa.bean;
 
 import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
-import com.yftools.db.annotation.Column;
-import com.yftools.db.annotation.Id;
+import com.yftools.db.annotation.Table;
 import com.yftools.db.annotation.Transient;
 
 import java.util.Date;
@@ -14,23 +13,18 @@ import java.util.Date;
  * Created by cy on 2014/8/6.
  * *****************************************
  */
+@Table(name = "t_message")
 public class Message extends AbstractBean {
 
-    @Id(column = "id")
+    private static final String COLUMN_ID = "id";
+    //@Column(column = COLUMN_ID)
     private int id;
-    @Column(column = "tile")
     private String title;//标题
-    @Column(column = "beanId")
     private String beanId;//数据ID
-    @Column(column = "beanName")
     private String beanName;//实体名
-    @Column(column = "type")
     private int type;//类型
-    @Column(column = "createdDate")
     private Date createdDate;//创建时间
-    @Column(column = "isFinished")
     private boolean isRead;//是否已读
-    @Column(column = "operation")
     private String operation;//操作
     @Transient
     private String beanData;

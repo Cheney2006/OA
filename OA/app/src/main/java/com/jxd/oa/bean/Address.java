@@ -111,8 +111,4 @@ public class Address extends AbstractBean {
         this.distance = distance;
     }
 
-    @Override
-    public String toString() {//用于对话框选择
-        return name;
-    }
 }

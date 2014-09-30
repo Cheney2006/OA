@@ -12,9 +12,11 @@ import java.util.Map;
  */
 public enum Const {
     // 表名跟实体类
-    IMAGE_QUALITY_LOW("低", 480), IMAGE_QUALITY_MIDDLE("中", 800), IMAGE_QUALITY_HIGH("高", 1024),
+    TYPE_MESSAGE_WORK("工作信息", 1), TYPE_MESSAGE_OPERATION_REMIND("操作提醒", 2), TYPE_MESSAGE_TIPS("提示信息", 3),TYPE_MESSAGE_BASE("基本信息", 4),
+    STATUS_ADDRESS_TODO("待采集", 1), STATUS_ADDRESS_SUBMIT("提交采集", 2), STATUS_ADDRESS_FINISHED("完成采集", 3),TYPE_MESSAGE_ABANDON("废弃采集", 4),
     TYPE_IMPORTANT_LOW("一般", 0), TYPE_IMPORTANT_MIDDLE("重要", 1), TYPE_IMPORTANT_HIGH("非常重要", 2),
     TYPE_SIGN_IN("签到", 1), TYPE_SIGN_OUT("签退", 2),
+    COOR_TYPE_GCJ("国测局","gcj02"), COOR_TYPE_BD("百度", "bd09ll"),
     SEX_FEMALE("男", 0), SEX_MALE("女", 1);
     // 成员变量
     private String name;

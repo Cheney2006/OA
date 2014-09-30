@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
+import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
@@ -41,6 +42,8 @@ public class WelcomeActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //开始时间校准
+        OAApplication.startNtpTimeServer();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         ViewUtil.inject(this);

@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
+import com.jxd.oa.bean.Address;
 import com.jxd.oa.bean.Sign;
 import com.jxd.oa.constants.Const;
 import com.yftools.ViewUtil;
 import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,9 +47,10 @@ public class SignAdapter extends AbstractAdapter<Sign> {
         }
         viewHolder.signDate_tv.setText(nowDate);
         viewHolder.signDate_tv.setVisibility(nowDate.equals(previewDate) ? View.GONE : View.VISIBLE);
+        viewHolder.signDate_line.setVisibility(nowDate.equals(previewDate) ? View.GONE : View.VISIBLE);
         viewHolder.signAddress_tv.setText(getItem(position).getSignAddress());
-        String vicinityAddress = getItem(position).getVicinityAddress().getAddress();
-        viewHolder.vicinityAddress_tv.setText(vicinityAddress == null ? "暂无地址信息" : "附近： " + vicinityAddress);
+        Address vicinityAddress = getItem(position).getVicinityAddress();
+        viewHolder.vicinityAddress_tv.setText((vicinityAddress == null || vicinityAddress.getName() == null) ? "暂无地址信息" : "附近： " + vicinityAddress.getName());
         if (getItem(position).getSignType() != null) {
             viewHolder.signType_tv.setText(Const.getName("TYPE_SIGN_", getItem(position).getSignType()));
             viewHolder.signType_ll.setBackgroundResource(getItem(position).getSignType() == ((Integer) Const.TYPE_SIGN_IN.getValue()) ? R.drawable.sign_in_bg : R.drawable.sign_out_bg);
@@ -61,6 +62,8 @@ public class SignAdapter extends AbstractAdapter<Sign> {
     static class ViewHolder {
         @ViewInject(R.id.signDate_tv)
         private TextView signDate_tv;
+        @ViewInject(R.id.signDate_line)
+        private View signDate_line;
         @ViewInject(R.id.signType_ll)
         private LinearLayout signType_ll;
         @ViewInject(R.id.signType_tv)

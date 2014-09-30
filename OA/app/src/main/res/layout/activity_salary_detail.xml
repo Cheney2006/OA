@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            style="@style/BlackTxt20" />
+
+        <LinearLayout
+            android:id="@+id/payableTotal_ll"
+            style="@style/WhiteLayout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_payable_total"
+                style="@style/ItemTitleTxt" />
+
+            <TextView
+                android:id="@+id/payableTotal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/ItemTitleTxt" />
+
+            <ImageView
+                android:id="@+id/payableTotalIndicator_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_group_down" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/payableTotalDetail_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_pay_salary"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/paySalary_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_merit_salary"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/meritSalary_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_transitivity_subsidy"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/transitivitySubsidy_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_post_allowance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/postAllowance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_overtime_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/overtimeFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_medicine_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/medicineFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_premium"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/premium_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_telephone_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/telephoneFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_health_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/healthFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_life_allowance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/lifeAllowance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_service_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/serviceFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_other_fee"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/otherFee_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deductTotal_ll"
+            style="@style/WhiteLayout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_deduct_total"
+                style="@style/ItemTitleTxt" />
+
+            <TextView
+                android:id="@+id/deductTotal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/ItemTitleTxt" />
+
+            <ImageView
+                android:id="@+id/deductTotalIndicator_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_group_down" />
+        </LinearLayout>
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:id="@+id/deductTotalDetail_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_leave_deduction"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/leaveDeduction_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_rent"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/rent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_pension_insurance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/pensionInsurance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_medical_insurance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/medicalInsurance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_birth_insurance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/birthInsurance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_unemployment_insurance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/unemploymentInsurance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_work_insurance"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/workInsurance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_housing_fund"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/housingFund_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_withhold_tax"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/withholdTax_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+
+            <LinearLayout style="@style/IndentLayout">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_label_other_deductions"
+                    style="@style/ItemSubTitleTxt" />
+
+                <TextView
+                    android:id="@+id/otherDeductions_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ItemSubTitleTxt" />
+            </LinearLayout>
+
+            <View style="@style/LineRow" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WhiteLayout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_label_employee_benefit"
+                style="@style/ItemTitleTxt" />
+
+            <TextView
+                android:id="@+id/employeeBenefit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/ItemTitleTxt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dimen_layout_indent"
+            android:paddingTop="@dimen/dimen_txt_padding_top"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/actualSalary_tv"
+                style="@style/RedTxt18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

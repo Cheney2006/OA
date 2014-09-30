@@ -21,4 +21,5 @@
     <dimen name="dimen_sub_title_top">3dp</dimen>
     <dimen name="dimen_pb_height">20dp</dimen>
     <dimen name="dimen_download_width">80dp</dimen>
+    <dimen name="dimen_layout_indent">21dp</dimen>
 </resources>

@@ -303,7 +303,7 @@
         <View style="@style/LineRow" />
 
         <LinearLayout
-            android:id="@+id/leaveBill_ll"
+            android:id="@+id/leaveApplication_ll"
             style="@style/WhiteIconLayout"
             android:clickable="true"
             android:orientation="horizontal">
@@ -319,7 +319,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 style="@style/BlackTxt18"
-                android:text="@string/txt_title_leave_bill" />
+                android:text="@string/txt_title_leave_application" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -329,7 +329,7 @@
         <View style="@style/LineRow" />
 
         <LinearLayout
-            android:id="@+id/reimburseBill_ll"
+            android:id="@+id/expenseAccount_ll"
             style="@style/WhiteIconLayout"
             android:clickable="true"
             android:orientation="horizontal">
@@ -345,7 +345,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 style="@style/BlackTxt18"
-                android:text="@string/txt_title_reimburse_bill" />
+                android:text="@string/txt_title_expense_account" />
 
             <ImageView
                 android:layout_width="wrap_content"

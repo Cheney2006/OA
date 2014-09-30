@@ -134,10 +134,22 @@
         <activity
             android:name=".activity.MyTaskActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyTaskDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MyTaskDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MessageCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MessageListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SalaryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SalaryDetailActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.IncrementUpdateService" />
