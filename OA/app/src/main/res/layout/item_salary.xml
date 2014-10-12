@@ -2,7 +2,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ListItemLayout"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/dimen_layout_padding_left"
+    android:paddingBottom="@dimen/dimen_layout_padding_left">
 
     <TextView
         android:id="@+id/yearMonth_tv"

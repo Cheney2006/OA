@@ -93,7 +93,7 @@ public class AddressCollectActivity extends BaseMapActivity {
         address.setLatitude(lastLocation.getLatitude());
         address.setLongitude(lastLocation.getLongitude());
         address.setAddress(lastLocation.getAddress());
-        address.setCoorType((Integer) Const.COOR_TYPE_BD.getValue());
+        address.setCoorType(Const.COOR_TYPE_BD.getValue()+"");
         address.setAccuracy(lastLocation.getAccuracy());
         //TODO 先弄成完成。正式时应该是提交
         address.setStatus((Integer) Const.STATUS_ADDRESS_FINISHED.getValue());

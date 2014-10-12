@@ -14,7 +14,7 @@
     <string name="txt_email">邮件</string>
     <string name="txt_notice">通知公告</string>
     <string name="txt_schedule">今日日程</string>
-    <string name="txt_my_task">我的工作</string>
+    <string name="txt_my_task">我的任务</string>
     <string name="txt_is_start">正在启动</string>
     <string name="txt_is_exit">正在退出</string>
     <string name="txt_title_address">考勤地址采集</string>

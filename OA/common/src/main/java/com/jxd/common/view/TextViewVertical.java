@@ -55,7 +55,7 @@ public class TextViewVertical extends View {
     //获取整数值
     private final int getAttributeIntValue(AttributeSet attrs,String field) {
     	int intVal = 0;
-    	//TODO 
+    	//TODO 改造成动态设置
     	//应该可以直接用attrs.getAttributeIntValue()获取对应的数值的，
     	//但不知道为什么一直无法获得只好临时写个函数凑合着用,没有写完整，暂时只支持px作为单位，其它单位的转换有空再写
     	String tempText=attrs.getAttributeValue(androidns, field);

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
-import com.jxd.oa.bean.Salary;
+import com.jxd.oa.bean.AccountWage;
 import com.yftools.ViewUtil;
 import com.yftools.view.annotation.ViewInject;
 
@@ -19,9 +19,9 @@ import java.util.List;
  * Created by cy on 2014/9/14.
  * *****************************************
  */
-public class SalaryAdapter extends AbstractAdapter<Salary> {
+public class SalaryAdapter extends AbstractAdapter<AccountWage> {
 
-    public SalaryAdapter(Context context, List<Salary> dataList) {
+    public SalaryAdapter(Context context, List<AccountWage> dataList) {
         super(context, dataList);
     }
 
@@ -30,7 +30,7 @@ public class SalaryAdapter extends AbstractAdapter<Salary> {
         ViewHolder viewHolder = null;
         if (view == null) {
             viewHolder = new ViewHolder();
-            view = getInflater().inflate(R.layout.item_task, null);
+            view = getInflater().inflate(R.layout.item_salary, null);
             ViewUtil.inject(viewHolder, view);
             view.setTag(viewHolder);
         } else {

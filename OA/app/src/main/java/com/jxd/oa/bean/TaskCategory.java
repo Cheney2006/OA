@@ -1,5 +1,6 @@
 package com.jxd.oa.bean;
 
+import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Column;
 import com.yftools.db.annotation.Id;
@@ -13,8 +14,10 @@ import com.yftools.db.annotation.Table;
  */
 @Table(name = "t_task_category")
 public class TaskCategory extends AbstractBean {
+    @SerializedName("codeId")
     @Id(column = "id")
     private String id;
+    @SerializedName("codeName")
     @Column(column = "name")
     private String name;
 

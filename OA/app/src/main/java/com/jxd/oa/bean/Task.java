@@ -20,8 +20,9 @@ public class Task extends AbstractBean {
     private int important;//重要性
     private String principal; // 负责人
     private String participant; // 参与人
+    @SerializedName("taskCategory")
     @Foreign(column = "categoryId", foreign = "id", foreignAutoCreate = true)
-    private TaskCategory category;//类型
+    private TaskCategory category;//类型 @SerializedName("taskCategory"),@Foreign加了这个就不行
     @SerializedName("btime")
     private String startDate;//开始时间
     @SerializedName("etime")

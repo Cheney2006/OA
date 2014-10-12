@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.SalaryAdapter;
-import com.jxd.oa.bean.Salary;
+import com.jxd.oa.bean.AccountWage;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -36,7 +36,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
-    private List<Salary> salaryList;
+    private List<AccountWage> accountWageList;
     private SalaryAdapter adapter;
 
     @Override
@@ -51,15 +51,15 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            salaryList = DbOperationManager.getInstance().getBeans(Selector.from(Salary.class).orderBy("yearMonth", true));
+            accountWageList = DbOperationManager.getInstance().getBeans(Selector.from(AccountWage.class).orderBy("yearMonth", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
         if (adapter == null) {
-            adapter = new SalaryAdapter(mContext, salaryList);
+            adapter = new SalaryAdapter(mContext, accountWageList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setDataList(salaryList);
+            adapter.setDataList(accountWageList);
             adapter.notifyDataSetChanged();
         }
     }
@@ -84,7 +84,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(Salary.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(AccountWage.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
                 return true;

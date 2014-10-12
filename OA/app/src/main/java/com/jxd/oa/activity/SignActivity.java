@@ -168,6 +168,7 @@ public class SignActivity extends AbstractActivity {
         sign.setVicinityAddress(address);
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(sign));
+        LogUtil.d("data="+GsonUtil.getInstance().getGson().toJson(sign));
         HttpUtil.getInstance().sendInDialog(mContext, "正在上传数据...", ParamManager.parseBaseUrl("signSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
@@ -182,8 +183,9 @@ public class SignActivity extends AbstractActivity {
             }
 
             @Override
-            public void onFailure(HttpException error, String msg) {
-
+            public void onFailure(HttpException e, String msg) {
+                LogUtil.e(e);
+                displayToast(msg);
             }
         });
     }
@@ -240,4 +242,13 @@ public class SignActivity extends AbstractActivity {
     protected void refreshData() {
         initData();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (locationProviderHelper != null) {
+            locationProviderHelper.stopLocation();
+        }
+    }
+
 }

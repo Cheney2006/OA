@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.bean.Salary;
+import com.jxd.oa.bean.AccountWage;
 import com.yftools.ViewUtil;
 import com.yftools.view.annotation.ContentView;
 import com.yftools.view.annotation.ViewInject;
@@ -89,48 +89,48 @@ public class SalaryDetailActivity extends AbstractActivity {
     @ViewInject(R.id.actualSalary_tv)
     private TextView actualSalary_tv;
 
-    private Salary salary;
+    private AccountWage accountWage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        salary = (Salary) getIntent().getSerializableExtra("salary");
+        accountWage = (AccountWage) getIntent().getSerializableExtra("salary");
         getSupportActionBar().setTitle(getString(R.string.txt_title_salary_detail));
         initData();
     }
 
     private void initData() {
-        yearMonth_tv.setText(salary.getYearMonth());
-        payableTotal_tv.setText(salary.getPayableTotal() + "");
-        paySalary_tv.setText(salary.getPaySalary() + "");
-        meritSalary_tv.setText(salary.getMeritSalary() + "");
-        transitivitySubsidy_tv.setText(salary.getTransitivitySubsidy() + "");
-        postAllowance_tv.setText(salary.getPostAllowance() + "");
-        overtimeFee_tv.setText(salary.getOtherFee() + "");
-        medicineFee_tv.setText(salary.getMedicineFee() + "");
-        premium_tv.setText(salary.getPremium() + "");
-        telephoneFee_tv.setText(salary.getTelephoneFee() + "");
-        healthFee_tv.setText(salary.getHealthFee() + "");
-        lifeAllowance_tv.setText(salary.getLifeAllowance() + "");
-        serviceFee_tv.setText(salary.getServiceFee() + "");
-        otherFee_tv.setText(salary.getOtherFee() + "");
+        yearMonth_tv.setText(accountWage.getYearMonth());
+        payableTotal_tv.setText(accountWage.getPayableTotal() + "");
+        paySalary_tv.setText(accountWage.getPaySalary() + "");
+        meritSalary_tv.setText(accountWage.getMeritSalary() + "");
+        transitivitySubsidy_tv.setText(accountWage.getTransitivitySubsidy() + "");
+        postAllowance_tv.setText(accountWage.getPostAllowance() + "");
+        overtimeFee_tv.setText(accountWage.getOtherFee() + "");
+        medicineFee_tv.setText(accountWage.getMedicineFee() + "");
+        premium_tv.setText(accountWage.getPremium() + "");
+        telephoneFee_tv.setText(accountWage.getTelephoneFee() + "");
+        healthFee_tv.setText(accountWage.getHealthFee() + "");
+        lifeAllowance_tv.setText(accountWage.getLifeAllowance() + "");
+        serviceFee_tv.setText(accountWage.getServiceFee() + "");
+        otherFee_tv.setText(accountWage.getOtherFee() + "");
 
-        deductTotal_tv.setText(salary.getDeductTotal() + "");
-        leaveDeduction_tv.setText(salary.getLeaveDeduction() + "");
-        rent_tv.setText(salary.getRent() + "");
-        pensionInsurance_tv.setText(salary.getPensionInsurance() + "");
-        medicalInsurance_tv.setText(salary.getMedicalInsurance() + "");
-        birthInsurance_tv.setText(salary.getBirthInsurance() + "");
-        unemploymentInsurance_tv.setText(salary.getUnemploymentInsurance() + "");
-        workInsurance_tv.setText(salary.getWorkInsurance() + "");
-        housingFund_tv.setText(salary.getHousingFund() + "");
-        withholdTax_tv.setText(salary.getWithholdTax() + "");
-        otherDeductions_tv.setText(salary.getOtherDeductions() + "");
+        deductTotal_tv.setText(accountWage.getDeductTotal() + "");
+        leaveDeduction_tv.setText(accountWage.getLeaveDeduction() + "");
+        rent_tv.setText(accountWage.getRent() + "");
+        pensionInsurance_tv.setText(accountWage.getPensionInsurance() + "");
+        medicalInsurance_tv.setText(accountWage.getMedicalInsurance() + "");
+        birthInsurance_tv.setText(accountWage.getBirthInsurance() + "");
+        unemploymentInsurance_tv.setText(accountWage.getUnemploymentInsurance() + "");
+        workInsurance_tv.setText(accountWage.getWorkInsurance() + "");
+        housingFund_tv.setText(accountWage.getHousingFund() + "");
+        withholdTax_tv.setText(accountWage.getWithholdTax() + "");
+        otherDeductions_tv.setText(accountWage.getOtherDeductions() + "");
 
-        employeeBenefit_tv.setText(salary.getEmployeeBenefit() + "");
+        employeeBenefit_tv.setText(accountWage.getEmployeeBenefit() + "");
 
-        actualSalary_tv.setText(salary.getActualSalary() + "");
+        actualSalary_tv.setText(accountWage.getActualSalary() + "");
     }
 
     @OnClick(R.id.payableTotal_ll)

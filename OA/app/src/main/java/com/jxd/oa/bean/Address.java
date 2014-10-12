@@ -16,7 +16,7 @@ public class Address extends AbstractBean {
     private String name;//采集名称
     private Float accuracy;//精度
     private String address;//地址
-    private Integer coorType;//坐标类型
+    private String coorType;//坐标类型
     private Double latitude;//纬度
     private Double longitude;//经度
     /**
@@ -63,11 +63,11 @@ public class Address extends AbstractBean {
         this.address = address;
     }
 
-    public Integer getCoorType() {
+    public String getCoorType() {
         return coorType;
     }
 
-    public void setCoorType(Integer coorType) {
+    public void setCoorType(String coorType) {
         this.coorType = coorType;
     }
 
