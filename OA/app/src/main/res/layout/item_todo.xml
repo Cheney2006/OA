@@ -4,7 +4,6 @@
     style="@style/ListItemLayout"
     android:gravity="">
 
-
     <ImageView
         android:id="@+id/arrow_iv"
         android:layout_width="wrap_content"
@@ -26,15 +25,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ItemTitleTxt"
-        android:layout_toLeftOf="@id/status_tv"
-        android:drawableLeft="@drawable/icon_attach" />
+        android:layout_toLeftOf="@id/status_tv" />
+
+    <TextView
+        android:id="@+id/applyUser_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_tv"
+        android:layout_marginTop="@dimen/dimen_sub_title_top"
+        style="@style/ItemSubTitleTxt"/>
 
     <TextView
         android:id="@id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/send_tv"
+        android:layout_toRightOf="@id/applyUser_tv"
         android:layout_below="@id/title_tv"
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
         style="@style/ItemSubTitleTxt" />
 </RelativeLayout>

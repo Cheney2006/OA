@@ -4,10 +4,26 @@
     style="@style/ListItemLayout"
     android:gravity="">
 
-    <TextView
-        android:id="@+id/title_tv"
+    <ImageView
+        android:id="@+id/arrow_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/arrow_right_icon" />
+    <TextView
+        android:id="@+id/finished_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RedTxt12"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/arrow_iv"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/finished_tv"
         style="@style/ItemTitleTxt"
         android:drawableLeft="@drawable/icon_attach" />
 
@@ -28,19 +44,4 @@
         android:layout_below="@id/title_tv"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
         style="@style/ItemSubTitleTxt" />
-
-    <ImageView
-        android:id="@+id/arrow_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/arrow_right_icon" />
-    <TextView
-        android:id="@+id/finished_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/RedTxt12"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/arrow_iv"/>
 </RelativeLayout>

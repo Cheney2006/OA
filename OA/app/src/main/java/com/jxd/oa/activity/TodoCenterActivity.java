@@ -11,12 +11,15 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.adapter.SalaryAdapter;
-import com.jxd.oa.bean.AccountWage;
+import com.jxd.oa.adapter.TodoAdapter;
+import com.jxd.oa.bean.ExpenseAccount;
+import com.jxd.oa.bean.LeaveApplication;
+import com.jxd.oa.constants.Const;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
-import com.yftools.db.sqlite.Selector;
+import com.yftools.db.table.DbModel;
 import com.yftools.exception.DbException;
 import com.yftools.ui.DatePickUtil;
 import com.yftools.view.annotation.ContentView;
@@ -27,23 +30,23 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：报销单
- * Created by cy on 2014/9/14.
+ * Description ：我的待办
+ * Created by cy on 2014/10/14.
  * *****************************************
  */
 @ContentView(R.layout.activity_list_view)
-public class ExpenseAccountActivity extends AbstractActivity {
+public class TodoCenterActivity extends AbstractActivity {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
-    private List<AccountWage> accountWageList;
-    private SalaryAdapter adapter;
+    private List<DbModel> todoList;
+    private TodoAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_expense_account));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_todo_center));
         registerForContextMenu(mListView);
         initData();
     }
@@ -51,29 +54,40 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            accountWageList = DbOperationManager.getInstance().getBeans(Selector.from(AccountWage.class).orderBy("yearMonth", true));
+            //合并两个表中的数据
+            String leaveAppSql = " SELECT id,userId,leaveReason title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_LEAVE_APPLICATION.getValue() + "' type FROM t_leave_application WHERE auditUserId=" + SysConfig.getInstance().getUserId();
+            String expenseSql = " SELECT id,userId,itemName title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue() + "' type FROM t_expense_account WHERE auditUserId=" + SysConfig.getInstance().getUserId();
+            StringBuffer sql = new StringBuffer();
+            sql.append(leaveAppSql).append(" UNION ALL ").append(expenseSql).append(" order by modifiedDate");
+            todoList = DbOperationManager.getInstance().getDbModels(sql.toString());
         } catch (DbException e) {
             LogUtil.e(e);
         }
         if (adapter == null) {
-            adapter = new SalaryAdapter(mContext, accountWageList);
+            adapter = new TodoAdapter(mContext, todoList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setDataList(accountWageList);
+            adapter.setDataList(todoList);
             adapter.notifyDataSetChanged();
         }
     }
 
     @OnItemClick(R.id.mListView)
     public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, SalaryDetailActivity.class);
-        intent.putExtra("salary", adapter.getItem(position));
+        Intent intent = null;
+        int type = adapter.getItem(position).getInt("type");
+        String dataId = adapter.getItem(position).getString("id");
+        if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
+            intent = new Intent(mContext, LeaveApplicationDetailActivity.class);
+        } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
+        }
+        intent.putExtra("id", dataId);
         startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync, menu);
+        getMenuInflater().inflate(R.menu.menu_sync_add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -84,9 +98,12 @@ public class ExpenseAccountActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(AccountWage.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(LeaveApplication.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
+                return true;
+            case R.id.action_add:
+                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -98,7 +115,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
         //添加菜单项
         menu.add(Menu.NONE, 0, 0, "删除");
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(adapter.getItem(info.position).getYearMonth());
+        menu.setHeaderTitle(adapter.getItem(info.position).getString("title"));
     }
 
     @Override
@@ -106,7 +123,13 @@ public class ExpenseAccountActivity extends AbstractActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int currentSelectedPosition = info.position;
         try {
-            DbOperationManager.getInstance().deleteBean(adapter.getItem(currentSelectedPosition));
+            String id = adapter.getItem(currentSelectedPosition).getString("id");
+            int type = adapter.getItem(currentSelectedPosition).getInt("type");
+            if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
+                DbOperationManager.getInstance().deleteBean(LeaveApplication.class, id);
+            } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
+                DbOperationManager.getInstance().deleteBean(ExpenseAccount.class, id);
+            }
             sendRefresh();
         } catch (DbException e) {
             LogUtil.e(e);

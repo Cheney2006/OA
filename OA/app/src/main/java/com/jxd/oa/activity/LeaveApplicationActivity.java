@@ -11,8 +11,8 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
-import com.jxd.oa.adapter.SalaryAdapter;
-import com.jxd.oa.bean.AccountWage;
+import com.jxd.oa.adapter.LeaveApplicationAdapter;
+import com.jxd.oa.bean.LeaveApplication;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -27,23 +27,23 @@ import java.util.List;
 
 /**
  * *****************************************
- * Description ：报销单
- * Created by cy on 2014/9/14.
+ * Description ：请假单
+ * Created by cy on 2014/10/14.
  * *****************************************
  */
 @ContentView(R.layout.activity_list_view)
-public class ExpenseAccountActivity extends AbstractActivity {
+public class LeaveApplicationActivity extends AbstractActivity {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
-    private List<AccountWage> accountWageList;
-    private SalaryAdapter adapter;
+    private List<LeaveApplication> leaveApplicationList;
+    private LeaveApplicationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_expense_account));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_leave_application));
         registerForContextMenu(mListView);
         initData();
     }
@@ -51,29 +51,29 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            accountWageList = DbOperationManager.getInstance().getBeans(Selector.from(AccountWage.class).orderBy("yearMonth", true));
+            leaveApplicationList = DbOperationManager.getInstance().getBeans(Selector.from(LeaveApplication.class).orderBy("modifiedDate", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
         if (adapter == null) {
-            adapter = new SalaryAdapter(mContext, accountWageList);
+            adapter = new LeaveApplicationAdapter(mContext, leaveApplicationList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setDataList(accountWageList);
+            adapter.setDataList(leaveApplicationList);
             adapter.notifyDataSetChanged();
         }
     }
 
     @OnItemClick(R.id.mListView)
     public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, SalaryDetailActivity.class);
-        intent.putExtra("salary", adapter.getItem(position));
+        Intent intent = new Intent(mContext, LeaveApplicationDetailActivity.class);
+        intent.putExtra("leaveApplication", adapter.getItem(position));
         startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync, menu);
+        getMenuInflater().inflate(R.menu.menu_sync_add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -84,9 +84,12 @@ public class ExpenseAccountActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(AccountWage.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(LeaveApplication.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
+                return true;
+            case R.id.action_add:
+                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -98,7 +101,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
         //添加菜单项
         menu.add(Menu.NONE, 0, 0, "删除");
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(adapter.getItem(info.position).getYearMonth());
+        menu.setHeaderTitle(adapter.getItem(info.position).getLeaveReason());
     }
 
     @Override

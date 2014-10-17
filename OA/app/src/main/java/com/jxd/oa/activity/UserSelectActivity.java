@@ -38,6 +38,7 @@ public class UserSelectActivity extends AbstractActivity {
     private UserSelectAdapter adapter;
     private List<User> userList;
     private HashMap<String, User> selectedMap;
+    private boolean isMulti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class UserSelectActivity extends AbstractActivity {
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("选择用户");
         selectedMap = (HashMap<String, User>) getIntent().getSerializableExtra("selectedData");
+        isMulti = getIntent().getBooleanExtra("isMulti", true);
         initData();
     }
 
@@ -58,7 +60,7 @@ public class UserSelectActivity extends AbstractActivity {
     private void initData() {
         try {
             //不包括自己
-            userList = DbOperationManager.getInstance().getBeans(Selector.from(User.class).where("id","!=", SysConfig.getInstance().getUserId()));
+            userList = DbOperationManager.getInstance().getBeans(Selector.from(User.class).where("id", "!=", SysConfig.getInstance().getUserId()));
             fillList();
         } catch (DbException e) {
             LogUtil.e(e);
@@ -71,6 +73,7 @@ public class UserSelectActivity extends AbstractActivity {
             if (selectedMap != null) {
                 adapter.setSelectedMap(selectedMap);
             }
+            adapter.setMulti(isMulti);
             mListView.setAdapter(adapter);
         } else {
             adapter.setDataList(userList);

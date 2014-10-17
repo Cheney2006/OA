@@ -5,7 +5,9 @@ import android.content.Context;
 import com.jxd.oa.application.OAApplication;
 import com.yftools.DbUtil;
 import com.yftools.db.sqlite.Selector;
+import com.yftools.db.sqlite.SqlInfo;
 import com.yftools.db.sqlite.WhereBuilder;
+import com.yftools.db.table.DbModel;
 import com.yftools.exception.DbException;
 
 import java.util.List;
@@ -52,6 +54,10 @@ public class DbOperationManager {
 
     public <C> void update(List<C> beanList, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException {
         dbUtil.updateAll(beanList, whereBuilder, updateColumnNames);
+    }
+
+    public List<DbModel> getDbModels(String sql) throws DbException {
+        return dbUtil.findDbModelAll(new SqlInfo(sql));
     }
 
     public <C> List<C> getBeans(Class<C> clazz) throws DbException {

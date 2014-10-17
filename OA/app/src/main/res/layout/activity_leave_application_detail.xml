@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_leave_reason" />
+
+        <TextView
+            android:id="@+id/leaveReason_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_type" />
+
+        <TextView
+            android:id="@+id/type_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_start_date" />
+
+        <TextView
+            android:id="@+id/starDate_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_end_date" />
+
+        <TextView
+            android:id="@+id/endDate_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_audit_user" />
+
+        <TextView
+            android:id="@+id/auditUser_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_audit_status" />
+
+        <TextView
+            android:id="@+id/auditStatus_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_audit_remark" />
+
+        <TextView
+            android:id="@+id/auditRemark_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+    </LinearLayout>
+</ScrollView>

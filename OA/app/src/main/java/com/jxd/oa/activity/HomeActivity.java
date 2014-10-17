@@ -15,9 +15,12 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.SelectImageActivity;
 import com.jxd.oa.bean.EmailRecipient;
+import com.jxd.oa.bean.ExpenseAccount;
+import com.jxd.oa.bean.LeaveApplication;
 import com.jxd.oa.bean.Message;
 import com.jxd.oa.bean.Notice;
 import com.jxd.oa.bean.User;
+import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.service.IncrementUpdateService;
@@ -71,6 +74,8 @@ public class HomeActivity extends SelectImageActivity {
     private TextView noticeNum_tv;
     @ViewInject(R.id.messageNum_tv)
     private TextView messageNum_tv;
+    @ViewInject(R.id.todoNum_tv)
+    private TextView todoNum_tv;
     private long mExitTime;
     private Uri imageUri;//The Uri to store the big bitmap，跟输入的区分出来。不然在选择图片裁剪，把原有的图片也裁剪小了。
     private File photo;
@@ -196,9 +201,19 @@ public class HomeActivity extends SelectImageActivity {
         startActivity(new Intent(mContext, SalaryActivity.class));
     }
 
+    @OnClick(R.id.leaveApplication_ll)
+    public void leaveApplicationClick(View view) {
+        startActivity(new Intent(mContext, LeaveApplicationActivity.class));
+    }
+
     @OnClick(R.id.expenseAccount_ll)
     public void expenseAccountClick(View view) {
         startActivity(new Intent(mContext, ExpenseAccountActivity.class));
+    }
+
+    @OnClick(R.id.todoCenter_ll)
+    public void todoCenterClick(View view) {
+        startActivity(new Intent(mContext, TodoCenterActivity.class));
     }
 
     @OnClick(R.id.clearData_btn)
@@ -315,6 +330,26 @@ public class HomeActivity extends SelectImageActivity {
         initNoticeNum();
         //消息中心
         initMessageNum();
+        //我的待办
+        initTodoNum();
+    }
+
+    private void initTodoNum() {
+        //取请假单中待办数
+        try {
+            long leaveNum = DbOperationManager.getInstance().count(Selector.from(LeaveApplication.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
+            long expenseNum = DbOperationManager.getInstance().count(Selector.from(ExpenseAccount.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
+            long total = leaveNum + expenseNum;
+            if (total > 0) {
+                todoNum_tv.setVisibility(View.VISIBLE);
+                todoNum_tv.setText(total + "");
+            } else {
+                todoNum_tv.setVisibility(View.GONE);
+            }
+        } catch (DbException e) {
+            LogUtil.e(e);
+        }
+        //取报销单中待办数
     }
 
     private void initMessageNum() {

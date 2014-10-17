@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class UserSelectAdapter extends AbstractAdapter<User> {
 
-
+    private boolean isMulti=true;
     private HashMap<String, User> selectedMap;
 
     public UserSelectAdapter(Context context, List<User> dataList) {
@@ -70,6 +70,9 @@ public class UserSelectAdapter extends AbstractAdapter<User> {
         if(selectedMap.containsKey(user.getId())){
             selectedMap.remove(user.getId());
         }else {
+            if(!isMulti){
+                selectedMap=new HashMap<String, User>();
+            }
             selectedMap.put(user.getId(),user);
         }
         notifyDataSetChanged();
@@ -77,6 +80,14 @@ public class UserSelectAdapter extends AbstractAdapter<User> {
 
     public void setSelectedMap(HashMap<String, User> selectedMap) {
         this.selectedMap = selectedMap;
+    }
+
+    public boolean isMulti() {
+        return isMulti;
+    }
+
+    public void setMulti(boolean isMulti) {
+        this.isMulti = isMulti;
     }
 
     public HashMap<String, User> getSelectedMap() {

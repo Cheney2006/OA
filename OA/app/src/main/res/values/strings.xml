@@ -103,5 +103,12 @@
     <string name="txt_label_housing_fund">住房公积金</string>
     <string name="txt_label_withhold_tax">代扣税</string>
     <string name="txt_label_other_deductions">其它扣税</string>
+    <string name="txt_label_leave_reason">请假事由</string>
+    <string name="txt_label_type">类型</string>
+    <string name="txt_label_audit_user">审批人</string>
+    <string name="txt_title_leave_application_add">增加请假单</string>
+    <string name="txt_title_leave_application_detail">请假单详情</string>
+    <string name="txt_label_audit_status">审批状态</string>
+    <string name="txt_label_audit_remark">审批备注</string>
 
 </resources>

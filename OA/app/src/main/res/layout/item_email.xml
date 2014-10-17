@@ -5,23 +5,6 @@
     android:gravity="">
 
     <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/ItemTitleTxt"
-        android:layout_marginRight="@dimen/dimen_icon_width"
-        android:drawableLeft="@drawable/icon_attach" />
-
-    <TextView
-        android:id="@+id/send_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_sub_title_top"
-        android:layout_marginRight="@dimen/dimen_txt_padding_left"
-        android:layout_below="@id/title_tv"
-        style="@style/ItemSubTitleTxt" />
-
-    <TextView
         android:id="@id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,4 +27,22 @@
         style="@style/RedTxt12"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/arrow_iv"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ItemTitleTxt"
+        android:layout_toLeftOf="@id/important_tv"
+        android:drawableLeft="@drawable/icon_attach" />
+
+    <TextView
+        android:id="@+id/send_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_sub_title_top"
+        android:layout_marginRight="@dimen/dimen_txt_padding_left"
+        android:layout_below="@id/title_tv"
+        style="@style/ItemSubTitleTxt" />
+
 </RelativeLayout>

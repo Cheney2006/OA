@@ -21,6 +21,7 @@
     <color name="bg_gray_line">#d3d3d3</color>
     <color name="color_blue_pressed">#33b5e5</color>
     <color name="color_red">#e20400</color>
+    <color name="color_being">#21AABD</color>
     <color name="color_gray">#EFF2F4</color>
     <color name="color_sign_out">#EFAE30</color>
     <color name="color_read">#b2b2b2</color>
