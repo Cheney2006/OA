@@ -137,10 +137,10 @@ public class SalaryDetailActivity extends AbstractActivity {
     public void payableTotalClick(View view) {
         if (payableTotalDetail_ll.getVisibility() == View.VISIBLE) {
             payableTotalDetail_ll.setVisibility(View.GONE);
-            payableTotalIndicator_iv.setImageResource(R.drawable.group_down_icon);
+            payableTotalIndicator_iv.setImageResource(R.drawable.icon_group_down);
         } else {
             payableTotalDetail_ll.setVisibility(View.VISIBLE);
-            payableTotalIndicator_iv.setImageResource(R.drawable.group_up_icon);
+            payableTotalIndicator_iv.setImageResource(R.drawable.icon_group_up);
         }
     }
 
@@ -148,10 +148,10 @@ public class SalaryDetailActivity extends AbstractActivity {
     public void deductTotalClick(View view) {
         if (deductTotalDetail_ll.getVisibility() == View.VISIBLE) {
             deductTotalDetail_ll.setVisibility(View.GONE);
-            deductTotalIndicator_iv.setImageResource(R.drawable.group_down_icon);
+            deductTotalIndicator_iv.setImageResource(R.drawable.icon_group_down);
         } else {
             deductTotalDetail_ll.setVisibility(View.VISIBLE);
-            deductTotalIndicator_iv.setImageResource(R.drawable.group_up_icon);
+            deductTotalIndicator_iv.setImageResource(R.drawable.icon_group_up);
         }
     }
 }
