@@ -81,7 +81,7 @@ public class SalaryActivity extends AbstractActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sync:
-                new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
+                new DatePickUtil(mContext, "请选择开始时间", false, new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
                         syncData(AccountWage.class, pickYear + "-" + pickMonth);

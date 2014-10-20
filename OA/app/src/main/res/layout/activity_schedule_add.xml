@@ -75,7 +75,7 @@
         <EditText
             android:id="@+id/content_et"
             style="@style/CustomEditText"
-            android:minHeight="150dp" />
+            android:minHeight="@dimen/dimen_edit_multi_height" />
 
         <TextView
             style="@style/CustomLabelTextForEdit"

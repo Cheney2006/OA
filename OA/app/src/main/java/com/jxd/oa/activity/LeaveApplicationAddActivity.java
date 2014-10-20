@@ -14,7 +14,6 @@ import android.widget.EditText;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.LeaveApplication;
-import com.jxd.oa.bean.Schedule;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.utils.DbOperationManager;
@@ -145,9 +144,9 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 String result = responseInfo.result.toString();
-                Schedule serverSchedule = GsonUtil.getInstance().getGson().fromJson(result, Schedule.class);
+                LeaveApplication serverLeaveApplication = GsonUtil.getInstance().getGson().fromJson(result, LeaveApplication.class);
                 try {
-                    DbOperationManager.getInstance().saveOrUpdate(serverSchedule);
+                    DbOperationManager.getInstance().saveOrUpdate(serverLeaveApplication);
                     setResult(RESULT_OK);
                     finish();
                 } catch (DbException e) {

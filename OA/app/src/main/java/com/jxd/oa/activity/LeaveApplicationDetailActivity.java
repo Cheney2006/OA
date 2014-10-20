@@ -56,7 +56,7 @@ public class LeaveApplicationDetailActivity extends AbstractActivity {
         auditRemark_tv.setText(leaveApplication.getAuditRemark());
         if (leaveApplication.getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_red));
-        } else if (leaveApplication.getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
+        } else if (leaveApplication.getAuditStatus() == Const.STATUS_PASS.getValue()) {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_being));
         } else {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_black_font));

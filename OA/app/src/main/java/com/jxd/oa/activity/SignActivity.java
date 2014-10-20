@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
+import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.common.vo.LocationInfo;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
@@ -141,10 +142,10 @@ public class SignActivity extends AbstractActivity {
                                     }).create();
                             alertDialog.show();
                         } else {
-                            displayToast("附近无考勤参考位置");
+                            new JxdAlertDialog(mContext,"提示","附近无考勤参考位置").show();
                         }
                     } else {
-                        displayToast("暂无考勤参考位置，请联系管理员先采集位置");
+                        new JxdAlertDialog(mContext,"提示","暂无考勤参考位置，请联系管理员先采集位置").show();
                     }
 
                 } catch (DbException e) {

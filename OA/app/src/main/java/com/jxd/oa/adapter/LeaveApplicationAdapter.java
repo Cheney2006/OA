@@ -40,7 +40,7 @@ public class LeaveApplicationAdapter extends AbstractAdapter<LeaveApplication> {
         viewHolder.date_tv.setText(getItem(position).getStartDate() + "至" + getItem(position).getEndDate());
         if (getItem(position).getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
-        } else if (getItem(position).getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
+        } else if (getItem(position).getAuditStatus() == Const.STATUS_PASS.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_being));
         } else {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));

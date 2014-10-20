@@ -51,11 +51,12 @@ public class TodoCenterActivity extends AbstractActivity {
         initData();
     }
 
-
     public void initData() {
         try {
             //合并两个表中的数据
+            //请假单中待办
             String leaveAppSql = " SELECT id,userId,leaveReason title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_LEAVE_APPLICATION.getValue() + "' type FROM t_leave_application WHERE auditUserId=" + SysConfig.getInstance().getUserId();
+            //报销单中待办
             String expenseSql = " SELECT id,userId,itemName title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue() + "' type FROM t_expense_account WHERE auditUserId=" + SysConfig.getInstance().getUserId();
             StringBuffer sql = new StringBuffer();
             sql.append(leaveAppSql).append(" UNION ALL ").append(expenseSql).append(" order by modifiedDate");
@@ -78,7 +79,7 @@ public class TodoCenterActivity extends AbstractActivity {
         int type = adapter.getItem(position).getInt("type");
         String dataId = adapter.getItem(position).getString("id");
         if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
-            intent = new Intent(mContext, LeaveApplicationDetailActivity.class);
+            intent = new Intent(mContext, LeaveApplicationForAuditActivity.class);
         } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
         }
         intent.putExtra("id", dataId);
