@@ -59,6 +59,9 @@ public class GsonUtil {
 		}
 
 		public Timestamp deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            if(json==null){
+                return null;
+            }
 			if (!(json instanceof JsonPrimitive)) {
 				throw new JsonParseException("The date should be a string value");
 			}

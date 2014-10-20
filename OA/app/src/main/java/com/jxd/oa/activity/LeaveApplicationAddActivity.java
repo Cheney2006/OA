@@ -16,6 +16,7 @@ import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.LeaveApplication;
 import com.jxd.oa.bean.User;
 import com.jxd.oa.constants.Const;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
@@ -167,6 +168,14 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
         leaveApplication.setType(Integer.parseInt(type_sev.getValue().toString()));
         leaveApplication.setStartDate(startDate_sev.getValue().toString());
         leaveApplication.setEndDate(endDate_sev.getValue().toString());
+        User user=new User();
+        user.setId(SysConfig.getInstance().getUserId());
+        leaveApplication.setUser(user);
+        User auditUser=new User();
+        auditUser.setId(auditUser_sev.getValue().toString());
+        leaveApplication.setAuditUser(auditUser);
+        leaveApplication.setAuditStatus((Integer) Const.STATUS_BEING.getValue());
+        leaveApplication.setModifiedDate(getNowDate());
         return true;
     }
 
