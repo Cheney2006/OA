@@ -13,6 +13,7 @@ import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.LeaveApplicationAdapter;
 import com.jxd.oa.bean.LeaveApplication;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -51,7 +52,7 @@ public class LeaveApplicationActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            leaveApplicationList = DbOperationManager.getInstance().getBeans(Selector.from(LeaveApplication.class).orderBy("modifiedDate", true));
+            leaveApplicationList = DbOperationManager.getInstance().getBeans(Selector.from(LeaveApplication.class).where("applyUserId", "=", SysConfig.getInstance().getUserId()).orderBy("modifiedDate", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }

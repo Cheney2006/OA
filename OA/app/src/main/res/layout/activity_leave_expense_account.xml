@@ -12,10 +12,10 @@
 
         <com.jxd.oa.view.LabelRequestTextView
             style="@style/CustomLabelText"
-            android:text="@string/txt_label_leave_reason" />
+            android:text="@string/txt_label_item_name" />
 
         <TextView
-            android:id="@+id/leaveReason_tv"
+            android:id="@+id/itemName_tv"
             style="@style/CustomViewText" />
 
         <View style="@style/LineRow" />
@@ -42,24 +42,32 @@
 
         <com.jxd.oa.view.LabelRequestTextView
             style="@style/CustomLabelText"
-            android:text="@string/txt_label_start_date" />
+            android:text="@string/txt_label_apply_date" />
 
         <TextView
-            android:id="@+id/starDate_tv"
+            android:id="@+id/applyDate_tv"
             style="@style/CustomViewText" />
 
         <View style="@style/LineRow" />
 
         <com.jxd.oa.view.LabelRequestTextView
             style="@style/CustomLabelText"
-            android:text="@string/txt_label_end_date" />
+            android:text="@string/txt_label_money" />
 
         <TextView
-            android:id="@+id/endDate_tv"
+            android:id="@+id/money_tv"
             style="@style/CustomViewText" />
 
         <View style="@style/LineRow" />
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_remark" />
 
+        <TextView
+            android:id="@+id/remark_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
         <com.jxd.oa.view.LabelRequestTextView
             style="@style/CustomLabelText"
             android:text="@string/txt_label_audit_user" />

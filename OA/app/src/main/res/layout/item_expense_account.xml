@@ -34,4 +34,13 @@
         android:layout_below="@id/title_tv"
         android:layout_marginTop="@dimen/dimen_sub_title_top"
         style="@style/ItemSubTitleTxt" />
+    <TextView
+        android:id="@+id/money_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/date_tv"
+        android:layout_below="@id/title_tv"
+        android:layout_marginTop="@dimen/dimen_sub_title_top"
+        android:layout_marginLeft="@dimen/dimen_txt_padding_left"
+        style="@style/ItemSubTitleTxt" />
 </RelativeLayout>

@@ -256,8 +256,17 @@
         <activity
             android:name=".activity.LeaveApplicationDetailActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.TodoCenterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ExpenseAccountActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ExpenseAccountDetailActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.IncrementUpdateService" />

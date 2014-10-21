@@ -62,8 +62,8 @@ public class LeaveApplicationForAuditActivity extends AbstractActivity {
         type_tv.setText(Const.getName("TYPE_LEAVE_", leaveApplication.getType()));
         starDate_tv.setText(leaveApplication.getStartDate());
         endDate_tv.setText(leaveApplication.getEndDate());
-        if (leaveApplication.getUser() != null) {
-            applyUser_tv.setText(leaveApplication.getUser().getName());
+        if (leaveApplication.getApplyUser() != null) {
+            applyUser_tv.setText(leaveApplication.getApplyUser().getName());
         }
     }
 

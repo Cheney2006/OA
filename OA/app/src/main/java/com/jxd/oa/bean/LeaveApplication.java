@@ -15,8 +15,8 @@ import java.util.Date;
 @Table(name = "t_leave_application")
 public class LeaveApplication extends AbstractBean {
     private String id;//主键
-    @Foreign(column = "userId", foreign = "id")
-    private User user;//申请者
+    @Foreign(column = "applyUserId", foreign = "id")
+    private User applyUser;//申请者
     private String leaveReason;//请假事由
     private int type;//类型 事假1，病假2，年假3，其它4
     private String startDate;//开始时间 eg:2014-10-16 13:30
@@ -35,12 +35,12 @@ public class LeaveApplication extends AbstractBean {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getApplyUser() {
+        return applyUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setApplyUser(User applyUser) {
+        this.applyUser = applyUser;
     }
 
     public String getLeaveReason() {

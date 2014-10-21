@@ -170,7 +170,7 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
         leaveApplication.setEndDate(endDate_sev.getValue().toString());
         User user=new User();
         user.setId(SysConfig.getInstance().getUserId());
-        leaveApplication.setUser(user);
+        leaveApplication.setApplyUser(user);
         User auditUser=new User();
         auditUser.setId(auditUser_sev.getValue().toString());
         leaveApplication.setAuditUser(auditUser);

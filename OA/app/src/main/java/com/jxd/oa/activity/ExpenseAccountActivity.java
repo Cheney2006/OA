@@ -11,8 +11,10 @@ import android.widget.ListView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
+import com.jxd.oa.adapter.ExpenseAccountAdapter;
 import com.jxd.oa.adapter.SalaryAdapter;
-import com.jxd.oa.bean.AccountWage;
+import com.jxd.oa.bean.ExpenseAccount;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -36,8 +38,8 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     @ViewInject(R.id.mListView)
     private ListView mListView;
-    private List<AccountWage> accountWageList;
-    private SalaryAdapter adapter;
+    private List<ExpenseAccount> expenseAccountList;
+    private ExpenseAccountAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,23 +53,23 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            accountWageList = DbOperationManager.getInstance().getBeans(Selector.from(AccountWage.class).orderBy("yearMonth", true));
+            expenseAccountList = DbOperationManager.getInstance().getBeans(Selector.from(ExpenseAccount.class).where("applyUserId", "=", SysConfig.getInstance().getUserId()).orderBy("modifiedDate", true));
         } catch (DbException e) {
             LogUtil.e(e);
         }
         if (adapter == null) {
-            adapter = new SalaryAdapter(mContext, accountWageList);
+            adapter = new ExpenseAccountAdapter(mContext, expenseAccountList);
             mListView.setAdapter(adapter);
         } else {
-            adapter.setDataList(accountWageList);
+            adapter.setDataList(expenseAccountList);
             adapter.notifyDataSetChanged();
         }
     }
 
     @OnItemClick(R.id.mListView)
     public void listItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, SalaryDetailActivity.class);
-        intent.putExtra("salary", adapter.getItem(position));
+        Intent intent = new Intent(mContext, ExpenseAccountDetailActivity.class);
+        intent.putExtra("expenseAccount", adapter.getItem(position));
         startActivity(intent);
     }
 
@@ -84,7 +86,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(AccountWage.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(ExpenseAccount.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
                 return true;
@@ -98,7 +100,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
         //添加菜单项
         menu.add(Menu.NONE, 0, 0, "删除");
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(adapter.getItem(info.position).getYearMonth());
+        menu.setHeaderTitle(adapter.getItem(info.position).getItemName());
     }
 
     @Override

@@ -28,6 +28,8 @@ public class LeaveApplicationDetailActivity extends AbstractActivity {
     private TextView starDate_tv;
     @ViewInject(R.id.endDate_tv)
     private TextView endDate_tv;
+    @ViewInject(R.id.applyUser_tv)
+    private TextView applyUser_tv;
     @ViewInject(R.id.auditUser_tv)
     private TextView auditUser_tv;
     @ViewInject(R.id.auditStatus_tv)
@@ -50,6 +52,9 @@ public class LeaveApplicationDetailActivity extends AbstractActivity {
         type_tv.setText(Const.getName("TYPE_LEAVE_", leaveApplication.getType()));
         starDate_tv.setText(leaveApplication.getStartDate());
         endDate_tv.setText(leaveApplication.getEndDate());
+        if (leaveApplication.getApplyUser() != null) {
+            applyUser_tv.setText(leaveApplication.getApplyUser().getName());
+        }
         if (leaveApplication.getAuditUser() != null) {
             auditUser_tv.setText(leaveApplication.getAuditUser().getName());
         }

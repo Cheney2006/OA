@@ -19,9 +19,11 @@ import com.jxd.common.vo.LocationInfo;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.SignAdapter;
+import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.bean.Address;
 import com.jxd.oa.bean.Sign;
 import com.jxd.oa.constants.Const;
+import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
 import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.LocationProviderHelper;
@@ -53,7 +55,7 @@ import java.util.List;
  */
 public class SignActivity extends AbstractActivity {
 
-    public static final int MAX_DISTANCE = 100;//100米以内
+    public static final int MAX_DISTANCE = 1000;//1000米以内
     @ViewInject(R.id.mListView)
     private ListView mListView;
     private List<Sign> signList;
@@ -117,7 +119,7 @@ public class SignActivity extends AbstractActivity {
                     List<Address> addressList = DbOperationManager.getInstance().getBeans(Selector.from(Address.class));
                     if (addressList != null) {
                         for (Address address : addressList) {
-                            //取出100以内的考勤参考位置
+                            //取出1000以内的考勤参考位置
                             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                             LatLng addressLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                             double distance = DistanceUtil.getDistance(latLng, addressLatLng);
@@ -130,7 +132,7 @@ public class SignActivity extends AbstractActivity {
                             String[] titles = new String[vicinityAddressList.size()];
                             int i = 0;
                             for (Address address : vicinityAddressList) {
-                                titles[0] = address.getName();
+                                titles[i] = address.getName();
                                 i++;
                             }
                             Dialog alertDialog = new AlertDialog.Builder(mContext).setTitle("请选择参考位置")
@@ -142,10 +144,10 @@ public class SignActivity extends AbstractActivity {
                                     }).create();
                             alertDialog.show();
                         } else {
-                            new JxdAlertDialog(mContext,"提示","附近无考勤参考位置").show();
+                            new JxdAlertDialog(mContext, "提示", "附近无考勤参考位置").show();
                         }
                     } else {
-                        new JxdAlertDialog(mContext,"提示","暂无考勤参考位置，请联系管理员先采集位置").show();
+                        new JxdAlertDialog(mContext, "提示", "暂无考勤参考位置，请联系管理员先采集位置").show();
                     }
 
                 } catch (DbException e) {
@@ -167,6 +169,7 @@ public class SignActivity extends AbstractActivity {
         sign.setSignDistance(address.getDistance());
         sign.setSignTime(getNowDate());
         sign.setVicinityAddress(address);
+        sign.setUserId(SysConfig.getInstance().getUserId());
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(sign));
         LogUtil.d("data="+GsonUtil.getInstance().getGson().toJson(sign));

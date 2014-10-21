@@ -15,8 +15,8 @@ import java.util.Date;
 @Table(name = "t_expense_account")
 public class ExpenseAccount extends AbstractBean {
     private String id;//主键
-    @Foreign(column = "userId", foreign = "id")
-    private User user;//申请者
+    @Foreign(column = "applyUserId", foreign = "id")
+    private User applyUser;//申请者
     private String itemName;//报销项目
     private int type;//类型 车费1，餐费2，住宿费3，其它4
     private Date applyDate;//报销日期
@@ -36,12 +36,12 @@ public class ExpenseAccount extends AbstractBean {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getApplyUser() {
+        return applyUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setApplyUser(User applyUser) {
+        this.applyUser = applyUser;
     }
 
     public int getType() {
