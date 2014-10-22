@@ -27,7 +27,7 @@ import java.util.List;
 public class DbOperationManager {
 
     public static final String DB_NAME = "oa.db";
-    private static final Integer DB_VERSION = 2;
+    private static final Integer DB_VERSION = 1;
     private static final String UPGRADE_TAG_NAME = "upgrade";
     private static final String SQL_TAG_NAME = "sqls";
 
@@ -131,7 +131,7 @@ public class DbOperationManager {
     }
 
     public void clearDb() throws DbException {
-        dbUtil.clearDb();//使用dbUtil.dropDb();再次登录是生成数据报错
+        dbUtil.dropDb();
     }
 
     private String getUpgradeSql(Integer version) {
