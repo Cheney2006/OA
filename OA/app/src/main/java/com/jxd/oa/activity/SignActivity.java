@@ -172,7 +172,6 @@ public class SignActivity extends AbstractActivity {
         sign.setUserId(SysConfig.getInstance().getUserId());
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(sign));
-        LogUtil.d("data="+GsonUtil.getInstance().getGson().toJson(sign));
         HttpUtil.getInstance().sendInDialog(mContext, "正在上传数据...", ParamManager.parseBaseUrl("signSave.action"), params, new RequestCallBack<Json>() {
             @Override
             public void onSuccess(ResponseInfo<Json> responseInfo) {

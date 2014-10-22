@@ -58,7 +58,8 @@ public class BaseMapActivity extends AbstractActivity {
         OverlayOptions options = new MarkerOptions()
                 .position(ll)  //设置marker的位置
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker))  //设置marker图标
-                .zIndex(9);  //设置marker所在层级
+                .zIndex(9) //设置marker所在层级
+                .draggable(true);//设置手势拖拽
         //将marker添加到地图上
         mBaiduMap.addOverlay(options);
         //调用BaiduMap对象的setOnMarkerDragListener方法设置marker拖拽的监听
@@ -73,17 +74,8 @@ public class BaseMapActivity extends AbstractActivity {
                 address_tv.setText(address);
                 //定义用于显示该InfoWindow的坐标点
                 final LatLng ll = marker.getPosition();
-                Point p = mBaiduMap.getProjection().toScreenLocation(ll);
-                p.y -= 25;
-                LatLng llInfo = mBaiduMap.getProjection().fromScreenLocation(p);
-                //创建InfoWindow的点击事件监听者
-                InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
-                    public void onInfoWindowClick() {
-                        //添加点击后的事件响应代码
-                    }
-                };
                 //创建InfoWindow
-                InfoWindow mInfoWindow = new InfoWindow(view, llInfo, listener);
+                InfoWindow mInfoWindow = new InfoWindow(view, ll, -25);
                 //显示InfoWindow
                 mBaiduMap.showInfoWindow(mInfoWindow);
                 return false;
