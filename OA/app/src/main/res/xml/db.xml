@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<db>
+    <upgrade version="1"></upgrade>
+    <upgrade version="2">
+        <sqls><!--IF NOT EXISTS-->
+            <![CDATA[
+				 CREATE TABLE t_test(
+                    a VARCHAR(10) PRIMARY KEY,
+                    b NVARCHAR(15),
+                    c TEXT,
+                    d INTEGER,
+                    e FLOAT,
+                    f BOOLEAN,
+                    g CLOB,
+                    h BLOB,
+                    i TIMESTAMP,
+                    j NUMERIC(10,5),
+                    k DATE,
+                    l NATIONAL VARYING CHARACTER(16)
+                    );
+
+			]]>
+
+        </sqls>
+    </upgrade>
+    <upgrade version="3">
+        <sqls>
+            ALTER TABLE [t_test] ADD COLUMN [m] INTEGER;
+        </sqls>
+    </upgrade>
+</db>

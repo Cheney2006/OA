@@ -1,15 +1,21 @@
 package com.jxd.oa.utils;
 
 import android.content.Context;
+import android.content.res.XmlResourceParser;
 
+import com.jxd.oa.R;
 import com.jxd.oa.application.OAApplication;
 import com.yftools.DbUtil;
+import com.yftools.LogUtil;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.db.sqlite.SqlInfo;
 import com.yftools.db.sqlite.WhereBuilder;
 import com.yftools.db.table.DbModel;
 import com.yftools.exception.DbException;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,13 +27,37 @@ import java.util.List;
 public class DbOperationManager {
 
     public static final String DB_NAME = "oa.db";
+    private static final Integer DB_VERSION = 2;
+    private static final String UPGRADE_TAG_NAME = "upgrade";
+    private static final String SQL_TAG_NAME = "sqls";
 
     private final Context context;
     private final DbUtil dbUtil;
 
     private DbOperationManager() {
         this.context = OAApplication.getContext();
-        dbUtil = DbUtil.create(context, DB_NAME);
+        dbUtil = DbUtil.create(context, DB_NAME, DB_VERSION, new DbUtil.DbUpgradeListener() {
+            @Override
+            public void onUpgrade(DbUtil db, int oldVersion, int newVersion) {
+                try {
+                    if (oldVersion < newVersion) {
+                        String sqlString;
+                        String[] sqlArray;
+                        for (int i = oldVersion + 1; i <= newVersion; i++) {
+                            sqlString = getUpgradeSql(i);
+                            sqlArray = sqlString.split(";");
+                            for (String sql : sqlArray) {
+                                if (sql != null && !sql.trim().equals("")) {
+                                    db.execNonQuery(sql);
+                                }
+                            }
+                        }
+                    }
+                } catch (DbException e) {
+                    LogUtil.d(e);
+                }
+            }
+        });
         dbUtil.configAllowTransaction(true);
         dbUtil.configDebug(true);
     }
@@ -104,4 +134,45 @@ public class DbOperationManager {
         dbUtil.clearDb();//使用dbUtil.dropDb();再次登录是生成数据报错
     }
 
+    private String getUpgradeSql(Integer version) {
+        StringBuffer result = new StringBuffer();
+        XmlResourceParser xrp = context.getResources().getXml(R.xml.db);
+        Boolean updateStarted = Boolean.FALSE;
+        Boolean sqlStarted = Boolean.FALSE;
+        try {
+            while (xrp.getEventType() != XmlResourceParser.END_DOCUMENT) {
+                if (xrp.getName() != null
+                        && xrp.getName().equals(UPGRADE_TAG_NAME)
+                        && xrp.getAttributeIntValue(null, "version", 0) == version
+                        && xrp.getEventType() == XmlResourceParser.START_TAG) {
+                    updateStarted = Boolean.TRUE;
+                } else if (updateStarted && xrp.getName() != null
+                        && xrp.getName().equals(SQL_TAG_NAME)
+                        && xrp.getEventType() == XmlResourceParser.START_TAG) {
+                    sqlStarted = Boolean.TRUE;
+                } else if (updateStarted && xrp.getName() != null
+                        && xrp.getName().equals(SQL_TAG_NAME)
+                        && xrp.getEventType() == XmlResourceParser.END_TAG) {
+                    sqlStarted = Boolean.FALSE;
+                } else if (sqlStarted
+                        && xrp.getEventType() == XmlResourceParser.TEXT) {
+                    result.append(xrp.getText());
+                    break;
+                } else if (xrp.getName() != null
+                        && xrp.getName().equals(UPGRADE_TAG_NAME)
+                        && xrp.getAttributeIntValue(null, "version", 0) == version
+                        && xrp.getEventType() == XmlResourceParser.END_TAG) {
+                    updateStarted = Boolean.FALSE;
+                    break;
+                }
+                xrp.next();
+            }
+            xrp.close();
+        } catch (XmlPullParserException e) {
+            LogUtil.e(e);
+        } catch (IOException e) {
+            LogUtil.e(e);
+        }
+        return result.toString();
+    }
 }
