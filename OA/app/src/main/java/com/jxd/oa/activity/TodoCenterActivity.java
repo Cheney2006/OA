@@ -14,6 +14,7 @@ import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.adapter.TodoAdapter;
 import com.jxd.oa.bean.ExpenseAccount;
 import com.jxd.oa.bean.LeaveApplication;
+import com.jxd.oa.bean.Todo;
 import com.jxd.oa.constants.Const;
 import com.jxd.oa.constants.SysConfig;
 import com.jxd.oa.utils.DbOperationManager;
@@ -99,7 +100,7 @@ public class TodoCenterActivity extends AbstractActivity {
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {
                     @Override
                     public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {
-                        syncData(LeaveApplication.class, pickYear + "-" + pickMonth + "-" + pickDay);
+                        syncData(Todo.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
                 return true;

@@ -10,11 +10,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.application.OAApplication;
+import com.jxd.oa.bean.LeaveApplication;
+import com.jxd.oa.bean.Todo;
+import com.jxd.oa.bean.base.AbstractBean;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
+import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
 import com.yftools.BitmapUtil;
 import com.yftools.HttpUtil;
@@ -22,15 +27,18 @@ import com.yftools.LogUtil;
 import com.yftools.exception.BaseException;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
+import com.yftools.exception.JsonException;
 import com.yftools.http.HttpHandler;
 import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
+import com.yftools.json.Json;
 import com.yftools.ui.ProgressDialogUtil;
 import com.yftools.util.AndroidUtil;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * *****************************************
@@ -100,18 +108,37 @@ public abstract class AbstractActivity extends ActionBarActivity {
         name = name.substring(0, 1).toLowerCase() + name.substring(1);
         RequestParams params = ParamManager.setDefaultParams();
         params.addBodyParameter("startDate", startDate);
-        HttpUtil.getInstance().sendInDialog(mContext, "正在同步数据...", ParamManager.parseBaseUrl(name + "List.action"), params, new RequestCallBack<String>() {
+        String path = name + "List.action";
+        if (cls.isAssignableFrom(Todo.class)) {
+            path = "getMyAgent.action";
+        }
+        HttpUtil.getInstance().sendInDialog(mContext, "正在同步数据...", ParamManager.parseBaseUrl(path), params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 try {
-                    CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
-                    if (commonJson4List.getSuccess()) {
-                        DbOperationManager.getInstance().saveOrUpdate(commonJson4List.getData());
+                    Json json = new Json(responseInfo.result);
+                    if (json.getBoolean("success")) {
+                        if (cls.isAssignableFrom(Todo.class)) {//我的待办
+                            Json datas = json.getJson("data");
+                            for (int i = 0, len = datas.getLength(); i < len; i++) {
+                                json = (Json) datas.getItem(i);
+                                String beanName = json.getString("beanName");
+                                if(beanName.equals("LeaveApplication")){//beanData是多个
+                                    DbOperationManager.getInstance().saveOrUpdate(GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"),new TypeToken<List<LeaveApplication>>() {}.getType()));
+                                }
+                            }
+                        } else {
+                            CommonJson4List<T> commonJson4List = CommonJson4List.fromJson(responseInfo.result, cls);
+                            DbOperationManager.getInstance().saveOrUpdate(commonJson4List.getData());
+                        }
                         sendBroadcast(new Intent(Constant.ACTION_REFRESH));
                     } else {
-                        displayToast(commonJson4List.getMessage());
+                        displayToast(json.getString("message"));
                     }
                 } catch (DbException e) {
+                    LogUtil.e(e);
+                    displayToast(e.getMessage());
+                } catch (JsonException e) {
                     LogUtil.e(e);
                     displayToast(e.getMessage());
                 }
