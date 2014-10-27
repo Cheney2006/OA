@@ -52,7 +52,7 @@ public class LeaveApplicationForAuditActivity extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewUtil.inject(this);
-        getSupportActionBar().setTitle(getString(R.string.txt_title_leave_application_detail));
+        getSupportActionBar().setTitle(getString(R.string.txt_title_leave_application_audit));
         leaveApplication = (LeaveApplication) getIntent().getSerializableExtra("leaveApplication");
         initData();
     }

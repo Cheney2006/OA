@@ -75,7 +75,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync, menu);
+        getMenuInflater().inflate(R.menu.menu_sync_add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -89,6 +89,9 @@ public class ExpenseAccountActivity extends AbstractActivity {
                         syncData(ExpenseAccount.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
+                return true;
+            case R.id.action_add:
+                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

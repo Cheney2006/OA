@@ -107,8 +107,9 @@
     <string name="txt_label_type">类型</string>
     <string name="txt_label_audit_user">审批人</string>
     <string name="txt_label_apply_user">申请人</string>
-    <string name="txt_title_leave_application_add">增加请假单</string>
+    <string name="txt_title_leave_application_add">请假单申请</string>
     <string name="txt_title_leave_application_detail">请假单详情</string>
+    <string name="txt_title_leave_application_audit">请假单审核</string>
     <string name="txt_label_audit_status">审批状态</string>
     <string name="txt_label_audit_remark">审批备注</string>
     <string name="txt_label_item_name">报销项目</string>
@@ -116,5 +117,5 @@
     <string name="txt_label_money">报销金额</string>
     <string name="txt_label_remark">备注</string>
     <string name="txt_title_expense_account_detail">报销单详情</string>
-
+    <string name="txt_title_expense_account_add">报销单申请</string>
 </resources>

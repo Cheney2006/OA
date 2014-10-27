@@ -87,7 +87,7 @@ public class HomeActivity extends SelectImageActivity {
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.app_name));
         //TODO 正式时，取消
-        if (DateUtil.dateToString(getNowDate()).compareTo("2014-11-01") >= 0) {
+        if (DateUtil.dateToString(getNowDate()).compareTo("2014-11-15") >= 0) {
             exitApp();
         }
         initData();
@@ -208,7 +208,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.expenseAccount_ll)
     public void expenseAccountClick(View view) {
-        startActivity(new Intent(mContext, ExpenseAccountActivity.class));
+//        startActivity(new Intent(mContext, ExpenseAccountActivity.class));
     }
 
     @OnClick(R.id.todoCenter_ll)
@@ -335,9 +335,10 @@ public class HomeActivity extends SelectImageActivity {
     }
 
     private void initTodoNum() {
-        //取请假单中待办数
         try {
+            //取请假单中待办数
             long leaveNum = DbOperationManager.getInstance().count(Selector.from(LeaveApplication.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
+            //取报销单中待办数
             long expenseNum = DbOperationManager.getInstance().count(Selector.from(ExpenseAccount.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
             long total = leaveNum + expenseNum;
             if (total > 0) {
@@ -349,7 +350,6 @@ public class HomeActivity extends SelectImageActivity {
         } catch (DbException e) {
             LogUtil.e(e);
         }
-        //取报销单中待办数
     }
 
     private void initMessageNum() {

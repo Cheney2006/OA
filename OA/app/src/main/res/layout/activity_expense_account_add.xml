@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:layout_marginTop="0dp"
+            android:text="@string/txt_label_item_name" />
+
+        <EditText
+            android:id="@+id/itemName_et"
+            style="@style/CustomEditText" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_type" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/type_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_apply_date" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/applyDate_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_money" />
+
+        <EditText
+            android:id="@+id/money_et"
+            style="@style/CustomEditText" />
+
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_audit_user" />
+
+        <com.jxd.oa.view.SelectEditView
+            android:id="@+id/auditUser_sev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_layout_padding_top" />
+
+        <TextView
+            style="@style/CustomLabelTextForEdit"
+            android:text="@string/txt_label_remark" />
+
+        <EditText
+            android:id="@+id/remark_et"
+            android:minHeight="@dimen/dimen_edit_multi_height"
+            style="@style/CustomEditText" />
+
+    </LinearLayout>
+</ScrollView>
