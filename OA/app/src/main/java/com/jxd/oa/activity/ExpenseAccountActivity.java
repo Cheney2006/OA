@@ -36,6 +36,7 @@ import java.util.List;
 @ContentView(R.layout.activity_list_view)
 public class ExpenseAccountActivity extends AbstractActivity {
 
+    private static final int CODE_EXPENSE_ACCOUNT_ADD = 101;
     @ViewInject(R.id.mListView)
     private ListView mListView;
     private List<ExpenseAccount> expenseAccountList;
@@ -91,7 +92,7 @@ public class ExpenseAccountActivity extends AbstractActivity {
                 }).showDateDialog();
                 return true;
             case R.id.action_add:
-                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
+                startActivityForResult(new Intent(mContext, ExpenseAccountAddActivity.class), CODE_EXPENSE_ACCOUNT_ADD);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -122,5 +123,13 @@ public class ExpenseAccountActivity extends AbstractActivity {
     @Override
     protected void refreshData() {
         initData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == CODE_EXPENSE_ACCOUNT_ADD) {
+            initData();
+        }
     }
 }

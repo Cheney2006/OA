@@ -35,6 +35,7 @@ import java.util.List;
 @ContentView(R.layout.activity_list_view)
 public class LeaveApplicationActivity extends AbstractActivity {
 
+    private static final int CODE_LEAVE_APPLICATION_ADD = 101;
     @ViewInject(R.id.mListView)
     private ListView mListView;
     private List<LeaveApplication> leaveApplicationList;
@@ -90,7 +91,7 @@ public class LeaveApplicationActivity extends AbstractActivity {
                 }).showDateDialog();
                 return true;
             case R.id.action_add:
-                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
+                startActivityForResult(new Intent(mContext, LeaveApplicationAddActivity.class), CODE_LEAVE_APPLICATION_ADD);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -121,5 +122,13 @@ public class LeaveApplicationActivity extends AbstractActivity {
     @Override
     protected void refreshData() {
         initData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == CODE_LEAVE_APPLICATION_ADD) {
+            initData();
+        }
     }
 }

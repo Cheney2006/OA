@@ -258,15 +258,26 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activity.LeaveApplicationForAuditActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.TodoCenterActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.ExpenseAccountActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.ExpenseAccountAddActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ExpenseAccountDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ExpenseAccountForAuditActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.IncrementUpdateService" />

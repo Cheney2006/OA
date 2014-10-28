@@ -92,6 +92,13 @@ public class TodoCenterActivity extends AbstractActivity {
                 LeaveApplication leaveApplication = DbOperationManager.getInstance().getBeanById(LeaveApplication.class, dataId);
                 intent.putExtra("leaveApplication", leaveApplication);
             } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
+                if (auditStatus == Const.STATUS_BEING.getValue()) {//审核
+                    intent = new Intent(mContext, ExpenseAccountForAuditActivity.class);
+                } else {
+                    intent = new Intent(mContext, ExpenseAccountDetailActivity.class);
+                }
+                ExpenseAccount expenseAccount = DbOperationManager.getInstance().getBeanById(ExpenseAccount.class, dataId);
+                intent.putExtra("expenseAccount", expenseAccount);
             }
             startActivity(intent);
         } catch (DbException e) {
@@ -101,7 +108,7 @@ public class TodoCenterActivity extends AbstractActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sync_add, menu);
+        getMenuInflater().inflate(R.menu.menu_sync, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,9 +122,6 @@ public class TodoCenterActivity extends AbstractActivity {
                         syncData(Todo.class, pickYear + "-" + pickMonth + "-" + pickDay);
                     }
                 }).showDateDialog();
-                return true;
-            case R.id.action_add:
-                startActivity(new Intent(mContext, LeaveApplicationAddActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

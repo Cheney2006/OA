@@ -59,16 +59,10 @@ public class GsonUtil {
 		}
 
 		public Timestamp deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            if(json==null){
-                return null;
-            }
 			if (!(json instanceof JsonPrimitive)) {
 				throw new JsonParseException("The date should be a string value");
 			}
 			try {
-                if(TextUtils.isEmpty(json.getAsString())){
-                    return null;
-                }
 				Date date = format.parse(json.getAsString());
 				return new Timestamp(date.getTime());
 			} catch (ParseException e) {

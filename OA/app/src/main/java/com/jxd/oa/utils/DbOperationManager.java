@@ -3,6 +3,7 @@ package com.jxd.oa.utils;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 
+import com.baidu.platform.comapi.map.C;
 import com.jxd.oa.R;
 import com.jxd.oa.application.OAApplication;
 import com.yftools.DbUtil;
@@ -68,6 +69,10 @@ public class DbOperationManager {
 
     public static DbOperationManager getInstance() {
         return SingletonHolder.INSTANCE;
+    }
+
+    public void createTableIfNotExist(Class<C> clazz) throws DbException {
+        dbUtil.createTableIfNotExist(clazz);
     }
 
     public <C> void saveOrUpdate(C bean) throws DbException {

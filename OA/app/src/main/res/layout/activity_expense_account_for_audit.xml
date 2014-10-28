@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nav">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_item_name" />
+
+        <TextView
+            android:id="@+id/itemName_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_type" />
+
+        <TextView
+            android:id="@+id/type_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_apply_date" />
+
+        <TextView
+            android:id="@+id/applyDate_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_money" />
+
+        <TextView
+            android:id="@+id/money_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_remark" />
+
+        <TextView
+            android:id="@+id/remark_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <com.jxd.oa.view.LabelRequestTextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_apply_user" />
+
+        <TextView
+            android:id="@+id/applyUser_tv"
+            style="@style/CustomViewText" />
+
+        <View style="@style/LineRow" />
+
+        <TextView
+            style="@style/CustomLabelText"
+            android:text="@string/txt_label_audit_remark" />
+
+        <EditText
+            android:id="@+id/auditRemark_et"
+            android:minHeight="@dimen/dimen_edit_multi_height"
+            style="@style/CustomEditText" />
+
+        <View style="@style/LineRow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_layout_padding_left"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/refuse_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="拒绝"
+                style="@style/WhiteTxt18"
+                android:background="@drawable/btn_exit" />
+            <Button
+                android:id="@+id/agree_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="同意"
+                style="@style/WhiteTxt18"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/btn_login" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

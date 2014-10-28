@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.LeaveApplication;
@@ -49,7 +50,7 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
 
     private static final int CODE_USER_SELECT = 101;
 
-    @ViewInject(R.id.itemName_et)
+    @ViewInject(R.id.leaveReason_et)
     private EditText leaveReason_et;
     @ViewInject(R.id.type_sev)
     private SelectEditView type_sev;
