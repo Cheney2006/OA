@@ -16,7 +16,7 @@
         android:id="@+id/status_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/RedTxt12"
+        android:textSize="@dimen/dimen_font_14"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/arrow_iv" />
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ItemTitleTxt"
-        android:layout_toLeftOf="@id/status_tv"/>
+        android:layout_toLeftOf="@id/status_tv" />
 
     <TextView
         android:id="@+id/date_tv"

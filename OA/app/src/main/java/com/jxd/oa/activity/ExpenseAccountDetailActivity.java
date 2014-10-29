@@ -63,14 +63,14 @@ public class ExpenseAccountDetailActivity extends AbstractActivity {
             auditUser_tv.setText(expenseAccount.getAuditUser().getName());
         }
         auditRemark_tv.setText(expenseAccount.getAuditRemark());
-        if (expenseAccount.getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
+        if (expenseAccount.getAuditStatus() == Const.STATUS_AUDIT_REFUSE.getValue()) {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_red));
-        } else if (expenseAccount.getAuditStatus() == Const.STATUS_PASS.getValue()) {
+        } else if (expenseAccount.getAuditStatus() == Const.STATUS_AUDIT_PASS.getValue()) {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_being));
         } else {
             auditStatus_tv.setTextColor(mContext.getResources().getColor(R.color.color_black_font));
         }
-        auditStatus_tv.setText(Const.getName("STATUS_", expenseAccount.getAuditStatus()));
+        auditStatus_tv.setText(Const.getName("STATUS_AUDIT_", expenseAccount.getAuditStatus()));
     }
 
 }

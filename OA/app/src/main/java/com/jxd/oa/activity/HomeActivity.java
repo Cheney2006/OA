@@ -337,9 +337,9 @@ public class HomeActivity extends SelectImageActivity {
     private void initTodoNum() {
         try {
             //取请假单中待办数
-            long leaveNum = DbOperationManager.getInstance().count(Selector.from(LeaveApplication.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
+            long leaveNum = DbOperationManager.getInstance().count(Selector.from(LeaveApplication.class).where("auditStatus", "=", Const.STATUS_AUDIT_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
             //取报销单中待办数
-            long expenseNum = DbOperationManager.getInstance().count(Selector.from(ExpenseAccount.class).where("auditStatus", "=", Const.STATUS_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
+            long expenseNum = DbOperationManager.getInstance().count(Selector.from(ExpenseAccount.class).where("auditStatus", "=", Const.STATUS_AUDIT_BEING.getValue()).and("auditUserId", "=", SysConfig.getInstance().getUserId()));
             long total = leaveNum + expenseNum;
             if (total > 0) {
                 todoNum_tv.setVisibility(View.VISIBLE);

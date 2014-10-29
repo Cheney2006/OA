@@ -38,14 +38,14 @@ public class LeaveApplicationAdapter extends AbstractAdapter<LeaveApplication> {
         }
         viewHolder.title_tv.setText(getItem(position).getLeaveReason());
         viewHolder.date_tv.setText(getItem(position).getStartDate() + "至" + getItem(position).getEndDate());
-        if (getItem(position).getAuditStatus() == Const.STATUS_REFUSE.getValue()) {
+        if (getItem(position).getAuditStatus() == Const.STATUS_AUDIT_REFUSE.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
-        } else if (getItem(position).getAuditStatus() == Const.STATUS_PASS.getValue()) {
+        } else if (getItem(position).getAuditStatus() == Const.STATUS_AUDIT_PASS.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_being));
         } else {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
         }
-        viewHolder.status_tv.setText(Const.getName("STATUS_", getItem(position).getAuditStatus()));
+        viewHolder.status_tv.setText(Const.getName("STATUS_AUDIT_", getItem(position).getAuditStatus()));
         return view;
     }
 

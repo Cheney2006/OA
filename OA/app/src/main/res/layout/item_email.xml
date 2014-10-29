@@ -24,7 +24,7 @@
         android:id="@+id/important_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/RedTxt12"
+        style="@style/RedTxt14"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/arrow_iv"/>
 

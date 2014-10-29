@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.AbstractActivity;
 import com.jxd.oa.bean.LeaveApplication;
@@ -175,7 +174,7 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
         User auditUser=new User();
         auditUser.setId(auditUser_sev.getValue().toString());
         leaveApplication.setAuditUser(auditUser);
-        leaveApplication.setAuditStatus((Integer) Const.STATUS_BEING.getValue());
+        leaveApplication.setAuditStatus((Integer) Const.STATUS_AUDIT_BEING.getValue());
         leaveApplication.setModifiedDate(getNowDate());
         return true;
     }

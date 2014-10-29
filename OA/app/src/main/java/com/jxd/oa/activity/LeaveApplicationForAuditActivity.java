@@ -69,13 +69,13 @@ public class LeaveApplicationForAuditActivity extends AbstractActivity {
 
     @OnClick(R.id.refuse_btn)
     public void refuseClick(View view) {
-        leaveApplication.setAuditStatus((Integer) Const.STATUS_REFUSE.getValue());
+        leaveApplication.setAuditStatus((Integer) Const.STATUS_AUDIT_REFUSE.getValue());
         submit();
     }
 
     @OnClick(R.id.agree_btn)
     public void agreeClick(View view) {
-        leaveApplication.setAuditStatus((Integer) Const.STATUS_PASS.getValue());
+        leaveApplication.setAuditStatus((Integer) Const.STATUS_AUDIT_PASS.getValue());
         submit();
     }
 

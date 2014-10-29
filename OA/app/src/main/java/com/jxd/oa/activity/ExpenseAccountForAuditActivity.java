@@ -73,13 +73,13 @@ public class ExpenseAccountForAuditActivity extends AbstractActivity {
 
     @OnClick(R.id.refuse_btn)
     public void refuseClick(View view){
-        expenseAccount.setAuditStatus((Integer) Const.STATUS_REFUSE.getValue());
+        expenseAccount.setAuditStatus((Integer) Const.STATUS_AUDIT_REFUSE.getValue());
         submit();
     }
 
     @OnClick(R.id.agree_btn)
     public void agreeClick(View view){
-        expenseAccount.setAuditStatus((Integer) Const.STATUS_PASS.getValue());
+        expenseAccount.setAuditStatus((Integer) Const.STATUS_AUDIT_PASS.getValue());
         submit();
     }
 

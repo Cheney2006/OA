@@ -69,6 +69,8 @@
         <EditText
             android:id="@+id/auditRemark_et"
             android:minHeight="@dimen/dimen_edit_multi_height"
+            android:layout_marginLeft="@dimen/dimen_layout_padding_left"
+            android:layout_marginRight="@dimen/dimen_layout_padding_left"
             style="@style/CustomEditText" />
 
         <View style="@style/LineRow" />

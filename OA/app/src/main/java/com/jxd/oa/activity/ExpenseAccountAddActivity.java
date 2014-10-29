@@ -161,7 +161,7 @@ public class ExpenseAccountAddActivity extends AbstractActivity {
         User auditUser = new User();
         auditUser.setId(auditUser_sev.getValue().toString());
         expenseAccount.setAuditUser(auditUser);
-        expenseAccount.setAuditStatus((Integer) Const.STATUS_BEING.getValue());
+        expenseAccount.setAuditStatus((Integer) Const.STATUS_AUDIT_BEING.getValue());
         expenseAccount.setModifiedDate(getNowDate());
         return true;
     }

@@ -58,13 +58,13 @@ public class TodoCenterActivity extends AbstractActivity {
             DbOperationManager.getInstance().createTableIfNotExist(LeaveApplication.class);
             DbOperationManager.getInstance().createTableIfNotExist(ExpenseAccount.class);
             //请假单中待办
-            String leaveAppSql = " SELECT id,userId,leaveReason as title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_LEAVE_APPLICATION.getValue() + "' type FROM t_leave_application WHERE auditUserId=" + SysConfig.getInstance().getUserId();
+            String leaveAppSql = " SELECT id,applyUserId,leaveReason as title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_LEAVE_APPLICATION.getValue() + "' type FROM t_leave_application WHERE auditUserId=" + SysConfig.getInstance().getUserId();
             //报销单中待办
-            String expenseSql = " SELECT id,userId,itemName as title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue() + "' type FROM t_expense_account WHERE auditUserId=" + SysConfig.getInstance().getUserId();
+            String expenseSql = " SELECT id,applyUserId,itemName as title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue() + "' type FROM t_expense_account WHERE auditUserId=" + SysConfig.getInstance().getUserId();
             StringBuffer sb = new StringBuffer();
             sb.append(leaveAppSql).append(" UNION ALL ").append(expenseSql).append(" order by modifiedDate");
             //取得用户名
-            String sql = "SELECT t1.id,t1.title,t1.modifiedDate,t1.auditStatus,t1.type,t2.name FROM ( " + sb.toString() + ") t1 left join t_user t2 on t1.userId=t2.id";
+            String sql = "SELECT t1.id,t1.title,t1.modifiedDate,t1.auditStatus,t1.type,t2.name FROM ( " + sb.toString() + ") t1 left join t_user t2 on t1.applyUserId=t2.id";
             todoList = DbOperationManager.getInstance().getDbModels(sql);
         } catch (DbException e) {
             LogUtil.e(e);
@@ -86,7 +86,7 @@ public class TodoCenterActivity extends AbstractActivity {
             String dataId = adapter.getItem(position).getString("id");
             int auditStatus = adapter.getItem(position).getInt("auditStatus");
             if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
-                if (auditStatus == Const.STATUS_BEING.getValue()) {//审核
+                if (auditStatus == Const.STATUS_AUDIT_BEING.getValue()) {//审核
                     intent = new Intent(mContext, LeaveApplicationForAuditActivity.class);
                 } else {
                     intent = new Intent(mContext, LeaveApplicationDetailActivity.class);
@@ -94,7 +94,7 @@ public class TodoCenterActivity extends AbstractActivity {
                 LeaveApplication leaveApplication = DbOperationManager.getInstance().getBeanById(LeaveApplication.class, dataId);
                 intent.putExtra("leaveApplication", leaveApplication);
             } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
-                if (auditStatus == Const.STATUS_BEING.getValue()) {//审核
+                if (auditStatus == Const.STATUS_AUDIT_BEING.getValue()) {//审核
                     intent = new Intent(mContext, ExpenseAccountForAuditActivity.class);
                 } else {
                     intent = new Intent(mContext, ExpenseAccountDetailActivity.class);

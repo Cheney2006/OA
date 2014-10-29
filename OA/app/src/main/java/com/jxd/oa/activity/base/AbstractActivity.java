@@ -15,7 +15,6 @@ import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.application.OAApplication;
 import com.jxd.oa.bean.LeaveApplication;
 import com.jxd.oa.bean.Todo;
-import com.jxd.oa.bean.base.AbstractBean;
 import com.jxd.oa.constants.Constant;
 import com.jxd.oa.utils.CommonJson4List;
 import com.jxd.oa.utils.DbOperationManager;
@@ -123,8 +122,10 @@ public abstract class AbstractActivity extends ActionBarActivity {
                             for (int i = 0, len = datas.getLength(); i < len; i++) {
                                 json = (Json) datas.getItem(i);
                                 String beanName = json.getString("beanName");
-                                if(beanName.equals("LeaveApplication")){//beanData是多个
-                                    DbOperationManager.getInstance().saveOrUpdate(GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"),new TypeToken<List<LeaveApplication>>() {}.getType()));
+                                if (beanName.equals("LeaveApplication")) {//beanData是多个
+                                    List<LeaveApplication> leaveApplicationList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<LeaveApplication>>() {
+                                    }.getType());
+                                    DbOperationManager.getInstance().saveOrUpdate(leaveApplicationList);
                                 }
                             }
                         } else {
