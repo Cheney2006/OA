@@ -1,5 +1,6 @@
 package com.jxd.oa.bean;
 
+import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.Table;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class LeaveApplication extends AbstractBean {
     private String id;//主键
     @Foreign(column = "applyUserId", foreign = "id")
+    @SerializedName("user")
     private User applyUser;//申请者
     private String leaveReason;//请假事由
     private int type;//类型 事假1，病假2，年假3，其它4
