@@ -54,7 +54,9 @@ public class TodoCenterActivity extends AbstractActivity {
 
     public void initData() {
         try {
-            //合并两个表中的数据
+            //合并两个表中的数据,这里通过sql查询可能存在，表不存在的情况
+            DbOperationManager.getInstance().createTableIfNotExist(LeaveApplication.class);
+            DbOperationManager.getInstance().createTableIfNotExist(ExpenseAccount.class);
             //请假单中待办
             String leaveAppSql = " SELECT id,userId,leaveReason as title,modifiedDate,auditStatus,'" + Const.TYPE_TODO_LEAVE_APPLICATION.getValue() + "' type FROM t_leave_application WHERE auditUserId=" + SysConfig.getInstance().getUserId();
             //报销单中待办
