@@ -27,12 +27,10 @@ import com.yftools.exception.BaseException;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
 import com.yftools.exception.JsonException;
-import com.yftools.http.HttpHandler;
 import com.yftools.http.RequestParams;
 import com.yftools.http.ResponseInfo;
 import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
-import com.yftools.ui.ProgressDialogUtil;
 import com.yftools.util.AndroidUtil;
 
 import java.io.File;
@@ -47,9 +45,7 @@ import java.util.List;
  */
 public abstract class AbstractActivity extends ActionBarActivity {
 
-
     protected Context mContext;
-    private HttpHandler<File> handle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,16 +163,10 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
     private void downloadApk(String url) {
         // 更新软件
-        File downloadFile = new File(BitmapUtil.getInstance(mContext).getCachePath(), "mmip.apk");
-        handle = HttpUtil.getInstance().downloadInDialog(mContext, "正在下载", ProgressDialog.STYLE_HORIZONTAL, url, downloadFile.getAbsolutePath(),
+        File downloadFile = new File(BitmapUtil.getInstance(mContext).getCachePath(), "oa.apk");
+        HttpUtil.getInstance().downloadInDialog(mContext, "正在下载", ProgressDialog.STYLE_HORIZONTAL, url, downloadFile.getAbsolutePath(),
                 true, // 如果目标文件存在，接着未完成的部分继续下载。服务器不支持RANGE时将从新下载。
                 true, // 如果从请求返回信息中获取到文件名，下载完成后自动重命名。
-                new ProgressDialogUtil.OnCancelListener() {
-                    @Override
-                    public void onCancel() {
-                        onCancelDownload();
-                    }
-                },
                 new RequestCallBack<File>() {
                     @Override
                     public void onSuccess(ResponseInfo<File> responseInfo) {
@@ -189,12 +179,6 @@ public abstract class AbstractActivity extends ActionBarActivity {
                         displayToast(msg);
                     }
                 });
-    }
-
-    protected void onCancelDownload() {
-        if (handle != null) {
-            handle.cancel();
-        }
     }
 
     protected Date getNowDate() {
