@@ -95,8 +95,8 @@ public class ExpenseAccountAddActivity extends AbstractActivity {
         startActivityForResult(intent, CODE_USER_SELECT);
     }
 
-    @OnClick(R.id.startDate_sev)
-    public void startDateClick(View view) {
+    @OnClick(R.id.applyDate_sev)
+    public void applyDateClick(View view) {
         new DatePickUtil(mContext, "请选择报销日期", new DatePickUtil.DateSetFinished() {
             @Override
             public void onDateSetFinished(String pickYear, String pickMonth, String pickDay) {

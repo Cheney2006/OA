@@ -208,7 +208,7 @@ public class HomeActivity extends SelectImageActivity {
 
     @OnClick(R.id.expenseAccount_ll)
     public void expenseAccountClick(View view) {
-//        startActivity(new Intent(mContext, ExpenseAccountActivity.class));
+        startActivity(new Intent(mContext, ExpenseAccountActivity.class));
     }
 
     @OnClick(R.id.todoCenter_ll)

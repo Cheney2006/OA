@@ -1,5 +1,6 @@
 package com.jxd.oa.bean;
 
+import com.google.gson.annotations.SerializedName;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.Table;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class ExpenseAccount extends AbstractBean {
     private String id;//主键
     @Foreign(column = "applyUserId", foreign = "id")
+    @SerializedName("user")
     private User applyUser;//申请者
     private String itemName;//报销项目
     private int type;//类型 车费1，餐费2，住宿费3，其它4

@@ -138,6 +138,10 @@ public class DbOperationManager {
         dbUtil.dropDb();
     }
 
+    public void close() {
+        dbUtil.close();
+    }
+
     private String getUpgradeSql(Integer version) {
         StringBuffer result = new StringBuffer();
         XmlResourceParser xrp = context.getResources().getXml(R.xml.db);
