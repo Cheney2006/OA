@@ -202,9 +202,9 @@
         <item name="android:textSize">@dimen/dimen_font_20</item>
     </style>
 
-    <style name="RedTxt14">
+    <style name="RedTxt16">
         <item name="android:textColor">@color/color_red</item>
-        <item name="android:textSize">@dimen/dimen_font_14</item>
+        <item name="android:textSize">@dimen/dimen_font_16</item>
     </style>
 
     <style name="RedTxt18">

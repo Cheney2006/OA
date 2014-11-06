@@ -74,6 +74,10 @@ public class DbOperationManager {
         dbUtil.createTableIfNotExist(clazz);
     }
 
+    public <C> void dropTable(Class<C> clazz) throws DbException {
+        dbUtil.dropTable(clazz);
+    }
+
     public <C> void saveOrUpdate(C bean) throws DbException {
         dbUtil.saveOrUpdate(bean);
     }

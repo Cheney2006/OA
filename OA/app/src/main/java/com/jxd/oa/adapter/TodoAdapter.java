@@ -42,12 +42,12 @@ public class TodoAdapter extends AbstractAdapter<DbModel> {
         int auditStatus = getItem(position).getInt("auditStatus");
         if (auditStatus == Const.STATUS_AUDIT_REFUSE.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
-        } else if (auditStatus == Const.STATUS_AUDIT_REFUSE.getValue()) {
+        } else if (auditStatus == Const.STATUS_AUDIT_PASS.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_being));
         } else {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));
         }
-        viewHolder.status_tv.setText(Const.getName("STATUS_", auditStatus));
+        viewHolder.status_tv.setText(Const.getName("STATUS_AUDIT_", auditStatus));
         viewHolder.applyUser_tv.setText(getItem(position).getString("name"));
         return view;
     }
