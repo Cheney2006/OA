@@ -1,18 +1,14 @@
 package com.jxd.oa.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
-import com.jxd.oa.bean.Email;
 import com.jxd.oa.bean.EmailRecipient;
-import com.jxd.oa.constants.SysConfig;
 import com.yftools.ViewUtil;
-import com.yftools.util.DateUtil;
 import com.yftools.view.annotation.ViewInject;
 
 import java.util.List;
@@ -45,6 +41,8 @@ public class EmailRecipientAdapter extends AbstractAdapter<EmailRecipient> {
         }
         if (getItem(position).getReadTime() != null) {
             viewHolder.readTime_tv.setText(getItem(position).getReadTime());
+        }else{
+            viewHolder.readTime_tv.setText("");
         }
         return view;
     }

@@ -17,7 +17,6 @@
         android:id="@+id/readTime_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/ItemSubTitleTxt"
-        android:text="@string/txt_waiting_sync" />
+        style="@style/ItemSubTitleTxt" />
 
 </LinearLayout>

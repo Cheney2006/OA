@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.R;
 import com.jxd.oa.activity.base.SelectImageActivity;
+import com.jxd.oa.bean.Customer;
+import com.jxd.oa.bean.CustomerCategory;
+import com.jxd.oa.bean.CustomerContact;
 import com.jxd.oa.bean.EmailRecipient;
 import com.jxd.oa.bean.ExpenseAccount;
 import com.jxd.oa.bean.LeaveApplication;
@@ -31,6 +34,7 @@ import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
 import com.yftools.bitmap.BitmapCommonUtil;
+import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 import com.yftools.db.sqlite.Selector;
 import com.yftools.exception.DbException;
 import com.yftools.exception.HttpException;
@@ -47,6 +51,8 @@ import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * *****************************************
@@ -93,6 +99,35 @@ public class HomeActivity extends SelectImageActivity {
         initData();
         checkSync();
         initNum();
+       // testDb();
+    }
+
+    private void testDb() {
+        Customer customer=new Customer();
+        customer.setName("中百");
+        customer.setId(100);
+        //联系人
+        List<CustomerContact> customerContactList=new ArrayList<CustomerContact>();
+        CustomerContact customerContact=new CustomerContact();
+        customerContact.setContactName("张三");
+        customerContact.setCustomerId(customer.getId());
+        customerContactList.add(customerContact);
+        customerContact=new CustomerContact();
+        customerContact.setContactName("李四");
+        customerContact.setCustomerId(customer.getId());
+        customerContactList.add(customerContact);
+        customer.setCustomerContactList(new ForeignCollectionLazyLoader<CustomerContact>());
+        customer.getCustomerContactList().setList(customerContactList);
+        //分类
+        CustomerCategory customerCategory=new CustomerCategory();
+        customerCategory.setName("超市");
+        customerCategory.setId(100);
+        customer.setCustomerCategory(customerCategory);
+        try {
+            DbOperationManager.getInstance().saveOrUpdate(customer);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initData() {
