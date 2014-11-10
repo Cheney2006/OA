@@ -26,6 +26,8 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
 
+import java.util.Date;
+
 
 /**
  * *****************************************
@@ -78,6 +80,9 @@ public class WelcomeActivity extends AbstractActivity {
             public void onSuccess(ResponseInfo<Json> responseInfo) {
                 String result = responseInfo.result.toString();
                 User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
+                //设置服务器时间时间
+                SysConfig.getInstance().setSyncDate(true);
+                SysConfig.getInstance().setDifferTime(new Date().getTime()-user.loginTime.getTime());
                 try {
                     DbOperationManager.getInstance().saveOrUpdate(user);
                     if (user.getDepartment() != null) {

@@ -51,6 +51,8 @@ public class User extends AbstractBean {
     private String roleId;
     @Finder(valueColumn = "roleId", targetColumn = "id")
     private Role role;
+    @Transient
+    public Date loginTime;
 
     public String getId() {
         return id;

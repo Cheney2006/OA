@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.jxd.common.view.JxdAlertDialog;
 import com.jxd.oa.application.OAApplication;
+import com.jxd.oa.bean.ExpenseAccount;
 import com.jxd.oa.bean.LeaveApplication;
 import com.jxd.oa.bean.Todo;
 import com.jxd.oa.constants.Constant;
@@ -122,9 +123,11 @@ public abstract class AbstractActivity extends ActionBarActivity {
                                 json = (Json) datas.getItem(i);
                                 String beanName = json.getString("beanName");
                                 if (beanName.equals("LeaveApplication")) {//beanData是多个
-                                    List<LeaveApplication> leaveApplicationList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<LeaveApplication>>() {
-                                    }.getType());
+                                    List<LeaveApplication> leaveApplicationList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<LeaveApplication>>() {}.getType());
                                     DbOperationManager.getInstance().saveOrUpdate(leaveApplicationList);
+                                }else if(beanName.equals("ExpenseAccount")){
+                                    List<ExpenseAccount> expenseAccountList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<ExpenseAccount>>() {}.getType());
+                                    DbOperationManager.getInstance().saveOrUpdate(expenseAccountList);
                                 }
                             }
                         } else {
@@ -234,13 +237,13 @@ public abstract class AbstractActivity extends ActionBarActivity {
             return OAApplication.getSysCurrentDate();
         } catch (BaseException e) {
             LogUtil.e(e);
-//            new JxdAlertDialog(mContext, "错误", "系统错误 : 系统时间未校准") {
-//                @Override
-//                protected void positive() {
-//                    super.positive();
-//                    finish();
-//                }
-//            }.show();
+            new JxdAlertDialog(mContext, "错误", "系统错误 : 系统时间未校准") {
+                @Override
+                protected void positive() {
+                    super.positive();
+                    finish();
+                }
+            }.show();
         }
         return new Date();
     }

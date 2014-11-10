@@ -26,6 +26,8 @@ import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
 
+import java.util.Date;
+
 /**
  * *****************************************
  * Description ：登录
@@ -80,6 +82,9 @@ public class LoginActivity extends AbstractActivity {
                     }
                     String result = responseInfo.result.toString();
                     User user = GsonUtil.getInstance().getGson().fromJson(result, User.class);
+                    //设置服务器时间时间
+                    SysConfig.getInstance().setSyncDate(true);
+                    SysConfig.getInstance().setDifferTime(new Date().getTime()-user.loginTime.getTime());
                     SysConfig.getInstance().setUserId(user.getId());
                     try {
                         DbOperationManager.getInstance().saveOrUpdate(user);
