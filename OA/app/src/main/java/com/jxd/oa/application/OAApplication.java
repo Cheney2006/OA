@@ -3,6 +3,7 @@ package com.jxd.oa.application;
 import android.content.Context;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.jxd.oa.constants.ConfigManager;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -14,7 +15,7 @@ public class OAApplication extends BaseApplication {
     @Override
     public void onCreate() {
         //这里可以通过配置文件来设置是否启用输入日志到文件
-        isLogOutFile = true;
+        isLogOutFile = ConfigManager.getInstance(this).isLogOutFile();
         super.onCreate();
         context = this.getApplicationContext();
         mInstance = this;

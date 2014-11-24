@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.PowerManager;
 
+import com.jxd.oa.constants.ConfigManager;
 import com.jxd.oa.constants.SysConfig;
 import com.yftools.LogUtil;
 import com.yftools.datetimestate.DateTimeChangeObserver;
@@ -48,7 +49,7 @@ public abstract class BaseApplication extends Application {
             PrintToFileLogger.setLogFileName(StorageUtil.getDiskCacheDir(context, "log") + File.separator + LOG_PREFIX);
             LogUtil.addLogger(new PrintToFileLogger());
         }
-        LogUtil.setLogLevel(LogUtil.DEBUG);
+        LogUtil.setLogLevel(ConfigManager.getInstance(this).getLogLevel());
         packageName = getPackageName();
         //设置异常处理类
         CustomCrashHandler.getInstance().setCustomCrashHandler(this);

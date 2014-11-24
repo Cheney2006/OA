@@ -5,6 +5,7 @@ import android.content.res.XmlResourceParser;
 
 import com.jxd.oa.R;
 import com.jxd.oa.application.OAApplication;
+import com.jxd.oa.constants.ConfigManager;
 import com.yftools.DbUtil;
 import com.yftools.LogUtil;
 import com.yftools.db.sqlite.Selector;
@@ -59,7 +60,7 @@ public class DbOperationManager {
             }
         });
         dbUtil.configAllowTransaction(true);
-        dbUtil.configDebug(true);
+        dbUtil.configDebug(ConfigManager.getInstance(context).isDbDebug());
     }
 
     private static class SingletonHolder {

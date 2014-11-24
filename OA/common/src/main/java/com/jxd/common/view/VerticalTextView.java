@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.jxd.common.R;
-import com.yftools.LogUtil;
 
 /**
  ********************************************************
@@ -143,7 +142,6 @@ public class VerticalTextView extends View {
 			path.lineTo(startX, startY);
 		}
 		if(mText!=null){
-            LogUtil.d("mText="+mText);
 			canvas.drawTextOnPath(mText, path, 0, 0, mTextPaint);
 		}
 	}

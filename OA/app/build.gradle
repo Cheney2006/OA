@@ -38,6 +38,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    sourceSets {
+        debug.setRoot('deploy/debug')
+        release.setRoot('deploy/release')
+    }
     productFlavors {
     }
 }
