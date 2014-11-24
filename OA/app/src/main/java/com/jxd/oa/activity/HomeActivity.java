@@ -99,20 +99,29 @@ public class HomeActivity extends SelectImageActivity {
         initData();
         checkSync();
         initNum();
-       // testDb();
+        testDb();
     }
 
     private void testDb() {
+//        try {
+//            DbOperationManager.getInstance().dropTable(Customer.class);
+//            DbOperationManager.getInstance().dropTable(CustomerCategory.class);
+//            DbOperationManager.getInstance().dropTable(CustomerContact.class);
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
         Customer customer=new Customer();
         customer.setName("中百");
-        customer.setId(100);
+        //customer.setId(100);
         //联系人
         List<CustomerContact> customerContactList=new ArrayList<CustomerContact>();
         CustomerContact customerContact=new CustomerContact();
+        //customerContact.setId(100);
         customerContact.setContactName("张三");
         customerContact.setCustomerId(customer.getId());
         customerContactList.add(customerContact);
         customerContact=new CustomerContact();
+        //customerContact.setId(102);
         customerContact.setContactName("李四");
         customerContact.setCustomerId(customer.getId());
         customerContactList.add(customerContact);
@@ -121,7 +130,7 @@ public class HomeActivity extends SelectImageActivity {
         //分类
         CustomerCategory customerCategory=new CustomerCategory();
         customerCategory.setName("超市");
-        customerCategory.setId(100);
+        //customerCategory.setId(100);
         customer.setCustomerCategory(customerCategory);
         try {
             DbOperationManager.getInstance().saveOrUpdate(customer);

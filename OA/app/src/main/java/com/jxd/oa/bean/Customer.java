@@ -15,7 +15,6 @@ import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
  */
 @Table(name = "t_customer")
 public class Customer extends AbstractBean {
-    @NoAutoIncrement
     private int id;
     private String name;
     @ForeignCollection(valueColumn = "id", foreign = "customerId", foreignAutoCreate = true)

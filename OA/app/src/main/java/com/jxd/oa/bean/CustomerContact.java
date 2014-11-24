@@ -3,6 +3,7 @@ package com.jxd.oa.bean;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.NoAutoIncrement;
 import com.yftools.db.annotation.Table;
+import com.yftools.db.annotation.Unique;
 
 /**
  * *****************************************
@@ -12,9 +13,9 @@ import com.yftools.db.annotation.Table;
  */
 @Table(name = "t_customer_contact")
 public class CustomerContact extends AbstractBean {
-    @NoAutoIncrement
     private int id;
     private int customerId;
+    @Unique
     private String contactName;
 
     public int getId() {

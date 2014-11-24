@@ -12,7 +12,6 @@ import com.yftools.db.annotation.Table;
  */
 @Table(name = "t_customer_category")
 public class CustomerCategory extends AbstractBean {
-    @NoAutoIncrement
     private int id;
     private String name;
 
