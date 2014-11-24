@@ -1,9 +1,9 @@
 package com.jxd.oa.utils;
 
 
-import com.jxd.oa.constants.Constant;
+import com.jxd.oa.application.OAApplication;
+import com.jxd.oa.constants.ConfigManager;
 import com.jxd.oa.constants.SysConfig;
-import com.yftools.LogUtil;
 import com.yftools.http.RequestParams;
 
 /**
@@ -18,29 +18,29 @@ import com.yftools.http.RequestParams;
 public class ParamManager {
     // 固定下载的资源路径，这里可以设置网络上的地址
     public static String parseDownUrl(String appPath) {
-        String urlstr = "";
+        String urlStr = ConfigManager.getInstance(OAApplication.getContext()).getWebUrl();
         if (appPath.startsWith("/")) {
             appPath = appPath.substring(1);
         }
-        if (Constant.BASE_URL.endsWith("/")) {
-            urlstr = Constant.BASE_URL + appPath;
+        if (urlStr.endsWith("/")) {
+            urlStr = urlStr + appPath;
         } else {
-            urlstr = Constant.BASE_URL + "/" + appPath;
+            urlStr = urlStr + "/" + appPath;
         }
-        return urlstr;
+        return urlStr;
     }
 
     public static String parseBaseUrl(String path) {
-        String urlstr;
+        String urlStr = ConfigManager.getInstance(OAApplication.getContext()).getWebUrl();
         if (path.startsWith("/")) {
             path = path.substring(1);
         }
-        if (Constant.BASE_URL.endsWith("/")) {
-            urlstr = Constant.BASE_URL + path;
+        if (urlStr.endsWith("/")) {
+            urlStr = urlStr + path;
         } else {
-            urlstr = Constant.BASE_URL + "/" + path;
+            urlStr = urlStr + "/" + path;
         }
-        return urlstr;
+        return urlStr;
     }
 
     public static RequestParams setDefaultParams() {
