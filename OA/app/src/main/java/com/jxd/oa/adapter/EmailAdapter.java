@@ -72,7 +72,7 @@ public class EmailAdapter extends AbstractAdapter<Email> {
         } else {
             viewHolder.send_tv.setVisibility(View.GONE);
         }
-        if (getItem(position).getImportant() == Const.TYPE_IMPORTANT_MIDDLE.getValue() || getItem(position).getImportant() == Const.TYPE_IMPORTANT_HIGH.getValue()) {
+        if (getItem(position).getImportant() ==(Integer) Const.TYPE_IMPORTANT_MIDDLE.getValue() || getItem(position).getImportant() == (Integer) Const.TYPE_IMPORTANT_HIGH.getValue()) {
             viewHolder.important_tv.setVisibility(View.VISIBLE);
             viewHolder.important_tv.setText(Const.getName("TYPE_IMPORTANT_", getItem(position).getImportant()));
         } else {

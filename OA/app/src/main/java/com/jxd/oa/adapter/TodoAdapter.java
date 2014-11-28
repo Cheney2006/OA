@@ -40,9 +40,9 @@ public class TodoAdapter extends AbstractAdapter<DbModel> {
         viewHolder.title_tv.setText("（" + Const.getName("TYPE_TODO_", getItem(position).getInt("type")) + "）" + getItem(position).getString("title"));
         viewHolder.date_tv.setText(DateUtil.dateTimeToString(getItem(position).getDate("modifiedDate")));
         int auditStatus = getItem(position).getInt("auditStatus");
-        if (auditStatus == Const.STATUS_AUDIT_REFUSE.getValue()) {
+        if (auditStatus == (Integer) Const.STATUS_AUDIT_REFUSE.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
-        } else if (auditStatus == Const.STATUS_AUDIT_PASS.getValue()) {
+        } else if (auditStatus ==(Integer)  Const.STATUS_AUDIT_PASS.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_being));
         } else {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));

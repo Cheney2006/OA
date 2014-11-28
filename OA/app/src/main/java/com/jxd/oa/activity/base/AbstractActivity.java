@@ -98,8 +98,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
     public void exitApp() {
         sendBroadcast(new Intent(Constant.ACTION_EXIT));
-        //TODO 关闭数据库 这里报错，在每一个rawQuery execSQL都有关闭操作。
-        //DbOperationManager.getInstance().close();
+        DbOperationManager.getInstance().close();
     }
 
     protected <T> void syncData(final Class<T> cls, String startDate) {

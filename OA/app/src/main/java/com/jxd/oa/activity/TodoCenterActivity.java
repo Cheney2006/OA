@@ -85,16 +85,16 @@ public class TodoCenterActivity extends AbstractActivity {
             int type = adapter.getItem(position).getInt("type");
             String dataId = adapter.getItem(position).getString("id");
             int auditStatus = adapter.getItem(position).getInt("auditStatus");
-            if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
-                if (auditStatus == Const.STATUS_AUDIT_BEING.getValue()) {//审核
+            if (type == (Integer) Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
+                if (auditStatus ==(Integer)  Const.STATUS_AUDIT_BEING.getValue()) {//审核
                     intent = new Intent(mContext, LeaveApplicationForAuditActivity.class);
                 } else {
                     intent = new Intent(mContext, LeaveApplicationDetailActivity.class);
                 }
                 LeaveApplication leaveApplication = DbOperationManager.getInstance().getBeanById(LeaveApplication.class, dataId);
                 intent.putExtra("leaveApplication", leaveApplication);
-            } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
-                if (auditStatus == Const.STATUS_AUDIT_BEING.getValue()) {//审核
+            } else if (type ==(Integer)  Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
+                if (auditStatus == (Integer) Const.STATUS_AUDIT_BEING.getValue()) {//审核
                     intent = new Intent(mContext, ExpenseAccountForAuditActivity.class);
                 } else {
                     intent = new Intent(mContext, ExpenseAccountDetailActivity.class);
@@ -145,9 +145,9 @@ public class TodoCenterActivity extends AbstractActivity {
         try {
             String id = adapter.getItem(currentSelectedPosition).getString("id");
             int type = adapter.getItem(currentSelectedPosition).getInt("type");
-            if (type == Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
+            if (type ==(Integer)  Const.TYPE_TODO_LEAVE_APPLICATION.getValue()) {
                 DbOperationManager.getInstance().deleteBean(LeaveApplication.class, id);
-            } else if (type == Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
+            } else if (type == (Integer) Const.TYPE_TODO_EXPENSE_ACCOUNT.getValue()) {
                 DbOperationManager.getInstance().deleteBean(ExpenseAccount.class, id);
             }
             sendRefresh();

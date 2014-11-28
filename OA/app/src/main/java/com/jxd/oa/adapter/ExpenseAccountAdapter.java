@@ -40,9 +40,9 @@ public class ExpenseAccountAdapter extends AbstractAdapter<ExpenseAccount> {
         viewHolder.title_tv.setText(getItem(position).getItemName());
         viewHolder.date_tv.setText(DateUtil.dateToString(getItem(position).getApplyDate()));
         viewHolder.money_tv.setText("￥" + getItem(position).getMoney());
-        if (getItem(position).getAuditStatus() == Const.STATUS_AUDIT_REFUSE.getValue()) {
+        if (getItem(position).getAuditStatus() == (Integer)Const.STATUS_AUDIT_REFUSE.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_red));
-        } else if (getItem(position).getAuditStatus() == Const.STATUS_AUDIT_PASS.getValue()) {
+        } else if (getItem(position).getAuditStatus() == (Integer)Const.STATUS_AUDIT_PASS.getValue()) {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_being));
         } else {
             viewHolder.status_tv.setTextColor(getContext().getResources().getColor(R.color.color_black_font));

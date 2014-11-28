@@ -99,7 +99,7 @@ public class HomeActivity extends SelectImageActivity {
         initData();
         checkSync();
         initNum();
-        testDb();
+        //testDb();
     }
 
     private void testDb() {
