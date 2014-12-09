@@ -147,6 +147,34 @@ public class DbOperationManager {
         dbUtil.close();
     }
 
+    /////////////////////// 手动事务 ////////////////////////////////////////////////////////////////
+    public <C> void saveOrUpdateWithoutTransaction(C bean) throws DbException {
+        dbUtil.saveOrUpdateWithoutTransaction(bean);
+    }
+
+    public <C> void saveOrUpdateWithoutTransaction(List<C> beanList) throws DbException {
+        for (C c : beanList) {
+            dbUtil.saveOrUpdateWithoutTransaction(c);
+        }
+    }
+
+    public <C> void deleteWithoutTransaction(Class<C> clazz, WhereBuilder whereBuilder) throws DbException {
+        dbUtil.deleteWithOutTransaction(clazz, whereBuilder);
+    }
+
+    public void beginTransaction() throws DbException {
+        dbUtil.beginTransaction();
+    }
+
+    public void setTransactionSuccessful() throws DbException {
+        dbUtil.setTransactionSuccessful();
+    }
+
+    public void endTransaction() throws DbException {
+        dbUtil.endTransaction();
+    }
+
+
     private String getUpgradeSql(Integer version) {
         StringBuffer result = new StringBuffer();
         XmlResourceParser xrp = context.getResources().getXml(R.xml.db);

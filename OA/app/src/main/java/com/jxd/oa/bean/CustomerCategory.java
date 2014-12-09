@@ -3,6 +3,7 @@ package com.jxd.oa.bean;
 import com.jxd.oa.bean.base.AbstractBean;
 import com.yftools.db.annotation.NoAutoIncrement;
 import com.yftools.db.annotation.Table;
+import com.yftools.db.annotation.Unique;
 
 /**
  * *****************************************

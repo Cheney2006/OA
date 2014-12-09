@@ -5,6 +5,7 @@ import com.yftools.db.annotation.Foreign;
 import com.yftools.db.annotation.ForeignCollection;
 import com.yftools.db.annotation.NoAutoIncrement;
 import com.yftools.db.annotation.Table;
+import com.yftools.db.annotation.Unique;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 
 /**
@@ -16,6 +17,7 @@ import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 @Table(name = "t_customer")
 public class Customer extends AbstractBean {
     private int id;
+    @Unique
     private String name;
     @ForeignCollection(valueColumn = "id", foreign = "customerId", foreignAutoCreate = true)
     private ForeignCollectionLazyLoader<CustomerContact> CustomerContactList;//该对像不能序列化,transient
