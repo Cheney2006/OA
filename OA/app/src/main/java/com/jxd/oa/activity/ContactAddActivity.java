@@ -63,8 +63,10 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
     @Order(2)
     @ViewInject(R.id.category_tv)
     private TypeView category_tv;
+    @Order(3)
     @ViewInject(R.id.sex_sev)
     private SelectEditView sex_sev;
+    @Order(4)
     @ViewInject(R.id.mobile_et)
     private EditText mobile_et;
     @ViewInject(R.id.homeTle_et)
@@ -98,12 +100,36 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
 
             @Override
             public boolean isValid(TypeView typeView) {
-                return TextUtils.isEmpty(category_tv.getContent());
+                return !TextUtils.isEmpty(typeView.getContent());
             }
 
             @Override
             public String getMessage(Context context) {
                 return "请选择类型";
+            }
+        });
+        mValidator.put(sex_sev, new QuickRule<SelectEditView>() {
+
+            @Override
+            public boolean isValid(SelectEditView selectEditView) {
+                return selectEditView.getValue() != null;
+            }
+
+            @Override
+            public String getMessage(Context context) {
+                return "请选择性别";
+            }
+        });
+        mValidator.put(mobile_et, new QuickRule<EditText>() {
+
+            @Override
+            public boolean isValid(EditText mobile_et) {
+                return !TextUtils.isEmpty(mobile_et.getText()) || !TextUtils.isEmpty(homeTle_et.getText());
+            }
+
+            @Override
+            public String getMessage(Context context) {
+                return "请至少输入一个联系方式";
             }
         });
     }
@@ -161,7 +187,7 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
 //                if (validate() && setData()) {
 //                    contactSubmit();
 //                }
-                // mValidator.validate();
+                mValidator.validate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -242,21 +268,21 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
     @Override
     public void onValidationFailed(List<ValidationError> validationErrors) {
         for (ValidationError error : validationErrors) {
-            TextView failedView = (TextView) error.getView();
+            View failedView = error.getView();
             if (failedView instanceof EditText) {
                 failedView.requestFocus();
                 //((EditText) failedView).setError(error.getFailedRule().getMessage(mContext));
-                failedView.setError(failedView.getHint().toString());
+                ((EditText) failedView).setError(((EditText) failedView).getHint());
             } else {
-                displayToast(failedView.getHint().toString());
+                displayToast("类型不能为空");
             }
         }
     }
 
-    @OnFocusChange(value = {R.id.name_et,R.id.category_tv})
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            mValidator.validateTill(v);
-        }
-    }
+//    @OnFocusChange(value = {R.id.name_et,R.id.category_tv})
+//    public void onFocusChange(View v, boolean hasFocus) {
+//        if (hasFocus) {
+//            mValidator.validateTill(v);
+//        }
+//    }
 }
