@@ -9,12 +9,8 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
-import com.jxd.oa.bean.Attachment;
-import com.yftools.LogUtil;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
-import com.yftools.db.table.ColumnUtils;
 import com.yftools.exception.DbException;
-import com.yftools.http.callback.RequestCallBack;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

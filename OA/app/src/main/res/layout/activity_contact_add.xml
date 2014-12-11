@@ -17,6 +17,7 @@
 
         <EditText
             android:id="@+id/name_et"
+            android:hint="请输入姓名"
             style="@style/CustomEditText" />
 
         <com.jxd.oa.view.LabelRequestTextView

@@ -2,6 +2,7 @@ package com.jxd.oa.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jxd.common.vo.Item;
 import com.jxd.oa.R;
@@ -24,6 +26,11 @@ import com.jxd.oa.utils.GsonUtil;
 import com.jxd.oa.utils.ParamManager;
 import com.jxd.oa.view.SelectEditView;
 import com.jxd.oa.view.TypeView;
+import com.mobsandgeeks.saripaar.QuickRule;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.yftools.HttpUtil;
 import com.yftools.LogUtil;
 import com.yftools.ViewUtil;
@@ -36,6 +43,7 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
+import com.yftools.view.annotation.event.OnFocusChange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +54,13 @@ import java.util.List;
  * Created by cywf on 2014/8/9.
  * *****************************************
  */
-public class ContactAddActivity extends AbstractActivity {
+public class ContactAddActivity extends AbstractActivity implements Validator.ValidationListener {
 
+    @NotEmpty
+    @Order(1)
     @ViewInject(R.id.name_et)
     private EditText name_et;
+    @Order(2)
     @ViewInject(R.id.category_tv)
     private TypeView category_tv;
     @ViewInject(R.id.sex_sev)
@@ -65,6 +76,7 @@ public class ContactAddActivity extends AbstractActivity {
     @ViewInject(R.id.companyAddr_et)
     private EditText companyAddr_et;
     private Contact contact;
+    private Validator mValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +85,27 @@ public class ContactAddActivity extends AbstractActivity {
         ViewUtil.inject(this);
         getSupportActionBar().setTitle("增加联系人");
         contact = (Contact) getIntent().getSerializableExtra("contact");
+        initValidaotr();
         initData();
+    }
+
+    private void initValidaotr() {
+        // Validator
+        mValidator = new Validator(this);
+        mValidator.setValidationListener(this);
+        mValidator.setValidationMode(Validator.Mode.IMMEDIATE);
+        mValidator.put(category_tv, new QuickRule<TypeView>() {
+
+            @Override
+            public boolean isValid(TypeView typeView) {
+                return TextUtils.isEmpty(category_tv.getContent());
+            }
+
+            @Override
+            public String getMessage(Context context) {
+                return "请选择类型";
+            }
+        });
     }
 
     private void initData() {
@@ -93,7 +125,7 @@ public class ContactAddActivity extends AbstractActivity {
             if (contact.getCategory() != null) {
                 category_tv.setValue(contact.getCategory().getName(), contact.getCategory().getId());
             }
-            sex_sev.setContent(Const.getName("SEX_",contact.getSex()),contact.getSex());
+            sex_sev.setContent(Const.getName("SEX_", contact.getSex()), contact.getSex());
             mobile_et.setText(contact.getMobile());
             homeTle_et.setText(contact.getHomeTel());
             companyName_et.setText(contact.getCompanyName());
@@ -126,9 +158,10 @@ public class ContactAddActivity extends AbstractActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                if (validate() && setData()) {
-                    contactSubmit();
-                }
+//                if (validate() && setData()) {
+//                    contactSubmit();
+//                }
+                // mValidator.validate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -136,7 +169,7 @@ public class ContactAddActivity extends AbstractActivity {
 
     private void contactSubmit() {
         RequestParams params = ParamManager.setDefaultParams();
-        LogUtil.d("上传的数据："+GsonUtil.getInstance().getGson().toJson(contact));
+        LogUtil.d("上传的数据：" + GsonUtil.getInstance().getGson().toJson(contact));
         params.addBodyParameter("data", GsonUtil.getInstance().getGson().toJson(contact));
         HttpUtil.getInstance().sendInDialog(mContext, getString(R.string.txt_is_upload_data), ParamManager.parseBaseUrl("contactSave.action"), params, new RequestCallBack<Json>() {
             @Override
@@ -196,5 +229,34 @@ public class ContactAddActivity extends AbstractActivity {
             return false;
         }
         return true;
+    }
+
+
+    @Override
+    public void onValidationSucceeded() {
+        if (setData()) {
+            contactSubmit();
+        }
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> validationErrors) {
+        for (ValidationError error : validationErrors) {
+            TextView failedView = (TextView) error.getView();
+            if (failedView instanceof EditText) {
+                failedView.requestFocus();
+                //((EditText) failedView).setError(error.getFailedRule().getMessage(mContext));
+                failedView.setError(failedView.getHint().toString());
+            } else {
+                displayToast(failedView.getHint().toString());
+            }
+        }
+    }
+
+    @OnFocusChange(value = {R.id.name_et,R.id.category_tv})
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            mValidator.validateTill(v);
+        }
     }
 }

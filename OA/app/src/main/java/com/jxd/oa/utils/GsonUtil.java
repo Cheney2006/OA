@@ -1,7 +1,5 @@
 package com.jxd.oa.utils;
 
-import android.text.TextUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -11,11 +9,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.jxd.oa.bean.Attachment;
 import com.yftools.db.sqlite.FinderLazyLoader;
 import com.yftools.db.sqlite.ForeignCollectionLazyLoader;
 
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.text.DateFormat;
