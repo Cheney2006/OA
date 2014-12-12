@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.jxd.common.vo.Item;
 import com.jxd.oa.R;
@@ -43,7 +42,6 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.view.annotation.ViewInject;
 import com.yftools.view.annotation.event.OnClick;
-import com.yftools.view.annotation.event.OnFocusChange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +54,7 @@ import java.util.List;
  */
 public class ContactAddActivity extends AbstractActivity implements Validator.ValidationListener {
 
-    @NotEmpty
+    @NotEmpty(message = "请输入姓名")
     @Order(1)
     @ViewInject(R.id.name_et)
     private EditText name_et;
@@ -95,7 +93,7 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
         // Validator
         mValidator = new Validator(this);
         mValidator.setValidationListener(this);
-        mValidator.setValidationMode(Validator.Mode.IMMEDIATE);
+        mValidator.setValidationMode(Validator.Mode.IMMEDIATE);//这种情况时，必须要设置order
         mValidator.put(category_tv, new QuickRule<TypeView>() {
 
             @Override
@@ -108,6 +106,14 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
                 return "请选择类型";
             }
         });
+//        Validator.registerAdapter(TypeView.class,//配合这个一使用 @NotEmpty
+//                new ViewDataAdapter<TypeView, String>() {
+//                    @Override
+//                    public String getData(TypeView typeView) throws ConversionException {
+//                        return typeView.getContent();
+//                    }
+//                }
+//        );
         mValidator.put(sex_sev, new QuickRule<SelectEditView>() {
 
             @Override
@@ -271,10 +277,10 @@ public class ContactAddActivity extends AbstractActivity implements Validator.Va
             View failedView = error.getView();
             if (failedView instanceof EditText) {
                 failedView.requestFocus();
-                //((EditText) failedView).setError(error.getFailedRule().getMessage(mContext));
-                ((EditText) failedView).setError(((EditText) failedView).getHint());
+                ((EditText) failedView).setError(error.getFailedRule().getMessage(mContext));
+               // ((EditText) failedView).setError(((EditText) failedView).getHint());
             } else {
-                displayToast("类型不能为空");
+                displayToast(error.getFailedRule().getMessage(mContext));
             }
         }
     }
