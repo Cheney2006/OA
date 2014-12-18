@@ -8,7 +8,13 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +42,8 @@ import com.yftools.util.AndroidUtil;
 import com.yftools.util.StorageUtil;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +67,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
         intentFilter.addAction(Constant.ACTION_REFRESH);
         intentFilter.addAction(Constant.ACTION_EXIT);//广播的方式退出
         registerReceiver(broadcastReceiver, intentFilter);
+        getOverflowMenu();
     }
 
     @Override
@@ -76,6 +85,67 @@ public abstract class AbstractActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 强制显示overflow menu 3.0以下还是不是显示使用Popup Menu代替
+     */
+    private void getOverflowMenu() {
+        ViewConfiguration viewConfig = ViewConfiguration.get(this);
+        try {
+            Field overflowMenuField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if (null != overflowMenuField) {
+                overflowMenuField.setAccessible(true);
+                overflowMenuField.setBoolean(viewConfig, false);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * overflow menu 显示图标与文字
+     *
+     * @param featureId
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    public void showPopup(int itemId, int menuResId, PopupMenu.OnMenuItemClickListener listener) {
+        View view = findViewById(itemId);
+        PopupMenu popupMenu = new PopupMenu(getSupportActionBar().getThemedContext(), view);
+        if(listener!=null){
+            popupMenu.setOnMenuItemClickListener(listener);
+        }
+        popupMenu.getMenuInflater().inflate(menuResId, popupMenu.getMenu());
+        //强制显示菜单图标
+        try {
+            Field mpopup = popupMenu.getClass().getDeclaredField("mPopup");
+            mpopup.setAccessible(true);
+            MenuPopupHelper mPopup = (MenuPopupHelper) mpopup.get(popupMenu);
+            mPopup.setForceShowIcon(true);
+        } catch (Exception e) {
+
+        }
+        popupMenu.show();
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -122,10 +192,12 @@ public abstract class AbstractActivity extends ActionBarActivity {
                                 json = (Json) datas.getItem(i);
                                 String beanName = json.getString("beanName");
                                 if (beanName.equals("LeaveApplication")) {//beanData是多个
-                                    List<LeaveApplication> leaveApplicationList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<LeaveApplication>>() {}.getType());
+                                    List<LeaveApplication> leaveApplicationList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<LeaveApplication>>() {
+                                    }.getType());
                                     DbOperationManager.getInstance().saveOrUpdate(leaveApplicationList);
-                                }else if(beanName.equals("ExpenseAccount")){
-                                    List<ExpenseAccount> expenseAccountList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<ExpenseAccount>>() {}.getType());
+                                } else if (beanName.equals("ExpenseAccount")) {
+                                    List<ExpenseAccount> expenseAccountList = GsonUtil.getInstance().getGson().fromJson(json.getString("beanData"), new TypeToken<List<ExpenseAccount>>() {
+                                    }.getType());
                                     DbOperationManager.getInstance().saveOrUpdate(expenseAccountList);
                                 }
                             }

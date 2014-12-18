@@ -118,6 +118,7 @@ public class EmailActivity extends AbstractActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 startActivityForResult(new Intent(mContext, EmailAddActivity.class), CODE_EMAIL_ADD);
+               // showPopup(R.id.action_add, R.menu.menu_sync_read, null);
                 return true;
             case R.id.action_sync:
                 new DatePickUtil(mContext, "请选择开始时间", new DatePickUtil.DateSetFinished() {

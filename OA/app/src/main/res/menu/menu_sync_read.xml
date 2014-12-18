@@ -4,10 +4,10 @@
         android:id="@+id/action_sync"
         android:title="@string/txt_action_sync"
         android:icon="@drawable/action_sync"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_read"
         android:title="@string/txt_action_read"
         android:icon="@drawable/action_read"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>
