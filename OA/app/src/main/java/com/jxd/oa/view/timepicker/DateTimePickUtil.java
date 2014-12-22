@@ -11,7 +11,7 @@ import com.jxd.oa.R;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateTimePickUtil  extends Dialog {
+public class DateTimePickUtil extends Dialog {
 
     private Context context;
     private DateTimeSetFinished dateTimeSetFinished;
@@ -35,7 +35,8 @@ public class DateTimePickUtil  extends Dialog {
     }
 
     public DateTimePickUtil(Context context, String msg, Date date, boolean isSelectTime, DateTimeSetFinished dateTimeSetFinished) {
-        super(context, R.style.CustomDialog);
+        // super(context, R.style.CustomDialog);
+        super(context);
         this.context = context;
         this.msg = msg;
         this.isSelectTime = isSelectTime;
@@ -44,9 +45,8 @@ public class DateTimePickUtil  extends Dialog {
     }
 
     private void initView(Date date) {
+        this.setTitle(msg);
         setContentView(R.layout.dialog_timepicker);
-        title_tv= (TextView) findViewById(R.id.title_tv);
-        title_tv.setText(msg);
         View timePickerView = findViewById(R.id.timePicker_ll);
         ScreenInfo screenInfo = new ScreenInfo(context);
         wheelMain = new WheelMain(timePickerView, isSelectTime);
