@@ -46,7 +46,7 @@ public abstract class BaseApplication extends Application {
         context = getApplicationContext();
         LogUtil.customTagPrefix = LOG_PREFIX;
         if (isLogOutFile) {
-            PrintToFileLogger.setLogFileName(StorageUtil.getDiskCacheDir(context, "log") + File.separator + LOG_PREFIX);
+            PrintToFileLogger.setLogFilePath(StorageUtil.getDiskCacheDir(context, "log") + File.separator + LOG_PREFIX);
             LogUtil.addLogger(new PrintToFileLogger());
         }
         LogUtil.setLogLevel(ConfigManager.getInstance(this).getLogLevel());

@@ -327,7 +327,7 @@ public class HomeActivity extends SelectImageActivity {
                 if (data != null) {
                     if (imageUri != null) {
                         Bitmap bitmap = decodeUriAsBitmap(imageUri);//大图处理
-                        uploadImage(BitmapDecodeUtil.getInstance().Bitmap2Bytes(bitmap));
+                        uploadImage(BitmapDecodeUtil.bitmap2Bytes(bitmap));
                     }
                 }
                 break;

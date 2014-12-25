@@ -31,11 +31,13 @@ public class DbOperationManager {
     private static final Integer DB_VERSION = 1;
     private static final String UPGRADE_TAG_NAME = "upgrade";
     private static final String SQL_TAG_NAME = "sqls";
+    private static DbOperationManager instance;
 
     private final Context context;
     private final DbUtil dbUtil;
 
     private DbOperationManager() {
+        LogUtil.d("new Db");
         this.context = OAApplication.getContext();
         dbUtil = DbUtil.create(context, DB_NAME, DB_VERSION, new DbUtil.DbUpgradeListener() {
             @Override
@@ -63,13 +65,28 @@ public class DbOperationManager {
         dbUtil.configDebug(ConfigManager.getInstance(context).isDbDebug());
     }
 
-    private static class SingletonHolder {
-        static final DbOperationManager INSTANCE = new DbOperationManager();
+    public static DbOperationManager getInstance() {
+        if (instance == null) {
+            synchronized (DbOperationManager.class) {
+                if (instance == null) {
+                    instance = new DbOperationManager();
+                }
+            }
+        }
+        return instance;
     }
 
-    public static DbOperationManager getInstance() {
-        return SingletonHolder.INSTANCE;
+    public static void reset(){
+        instance=null;
     }
+
+//    private static class SingletonHolder {
+//        static final DbOperationManager INSTANCE = new DbOperationManager();
+//    }
+//
+//    public static DbOperationManager getInstance() {
+//        return SingletonHolder.INSTANCE;
+//    }
 
     public <C> void createTableIfNotExist(Class<C> clazz) throws DbException {
         dbUtil.createTableIfNotExist(clazz);
@@ -145,6 +162,7 @@ public class DbOperationManager {
 
     public void close() {
         dbUtil.close();
+        instance=null;
     }
 
     /////////////////////// 手动事务 ////////////////////////////////////////////////////////////////
