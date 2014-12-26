@@ -67,7 +67,7 @@ public class RegexUtil {
      * 验证传真号码
      *
      * @param fax 传真号码
-     * @return
+     * @return true or false
      */
     public static boolean checkFax(String fax) {
         String regex = "^(0\\d{2}-\\d{8}(-\\d{1,4})?)|(0\\d{3}-\\d{7,8}(-\\d{1,4})?)$";
