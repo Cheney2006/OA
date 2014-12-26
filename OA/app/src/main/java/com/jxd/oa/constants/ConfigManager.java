@@ -18,9 +18,13 @@ public class ConfigManager {
         iConfig = PropertiesConfig.getPropertiesConfig(context, "config.properties");
     }
 
-    public synchronized static ConfigManager getInstance(Context context) {
+    public static ConfigManager getInstance(Context context) {
         if (instance == null) {
-            instance = new ConfigManager(context);
+            synchronized (ConfigManager.class) {
+                if (instance == null) {
+                    instance = new ConfigManager(context);
+                }
+            }
         }
         return instance;
     }

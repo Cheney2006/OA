@@ -8,17 +8,18 @@ public class SysConfig {
 
     private PreferenceConfig mPreferenceConfig;
     public static final String KEY_THEME = "theme";
-    private static SysConfig mConfig;
+    private static SysConfig instance;
 
-    public SysConfig() {
+    private SysConfig() {
         mPreferenceConfig = (PreferenceConfig) PreferenceConfig.getPreferenceConfig(OAApplication.getContext(), "oa");
     }
 
-    public synchronized static SysConfig getInstance() {
-        if (mConfig == null) {
-            mConfig = new SysConfig();
-        }
-        return mConfig;
+    private static class SingletonHolder {
+        static final SysConfig INSTANCE = new SysConfig();
+    }
+
+    public static SysConfig getInstance() {
+        return SingletonHolder.INSTANCE;
     }
 
 //    public void setTheme(int id) {
