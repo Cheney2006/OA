@@ -115,7 +115,7 @@ public class ScheduleAddActivity extends AbstractActivity implements AttachmentA
             public void onDateTimeSetFinished(String dateTime) {
                 startDate_sev.setContent(dateTime);
             }
-        }).showDateDialog();
+        }).initView().showDateDialog();
     }
 
     @OnClick(R.id.endDate_sev)
@@ -133,7 +133,7 @@ public class ScheduleAddActivity extends AbstractActivity implements AttachmentA
                     }
                 }
             }
-        }).showDateDialog();
+        }).initView().showDateDialog();
     }
 
     @Override

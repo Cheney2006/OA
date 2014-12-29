@@ -99,7 +99,7 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
             public void onDateTimeSetFinished(String dateTime) {
                 startDate_sev.setContent(dateTime);
             }
-        }).showDateDialog();
+        }).initView().showDateDialog();
     }
 
     @OnClick(R.id.endDate_sev)
@@ -117,7 +117,7 @@ public class LeaveApplicationAddActivity extends AbstractActivity {
                     }
                 }
             }
-        }).showDateDialog();
+        }).initView().showDateDialog();
     }
 
     @Override
