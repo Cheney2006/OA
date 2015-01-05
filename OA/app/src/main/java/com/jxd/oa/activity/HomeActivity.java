@@ -93,9 +93,9 @@ public class HomeActivity extends SelectImageActivity {
         ViewUtil.inject(this);
         getSupportActionBar().setTitle(getString(R.string.app_name));
         //TODO 正式时，取消
-        if (DateUtil.dateToString(getNowDate()).compareTo("2015-01-01") >= 0) {
-            exitApp();
-        }
+//        if (DateUtil.dateToString(getNowDate()).compareTo("2015-05-01") >= 0) {
+//            exitApp();
+//        }
         initData();
         checkSync();
         initNum();
