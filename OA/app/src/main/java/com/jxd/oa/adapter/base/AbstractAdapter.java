@@ -97,8 +97,8 @@ public abstract class AbstractAdapter<T> extends BaseAdapter {
         mNotifyOnChange = false;
     }
 
-    public Context getContext() {
-        return this.mContext;
+    public  Context getContext() {
+        return mContext;
     }
 
     /**

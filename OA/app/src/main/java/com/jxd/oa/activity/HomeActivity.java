@@ -44,7 +44,6 @@ import com.yftools.http.callback.RequestCallBack;
 import com.yftools.json.Json;
 import com.yftools.util.AndroidUtil;
 import com.yftools.util.BitmapDecodeUtil;
-import com.yftools.util.DateUtil;
 import com.yftools.util.UUIDGenerator;
 import com.yftools.view.annotation.ContentView;
 import com.yftools.view.annotation.ViewInject;
@@ -99,6 +98,7 @@ public class HomeActivity extends SelectImageActivity {
         initData();
         checkSync();
         initNum();
+
         //testDb();
     }
 

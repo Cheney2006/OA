@@ -32,7 +32,7 @@ public class DbOperationManager {
     private static final String UPGRADE_TAG_NAME = "upgrade";
     private static final String SQL_TAG_NAME = "sqls";
     private static DbOperationManager instance;
-
+    private final static byte[] lock = new byte[0]; // 特殊的instance变量
     private final Context context;
     private final DbUtil dbUtil;
 
@@ -67,7 +67,7 @@ public class DbOperationManager {
 
     public static DbOperationManager getInstance() {
         if (instance == null) {
-            synchronized (DbOperationManager.class) {
+            synchronized (lock) {
                 if (instance == null) {
                     instance = new DbOperationManager();
                 }

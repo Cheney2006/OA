@@ -1,33 +1,17 @@
 package com.jxd.oa.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jxd.oa.R;
 import com.jxd.oa.adapter.base.AbstractAdapter;
 import com.jxd.oa.bean.Cloud;
-import com.jxd.oa.bean.Contact;
-import com.jxd.oa.bean.Notice;
-import com.jxd.oa.constants.Constant;
-import com.yftools.HttpUtil;
 import com.yftools.ViewUtil;
-import com.yftools.exception.HttpException;
-import com.yftools.http.ResponseInfo;
-import com.yftools.http.callback.RequestCallBack;
-import com.yftools.util.AndroidUtil;
-import com.yftools.util.DateUtil;
-import com.yftools.util.DigitUtil;
 import com.yftools.util.FileUtil;
-import com.yftools.util.StorageUtil;
 import com.yftools.view.annotation.ViewInject;
-import com.yftools.view.annotation.event.OnClick;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -60,7 +44,7 @@ public class CloudAdapter extends AbstractAdapter<Cloud> {
         return view;
     }
 
-    public class ViewHolder {
+    static class ViewHolder {
         private Cloud data;
 
         public ViewHolder(Cloud data) {
